@@ -18,6 +18,9 @@ st.caption('Binance spot • BTC/USDT • 1-hour candles • UTC • starting ba
 with st.expander('What do these words mean?'):
     st.markdown('**Backtest:** replay old prices to estimate how trading rules would have behaved.\n\n'
                 '**Return:** the percentage change in the starting money, after costs.\n\n'
+                '**Sharpe:** average hourly gain compared with how bumpy hourly results are, scaled to a year. Higher is generally better; this is not a percentage or a promise.\n\n'
+                '**Profit factor:** total winning-trade money divided by total losing-trade money, after costs. Below 1 means losses outweighed gains. Blank means no losing-trade dollars to divide by.\n\n'
+                '**Win rate:** the percentage of completed trades that earned money after costs. Big losses can outweigh many small wins.\n\n'
                 '**Drawdown:** the biggest percentage fall from an earlier account high. Lower is better.\n\n'
                 '**Trades:** completed buys followed by sells. Zero trades is a real outcome.\n\n'
                 '**Slippage:** a deliberately worse execution price for each buy and sell.\n\n'
@@ -68,9 +71,11 @@ if (ROOT/'reports/run.json').exists():
         st.write(f"Actual candle range: {run['first_candle']} to {run['last_candle']}. First possible buy: {run['first_trade_opportunity']}.")
         if run['source_coverage_status'] == 'partial':
             st.warning('This is a comparison of the available dates, not complete coverage of January 2020–September 2026.')
-        st.dataframe(summary[['strategy', 'return_pct', 'max_drawdown_pct', 'trades', 'win_rate_pct', 'total_fees_usdt']], hide_index=True, use_container_width=True)
+        st.dataframe(summary[['rank_by_net_return', 'strategy', 'return_pct', 'sharpe_ratio', 'max_drawdown_pct', 'profit_factor', 'win_rate_pct', 'trades', 'buy_and_hold_return_pct', 'trade_count_flag']], hide_index=True, use_container_width=True)
         st.write(f"Missing-hour events in this range: {run['gap_events']}. No candles were invented. Indicators restart after gaps; existing positions stay held.")
-        st.caption('Return, drawdown and win rate are percentages. Blank win rates mean no completed trades. Strategy ranks describe this historical period only.')
+        st.warning('Fewer than 30 completed trades is flagged as too little evidence. More trades alone do not establish reliability.')
+        st.info('Next-hour directional accuracy: N/A. All current strategies provide trading signals; none provides next-hour up/down forecasts. No prediction models were scored.')
+        st.caption('Sharpe uses annualized hourly net returns, zero risk-free rate, idle hours included, and gap-crossing changes excluded. Ranking is by net return. Return, drawdown and win rate are percentages. Blank win rates mean no completed trades. Strategy ranks describe this historical period only.')
         equity = pd.read_csv(ROOT/'reports/equity.csv.gz', index_col='timestamp', parse_dates=True)
         choices = st.multiselect('Lines to show', list(equity.columns), default=['buy_and_hold', load_catalog()[0]['id']])
         if choices:

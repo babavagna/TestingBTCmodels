@@ -90,12 +90,17 @@ particular, a strategy can hold for years if no sell signal occurs.
 ## Understanding the results
 
 - **Return:** percentage gained or lost after trading costs.
+- **Sharpe ratio:** average hourly gain compared with how bumpy hourly results are, scaled to a year. Higher is generally better; it is not a percentage or a safety guarantee. We use 8,760 hours/year, 0% risk-free rate, sample standard deviation and include idle cash hours. Changes spanning missing hours are excluded from Sharpe only.
 - **Drawdown:** largest fall from an earlier portfolio high. A 77% drawdown means
   a 10,000 USDT peak could fall to about 2,300 USDT before recovering.
 - **Trades:** completed buys and sells. One winning trade is weak evidence.
 - **Win rate:** fraction of completed trades that made money, after costs.
 - **Profit factor:** total winning-trade profits divided by losses. Blank means
   there were no losses to divide by; it does not mean unlimited expected profit.
+
+Rankings include only successfully completed backtests, ordered by total net return. Fewer than 30 completed trades is explicitly flagged; this is a caution rule, not a statistical guarantee. Every row includes the same buy-and-hold return.
+
+**Next-hour directional prediction accuracy is N/A for all ten strategies.** They produce entry/exit signals, not next-hour up/down forecasts. Trade win rate is not forecast accuracy. The separate audit is in [directional_predictions.csv](reports/directional_predictions.csv); zero forecast models were scored.
 
 No parameters were optimized against this dataset. These are descriptive
 historical comparisons, not independently validated predictions. Costs assume

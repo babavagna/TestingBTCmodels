@@ -3,6 +3,8 @@ from dataclasses import dataclass
 import numpy as np
 import pandas as pd
 
+from btc_lab.metrics import hourly_sharpe
+
 
 @dataclass(frozen=True)
 class Costs:
@@ -74,7 +76,8 @@ def backtest(candles, entry, exit_, *, initial_cash=10000.0, warmup=200, costs=C
     drawdown = equity.to_numpy() / peaks - 1
     pnl = trades.net_pnl_usdt
     gross_loss = -pnl[pnl < 0].sum()
-    stats = dict(initial_cash_usdt=initial_cash, final_equity_usdt=float(equity.iloc[-1]),
+    sharpe, sharpe_samples = hourly_sharpe(equity, initial_cash)
+    stats = dict(sharpe_ratio=sharpe, sharpe_hourly_samples=sharpe_samples, initial_cash_usdt=initial_cash, final_equity_usdt=float(equity.iloc[-1]),
                  return_pct=float((equity.iloc[-1]/initial_cash-1)*100),
                  max_drawdown_pct=float(-drawdown.min()*100), trades=len(trades),
                  win_rate_pct=float((pnl > 0).mean()*100) if len(trades) else None,

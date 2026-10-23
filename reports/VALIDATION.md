@@ -3,7 +3,7 @@
 Validation performed in the actual cloud environment on 2026-10-23, with
 Python 3.12.14 on Linux. No performance figures were invented.
 
-- **59 automated tests passed; zero failed.** See [test-results.xml](test-results.xml).
+- **67 automated tests passed; zero failed.** See [test-results.xml](test-results.xml).
 - Ten signal-parity tests execute the saved original GitHub strategy methods,
   using real TA-Lib and the retained official QTPyLib implementation. Only
   Freqtrade's framework/parameter containers are stubbed. These tests compare
@@ -23,6 +23,9 @@ Python 3.12.14 on Linux. No performance figures were invented.
   This tests capacity; it is not 100 distinct implemented strategies.
 - Streamlit tests render the actual dashboard with the saved real comparison,
   and separately render an empty-data state that cannot show fabricated ranks.
+- Additional known-answer tests validate annualized hourly Sharpe, first-hour costs, idle cash hours, missing-hour exclusions, zero-volatility cases and the explicit low-trade threshold.
+- Every saved strategy Sharpe is independently recomputed from its real portfolio history. The completed-execution ledger, ranked order, common benchmark return and three low-trade flags are checked.
+- A separate directional-capability audit confirms that none of the ten adapters supplies a next-hour forecast. Zero forecast models were scored; all directional accuracies are N/A. Trading signals and trade win rates are not relabeled as prediction accuracy.
 - A separate saved-research test independently recomputes buy-and-hold proceeds
   from the real starting open, ending close, fees and slippage.
 - `pip check` found no broken dependency requirements. `bash setup.sh` installed
