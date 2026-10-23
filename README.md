@@ -2,8 +2,18 @@
 
 **New: next-candle indicator predictions on 5-minute, 15-minute and 1-hour
 Binance BTC/USDT charts.** Read the [plain-language prediction results](reports/predictions/REPORT.md)
-or [download the indicator Excel workbook directly](https://raw.githubusercontent.com/babavagna/TestingBTCmodels/main/reports/TradingView_Indicator_Predictions.xlsx).
-Save the `.xlsx` file and open it in Excel or LibreOffice; GitHub may not preview it.
+or [open the indicator Excel file on GitHub](https://github.com/babavagna/TestingBTCmodels/blob/main/reports/TradingView_Indicator_Predictions.xlsx).
+While signed in to the GitHub account with repository access, use **Download raw
+file** (the down-arrow button). Save the `.xlsx` file, then open it in Excel or
+LibreOffice. GitHub may not preview it.
+
+**If you see 404:** first open [the repository](https://github.com/babavagna/TestingBTCmodels)
+in the same browser. GitHub can show 404 when an account does not have access;
+the raw-download domain may not share your signed-in session. Navigate to
+**reports → TradingView_Indicator_Predictions.xlsx → Download raw file** after
+signing in. In the Codex workspace, the same file is already in `reports/`;
+the dashboard also has **Download indicator prediction Excel**. A successful
+download from the cloud environment does not verify access from your own browser.
 
 **Executed: 410 completed forecast tests from 441 formula/timeframe attempts;
 31 unscorable attempts. All 149 automated tests passed.** The Excel file has 19

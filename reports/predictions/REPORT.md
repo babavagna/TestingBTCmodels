@@ -117,7 +117,7 @@ Trading starts with 10,000 USDT per period, long Bitcoin or hold cash, with no s
 
 ## Open the Excel file
 
-[Download TradingView_Indicator_Predictions.xlsx](https://raw.githubusercontent.com/babavagna/TestingBTCmodels/main/reports/TradingView_Indicator_Predictions.xlsx). Save it first, then open in Microsoft Excel or LibreOffice Calc. GitHub may show an error or no preview for spreadsheet files; that is not a corruption test. The dashboard also provides a download button.
+[Open TradingView_Indicator_Predictions.xlsx on GitHub](https://github.com/babavagna/TestingBTCmodels/blob/main/reports/TradingView_Indicator_Predictions.xlsx). Sign in with the GitHub account that has repository access, then choose **Download raw file** (down arrow). Save it first, then open in Microsoft Excel or LibreOffice Calc. If you see **404**, check that the repository itself opens in the same browser/account: GitHub can hide inaccessible repositories using 404, and the raw-file domain may not share your login. The same workbook is in the Codex workspace at `reports/TradingView_Indicator_Predictions.xlsx`; the dashboard also provides a download button. A successful cloud download does not verify browser access.
 
 Start on **Read Me**. **All Strategies** contains all 441 formula/timeframe attempts with explicit completion status. **Top 10** has ten retrospective rows for each timeframe. **Prediction Accuracy**, **Charts**, **Failed Tests**, **Walk Forward**, **Robustness**, **Pine Audit** and the source/data sheets preserve supporting evidence.
 

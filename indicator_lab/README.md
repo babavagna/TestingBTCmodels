@@ -1,11 +1,15 @@
 # Bitcoin indicator prediction study
 
 Start with `reports/predictions/REPORT.md` or download
-[`TradingView_Indicator_Predictions.xlsx`](https://raw.githubusercontent.com/babavagna/TestingBTCmodels/main/reports/TradingView_Indicator_Predictions.xlsx).
-Save the file, then open it in Excel or LibreOffice. GitHub's spreadsheet preview
-can show an error even when the download works. The dashboard also has a download
-button and timeframe selector. No trading account, API key or coding is needed to
-read the saved results.
+[`TradingView_Indicator_Predictions.xlsx` on GitHub](https://github.com/babavagna/TestingBTCmodels/blob/main/reports/TradingView_Indicator_Predictions.xlsx).
+Sign in with the GitHub account that has repository access, then use **Download
+raw file** (down arrow). Save the file and open it in Excel or LibreOffice.
+If you see **404**, first check whether the repository itself opens in the same
+browser/account. GitHub can hide repositories from unauthorized accounts using
+404, and the raw-file domain may not share your GitHub login. The workbook also
+exists at `reports/TradingView_Indicator_Predictions.xlsx` in the Codex workspace.
+The dashboard has **Download indicator prediction Excel** and a timeframe
+selector. No trading account, API key or coding is needed to read saved results.
 
 **This is a formula benchmark, not all TradingView indicators.** There are 147
 formula entries attempted at three timeframes, plus a separate execution-compatibility
