@@ -85,3 +85,20 @@ def test_dashboard_switches_between_executed_prediction_timeframes():
     assert not app.exception
     count=len([r for r in study()['rows'] if r['timeframe_minutes']==60 and r['period']=='retrospective'])
     assert any(len(t.value)==count and 'retrospective_rank' in t.value.columns for t in app.dataframe)
+
+def test_column_guide_explains_every_exported_heading_and_download_copy_matches():
+    p=ROOT/'reports/TradingView_Indicator_Predictions.xlsx'
+    assert (ROOT/'DOWNLOAD_BTC_INDICATOR_RESULTS.xlsx').read_bytes()==p.read_bytes()
+    b=openpyxl.load_workbook(p,read_only=True,data_only=True)
+    assert b.sheetnames[1]=='Column Guide'
+    guide=b['Column Guide'];definitions={r[0]:r for r in guide.iter_rows(min_row=5,values_only=True)}
+    assert len(definitions)==100
+    for sh in b:
+        if sh.title=='Charts':continue
+        for column in [c.value for c in sh[4] if c.value]:
+            assert column in definitions,(sh.title,column)
+            assert all(isinstance(v,str) and v.strip() for v in definitions[column])
+            assert sh.title in definitions[column][3]
+    b.close()
+    with zipfile.ZipFile(p) as z:
+        assert len([n for n in z.namelist() if n.startswith('xl/charts/chart') and n.endswith('.xml')])==4

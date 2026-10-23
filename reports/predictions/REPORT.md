@@ -121,4 +121,6 @@ Trading starts with 10,000 USDT per period, long Bitcoin or hold cash, with no s
 
 Start on **Read Me**. **All Strategies** contains all 441 formula/timeframe attempts with explicit completion status. **Top 10** has ten retrospective rows for each timeframe. **Prediction Accuracy**, **Charts**, **Failed Tests**, **Walk Forward**, **Robustness**, **Pine Audit** and the source/data sheets preserve supporting evidence.
 
+Every exported column is explained with examples in the workbook's **Column Guide**, its second tab, and in the [complete online column guide](../../WORKBOOK_COLUMN_GUIDE.md). TRUE can mean a passed check or a warning depending on its column; N/A is never an invented zero.
+
 Models, exact probabilities and decisions, true labels, raw source formulas, checksum manifests and test evidence are saved beside the report. [Reproduction instructions](../../indicator_lab/README.md) and the [frozen protocol](../../indicator_lab/PROTOCOL.md) explain the implementation. The previous full-100 strategy report and workbook remain separate and available.

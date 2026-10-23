@@ -1,0 +1,112 @@
+# What every workbook column means
+
+Use the **Column Guide** tab inside the Excel file, or find the exact heading below. The definitions cover every exported column, including technical source and audit sheets.
+
+**Start here:** `accuracy` counts correct next-close direction guesses; `net_return` measures money after trading costs. They are different. For example, the best hourly accuracy was 53.19%, yet its trading simulation lost 89.95% after costs.
+
+**TRUE / FALSE:** read the column name first. TRUE is good for a passed check, but a warning for `too_few_trades` or `rare_training_events`. **N/A** means missing, unexecuted, unverified or undefined; never an invented zero. Dates/timestamps in the experiment use UTC.
+
+**Past dates:** January–September 2026 is retrospective. Those market dates were examined earlier. No column claims a genuinely untouched future test.
+
+| Exact column | Plain meaning | How to read it |
+|---|---|---|
+| `item` | The subject being explained on Read Me. | Start here if you are unfamiliar with the study. |
+| `explanation` | The plain-language explanation of that subject. | N/A means missing, unexecuted, unverified or undefined; never an invented zero. |
+| `timeframe_minutes` | The length of one price candle, in minutes. | 5 = five minutes; 15 = fifteen minutes; 60 = one hour. Predict the next close on that same timeframe. |
+| `retrospective_rank` | Position when completed 2026 tests are sorted by direction accuracy. | 1 has the highest measured accuracy. This does NOT rank profit or guarantee future performance. Exact ties use the ID. |
+| `id` | A short identifier for an indicator formula or original Pine script. | Use it to match rows across sheets. It is a label, not a score. |
+| `name` | The readable indicator or comparison-baseline name. | The evaluated predictor is an indicator plus our trained model. A shared name does not prove native TradingView matching. |
+| `group` | The indicator family, such as momentum, moving averages or candlestick patterns. | A category, not a quality score. Related formulas are not independent discoveries. |
+| `status` | What actually completed for this row. | FORECAST_TEST_COMPLETED means measured forecast results exist. A failed row has no invented score. On Pine Audit, a completed compatibility probe is NOT a forecast test. |
+| `selected_profile` | The preset window-length version chosen using 2025 accuracy. | default = original settings; short = supported windows about 20% shorter; long = about 20% longer. Ties favor default. |
+| `selected_parameters` | The actual settings of the chosen indicator version. | For example, timeperiod:14 means 14 observed candles, not 14 days. These are indicator settings, not the trained model coefficients. |
+| `accuracy` | The share of scored next-close UP/DOWN predictions that were correct. | 53% means 53 correct directions out of 100. Equal closes are unscored. Accuracy ignores move sizes, fees and slippage. |
+| `validation_accuracy` | The chosen model's direction accuracy during 2025. | 2025 also selected the window profile, so this number is not an independent check of that selection. Main leaderboard accuracy is Jan–Sep 2026. |
+| `baseline_majority_accuracy` | The accuracy of always guessing whichever direction was more common in TRAINING. | A simple comparison scored on this model's identical eligible targets. The baseline direction is learned from past training, not chosen using 2026. |
+| `accuracy_lift_vs_train_majority` | Model accuracy minus the training-majority baseline accuracy. | 52% minus 50% = +2 percentage points. Excel displays this as 2.00%; it means an absolute 2-point advantage, not a 2% relative increase. |
+| `lift_block_ci_low` | The lower end of a rough 95% uncertainty range for the accuracy advantage. | Uses seven-day chunks to retain some clustering. If the range reaches or crosses 0, the advantage is uncertain. It is not a future guarantee. |
+| `lift_block_ci_high` | The upper end of that accuracy-advantage uncertainty range. | Read together with lift_block_ci_low. Values are percentage-point differences, even when Excel uses a percent sign. |
+| `holm_pvalue` | An approximate chance-evidence check adjusted for testing many indicator/timeframe combinations. | Smaller is stronger evidence against no baseline advantage under this statistical method. The gate uses <0.05. This does not prove profit or erase earlier research. |
+| `retrospective_validation_gate_passed` | Whether this model passed the study's limited historical accuracy checks. | TRUE requires positive baseline lift in 2025 and 2026, a positive lower 2026 block interval, Holm p<0.05, positive mean earlier walk-forward lift, enough forecasts and no rare-pattern flag. This is NOT a profit pass or untouched-future pass. |
+| `genuine_untouched_oos_status` | Whether genuinely unexamined market data was available for an independent final test. | Unavailable here: the user chose Jan–Sep 2026 retrospectively, and those dates were already examined. Held out from fitting does not erase earlier research exposure. |
+| `forecasts` | The number of UP/DOWN predictions actually included in the reported accuracy. | Not the number of trades. Tied next closes, missing target candles and unavailable features are excluded from accuracy, with coverage reported. |
+| `coverage` | The share of otherwise eligible direction targets for which this model could be scored. | 100% means every eligible target was covered. The 5m Fisher Transform misses five 2026 feature rows; its baseline uses the same subset. |
+| `rare_training_events` | A warning that a candlestick pattern occurred fewer than 200 times in training. | TRUE means limited pattern evidence. A rare pattern can look accurate mainly by guessing the usual direction. |
+| `nonzero_training_events` | How many eligible training candles actually triggered the candlestick pattern. | Used for pattern rarity warnings. N/A for indicators that are not candlestick patterns. |
+| `too_few_forecasts` | A warning that fewer than 1,000 predictions were scored. | TRUE means a small prediction sample; it does not mean 1,000 predictions guarantee reliability. |
+| `net_return` | How much the simulated account grew or shrank AFTER fees and slippage. | Starting with 10,000 USDT, +10% means 11,000; -20% means 8,000. A displayed -100% may be rounded from almost total loss. |
+| `sharpe` | Average daily account return compared with how bumpy daily returns were, scaled to a year. | Higher is usually better; it is not a percentage. Uses daily returns, 365 days and a zero risk-free rate. N/A when the ratio is undefined. |
+| `max_drawdown` | The largest observed-close fall from an earlier account high. | 40% means a 10,000 peak fell to 6,000. Lower is better. This is a worst fall during the test, not necessarily the final loss. |
+| `profit_factor` | Total net dollars won on completed trades divided by total net dollars lost. | Above 1 means winning dollars exceeded losing dollars; below 1 means the reverse. No losing dollars makes the ratio N/A, not infinity. |
+| `profit_factor_note` | Why the profit-factor ratio may be undefined. | For example, no losing trades means there are no losing dollars to divide by. This is not automatically evidence of a good strategy. |
+| `win_rate` | The share of completed BUY/SELL trades that made money AFTER costs. | Different from direction accuracy. Many small winning trades can be outweighed by a few large losses. |
+| `trades` | The number of completed buys followed by sells. | One buy and its later sell count as ONE trade. Consecutive UP predictions can remain in the same holding. |
+| `too_few_trades` | A warning that fewer than 30 completed trades occurred. | TRUE means the trading sample is small. It is separate from too_few_forecasts. |
+| `buy_hold_return` | The return from buying Bitcoin once and selling at the end of the same period. | Uses the same 10,000 USDT start and entry/exit fees and slippage. Compare it with net_return. |
+| `financial_gate_passed` | Whether the trading result passed the financial checks in BOTH 2025 and Jan–Sep 2026. | TRUE requires positive net return, beating costed buy-and-hold and at least 30 trades in each period. All tested models fail this gate; an accuracy pass can coexist with a financial failure. |
+| `mean_walk_forward_lift` | Average accuracy advantage over the training-majority baseline in the earlier year-by-year tests. | Default settings only: fit through 2021/test 2022, through 2022/test 2023, through 2023/test 2024. Positive means better on average. N/A if fewer than three folds completed. |
+| `walk_forward_completed` | How many of the three earlier year-by-year tests completed successfully. | Normally 3. Some rare patterns could not fit an earlier fold because they never occurred in its training data. |
+| `score_start` | The start of the reported scoring period, in UTC. | The main retrospective comparison starts January 1, 2026. Read with score_stop_exclusive. |
+| `score_stop_exclusive` | The first calendar boundary after the included candle period, in UTC. | 2026-10-01 means through September 30, not October trading. The final September candle may close exactly at midnight on October 1. |
+| `first_forecast_at` | When the first scored prediction became available, in UTC. | The model can use a candle only after that candle has finished. This is not the time its future answer was known. |
+| `last_target_close` | When the final scored future candle closed, in UTC. | This is when the answer to the last scored prediction became known. |
+| `data_source` | Where the historical prices came from and how longer candles were built. | Official Binance spot BTCUSDT 5m archives; aggregate complete groups into 15m and 60m. No invented prices or gap filling. |
+| `exchange` | The market whose actual prices were used. | Binance spot BTC/USDT throughout. These are not futures, leveraged or multi-exchange prices. |
+| `fee` | The trading fee charged on EACH buy and EACH sell. | Base fee is 0.1% per side. The Robustness sheet also tests changed fees. This is separate from slippage. |
+| `slippage` | How much worse the assumed execution price is on EACH buy and EACH sell. | Base is 0.05%: buy slightly higher and sell slightly lower than the observed price. Added to the trading fee. |
+| `github_url` | A link to the open-source formula or script used for the row. | Shows source code, not proof that the source's original bot or TradingView engine was reproduced in full. |
+| `formula_status` | What is and is not verified about the formula implementation. | Native TradingView agreement is UNVERIFIED. Identical indicator names can still have different settings, seeds or formulas. |
+| `reason` | Why an attempted model did not produce a completed forecast test. | For example, a pattern never occurred in training, leaving only constant features. Missing scores are N/A, not zero. |
+| `period` | Which historical segment the row measures. | validation = 2025, used to select settings; retrospective = January–September 2026, already examined market dates. |
+| `balanced_accuracy` | The average of the success rate on actual UP moves and actual DOWN moves. | Helps prevent the more common direction from hiding poor performance on the other direction. Higher is better. |
+| `up_precision` | Among all UP guesses, the share that were actually UP. | If 100 UP guesses include 55 correct ones, UP precision is 55%. N/A if the model never guesses UP. |
+| `up_recall` | Among all actual UP moves, the share the model correctly called UP. | If there were 100 actual UP moves and the model found 60, UP recall is 60%. |
+| `mcc` | A balanced correctness score using all four right/wrong UP/DOWN counts. | +1 = perfect, 0 = no useful association, -1 = perfectly reversed. N/A when its denominator is zero. |
+| `brier` | Average squared error of the predicted UP probability. | Lower is better for the same targets. Probability 0.8 and actual UP gives (0.8-1)^2=0.04. Baselines here encode hard direction guesses as 0/1, so they are not calibrated probability benchmarks. |
+| `log_loss` | A probability error score that strongly punishes confident wrong guesses. | Lower is better on the same targets. Not a percentage. Baselines here use hard 0/1 direction guesses; do not interpret that comparison as proof of calibrated probability skill. |
+| `actual_up_rate` | The share of scored targets whose next close actually rose. | Shows the direction balance. Around 50% means UP and DOWN were about equally common. |
+| `predicted_up_rate` | The share of scored forecasts in which the model guessed UP. | 100% means always UP; 0% means always DOWN. This is not the success rate. |
+| `tp` | True positives: guessed UP and the next close was UP. | A count of correct UP predictions. |
+| `tn` | True negatives: guessed DOWN and the next close was DOWN. | A count of correct DOWN predictions. |
+| `fp` | False positives: guessed UP but the next close was DOWN. | A count of wrong UP predictions. |
+| `fn` | False negatives: guessed DOWN but the next close was UP. | A count of missed UP moves. tp+tn+fp+fn equals forecasts. |
+| `wilson_low` | The lower end of a descriptive 95% interval around accuracy. | Assumes independent predictions, although market observations can be correlated. Prefer the block interval when interpreting baseline lift. |
+| `wilson_high` | The upper end of that descriptive accuracy interval. | Read with wilson_low. It is not a promised range for future accuracy. |
+| `excess_vs_buy_hold` | Strategy net return minus buy-and-hold return in the same cost case. | -10% minus -20% = +10 percentage points: better than holding, but still a loss. Excel displays return differences with a percent sign. |
+| `evaluation_year` | The year predicted in one walk-forward test. | 2022, 2023 or 2024. Its model was trained only on earlier years. |
+| `profile` | Which preset indicator window-length version this row used. | default, short or long. Walk-forward uses default; parameter stress can include other distinct profiles. |
+| `train_target_end_exclusive` | The cutoff that training answers must finish strictly BEFORE. | Purges a label reaching the next period so a fit cannot learn an answer from its evaluation period. |
+| `baseline_accuracy` | The simple training-majority direction's accuracy on the row's target sample. | On Walk Forward, the majority is learned anew from that fold's earlier training years. |
+| `lift` | Accuracy minus baseline accuracy for a walk-forward fold. | Positive means more correct guesses than the simple baseline in that year; negative means fewer. |
+| `error` | The actual recorded program or model-fitting problem. | Read with stage and status. A runtime failure has no invented accuracy. It differs from a model that ran successfully but lost money. |
+| `kind` | The type of robustness or integrity check. | Robustness: parameter or cost. Causality Checks: prefix or future_mutation. |
+| `selected` | Whether this parameter profile was chosen using 2025 and used for the final comparison. | TRUE marks the chosen profile. Other 2026 profiles are sensitivity checks, not newly selected winners. |
+| `parameters` | The exact indicator settings used for this row. | Window periods count observed candles. The catalog gives defaults; Robustness shows the settings actually stressed. |
+| `case` | Which fee/slippage stress scenario was applied. | half_fee, base, double_fee or double_fee_and_slippage. Forecasts stay the same so only trading costs change. |
+| `month` | The calendar month summarized or downloaded. | Monthly Accuracy describes the target candle's month. Monthly Archives describes the official source archive month. |
+| `stage` | The step at which an attempt failed. | For example: fit_or_causality, a walk-forward year, score, or original Pine compatibility only. |
+| `forecast_test_completed` | Whether that failed-test row represents a completed forecast test. | FALSE means do not treat it as a tested predictor with an accuracy result. |
+| `pine_version` | The Pine Script language version declared in the original source. | Some older versions are unsupported by the independent PineTS runtime. This is a compatibility issue, not a financial result. |
+| `forecast_status` | Whether the ORIGINAL Pine script was used in a full forecasting test. | NOT_FORECAST_TESTED means only a compatibility probe was attempted. Separate Python formula tests must not be silently assigned to that original script. |
+| `native_tradingview_parity` | Whether agreement with the actual TradingView engine was verified. | UNVERIFIED throughout. Independent PineTS execution is not native TradingView execution. |
+| `risk_flags` | Source-code features that deserve extra leakage or timing review. | Examples: external data requests, last-bar clock behavior or backshifted drawings. Flags are review clues; an empty list is not proof of safety. |
+| `plots` | The outputs produced by the original Pine script during its short compatibility probe. | Names, point counts and finite-value counts. A plot is not automatically a prediction or a backtest. |
+| `sha256` | A fingerprint of a saved file's bytes. | A matching fingerprint checks that the file has not changed. It does not prove that a formula or dataset is perfect. |
+| `implementation` | The actual software or formula engine used. | TA-Lib C formulas or disclosed Python formulas. This does not imply native TradingView matching. |
+| `pattern` | Whether the formula is a candlestick-pattern detector. | TRUE means pattern-event rarity checks apply; FALSE means another indicator family. |
+| `path` | Where the saved price file is located inside the project. | Technical reference for reproducibility; not a performance score. |
+| `rows` | The number of actual candle observations stored in a file or archive. | Data rows, not forecast count or trade count. |
+| `first` | The opening timestamp of the first actual candle in that dataset or archive. | UTC. Different from the first scored forecast because indicators need earlier warm-up history. |
+| `last` | The opening timestamp of the last actual candle in that dataset or archive. | UTC. A candle's close occurs one timeframe after its opening timestamp. |
+| `missing_candles` | How many expected candle slots have no complete observation across the full requested history. | Not filled with invented prices. All missing slots here are before the 2025/2026 scoring periods. |
+| `missing_timestamps` | The exact expected opening times of missing or discarded incomplete candles. | Technical evidence for gaps. Empty would mean no missing slots. |
+| `derivation` | How the dataset was obtained from the original observations. | 5m is the source interval. A 15m bar needs all three 5m observations; a 60m bar needs all twelve. |
+| `url` | The official download location of one monthly Binance data archive. | Price-data source, not a prediction or trading recommendation. |
+| `checksum_url` | The location of Binance's published checksum for that monthly archive. | The download was checked against this fingerprint before its prices were used. |
+| `archive_sha256` | The verified fingerprint of the original downloaded ZIP archive. | Checks archive identity against the published checksum. Different from the fingerprint of a derived price file. |
+| `cut` | The observation number where a causality-check sample was shortened or its future changed. | For example, 2048 refers to a bar count, not a year or price. |
+| `passed` | Whether an integrity test found the earlier numeric outputs unchanged. | TRUE means this particular prefix/future-mutation check passed. It does NOT mean profitable, fully bug-free or verified by TradingView. |
+| `sheet` | The workbook tab or tabs containing the column. | Use this to locate the heading. The same heading may appear on several tabs. |
+| `column` | The exact column heading as written in the workbook. | Search this name to find its definition. |
+| `meaning` | The plain-language definition of a column. | Read together with how_to_read for examples and cautions. |
+| `how_to_read` | An example, interpretation or warning for that column. | TRUE/FALSE flags have different meanings: some mark passes, while others mark warnings. N/A never means zero. |

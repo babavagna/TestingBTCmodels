@@ -14,6 +14,10 @@ exists at `reports/TradingView_Indicator_Predictions.xlsx` in the Codex workspac
 The dashboard has **Download indicator prediction Excel** and a timeframe
 selector. No trading account, API key or coding is needed to read saved results.
 
+**Every column is explained:** open the workbook's **Column Guide** tab beside
+Read Me, or read [the column guide here](../WORKBOOK_COLUMN_GUIDE.md). It includes
+examples and explains when TRUE is a warning rather than a passed check.
+
 **This is a formula benchmark, not all TradingView indicators.** There are 147
 formula entries attempted at three timeframes, plus a separate execution-compatibility
 audit of 210 original public Pine scripts. Private and unavailable scripts cannot

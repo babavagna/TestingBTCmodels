@@ -8,6 +8,7 @@ import xlsxwriter
 from btc_lab.data import sha256,write_json,utc_now
 from indicator_lab.data import ROOT
 from indicator_lab.features import catalog,PINE_MATCH
+from scripts.indicator_column_guide import guide_rows,write_markdown
 OUT=ROOT/'reports/predictions';DEST=ROOT/'reports/TradingView_Indicator_Predictions.xlsx'
 PERCENT={'accuracy','validation_accuracy','baseline_majority_accuracy','accuracy_lift_vs_train_majority','lift_block_ci_low','lift_block_ci_high','balanced_accuracy','up_precision','up_recall','actual_up_rate','predicted_up_rate','wilson_low','wilson_high','coverage','net_return','max_drawdown','win_rate','buy_hold_return','excess_vs_buy_hold','fee','slippage','mean_walk_forward_lift','baseline_accuracy','lift'}
 MAIN=['timeframe_minutes','retrospective_rank','id','name','group','status','selected_profile','selected_parameters','accuracy','validation_accuracy','baseline_majority_accuracy','accuracy_lift_vs_train_majority','lift_block_ci_low','lift_block_ci_high','holm_pvalue','retrospective_validation_gate_passed','genuine_untouched_oos_status','forecasts','coverage','rare_training_events','nonzero_training_events','too_few_forecasts','net_return','sharpe','max_drawdown','profit_factor','profit_factor_note','win_rate','trades','too_few_trades','buy_hold_return','financial_gate_passed','mean_walk_forward_lift','walk_forward_completed','score_start','score_stop_exclusive','first_forecast_at','last_target_close','data_source','exchange','fee','slippage','github_url','formula_status','reason']
@@ -75,7 +76,7 @@ def main():
     }
     sheet_meta={}
     def table(name,data,columns=None,note='Executed results only. N/A is missing/undefined. Rankings are RETROSPECTIVE; native TradingView parity UNVERIFIED.'):
-        sh=w.add_worksheet(name);cols=columns or list(dict.fromkeys(k for r in data for k in r))
+        sh=w.get_worksheet_by_name(name) or w.add_worksheet(name);cols=columns or list(dict.fromkeys(k for r in data for k in r))
         if not cols:cols=['status'];data=[{'status':'No failures recorded'}]
         sh.write(0,0,name,fmt['title']);sh.merge_range(1,0,2,max(1,len(cols)-1),note,fmt['note']);sh.set_row(1,24);sh.set_row(3,44)
         for j,k in enumerate(cols):sh.write(3,j,k,fmt['head']);sh.set_column(j,j,18 if k not in {'name','github_url','error','reason','formula_status'} else 40)
@@ -95,8 +96,11 @@ def main():
         sheet_meta[name]={'rows':len(data),'columns':cols};return sh
     summary=[dict(item='Study',explanation='BTCUSDT next-close prediction at 5m, 15m and 60m. Indicator + trained logistic model, not an indicator magically forecasting by itself.'),dict(item='Execution coverage',explanation=f"{len(final)} completed indicator/timeframe forecast tests out of 441 attempts. See All Strategies and Failed Tests. 210 ORIGINAL Pine probes are separate and do not count as forecast tests."),dict(item='Test dates',explanation='Training 2020–2024; validation 2025; RETROSPECTIVE test January–September 2026. Those market dates were already examined. NO genuinely untouched OOS result is available.'),dict(item='Assumptions',explanation='Binance spot BTC/USDT; 10,000 USDT; next-open long/cash fills; fee 0.1% + slippage 0.05% on EVERY buy AND sell; final close exit. Accuracy is separate from trading profitability.'),dict(item='How to read',explanation='Top 10 has ten retrospective rows for EACH timeframe. Look at baseline lift, validation, sample flags, costs and robustness before interpreting a high hit rate.'),dict(item='Download',explanation='Save this .xlsx locally and open with Excel or LibreOffice. GitHub may not preview it. Use the direct raw download link in README.'),dict(item='Reproduce',explanation='Read indicator_lab/README.md. Frozen models, exact probabilities/decisions, labels, prices, source bodies, hashes and code are saved in this repository.')]
     summary += [dict(item=k,explanation=v) for k,v in GLOSSARY]
+    summary.insert(1,dict(item='Every column explained',explanation='Open the Column Guide tab beside Read Me. It explains every heading, examples, TRUE/FALSE warnings and N/A values across all sheets. Accuracy means correct directions; net return means money after costs.'))
+    next(r for r in summary if r['item']=='Download')['explanation']='Open DOWNLOAD_BTC_INDICATOR_RESULTS.xlsx in the repository top folder while signed in to GitHub and choose Download raw file. If that fails, Code > Download ZIP downloads the whole project. Save locally and open with Excel or LibreOffice.'
     read=table('Read Me',summary,['item','explanation']);read.set_column(0,0,30);read.set_column(1,1,125)
     for i in range(4,4+len(summary)):read.set_row(i,50)
+    w.add_worksheet('Column Guide')
     table('All Strategies',allrows,MAIN)
     table('Top 10',[r for r in final if r['retrospective_rank']<=10],MAIN)
     for minutes in (5,15,60):table(f'{minutes}m Accuracy',[r for r in final if r['timeframe_minutes']==minutes],MAIN)
@@ -129,17 +133,26 @@ def main():
     for index,minutes in enumerate((5,15,60)):
         first=4+index*10;last=first+9;chart.add_series({'name':f'{minutes}m','categories':['Chart Data',first,2,last,2],'values':['Chart Data',first,4,last,4],'line':{'none':True},'marker':{'type':'circle','size':5}})
     chart.set_title({'name':'High hit rate can still lose money after costs'});chart.set_x_axis({'name':'Direction accuracy','num_format':'0%'});chart.set_y_axis({'name':'Net return after costs','num_format':'0%'});chart.set_size({'width':900,'height':400});charts.insert_chart(58,0,chart)
+    sheet_meta['Charts']={'rows':0,'columns':[],'charts':4}
+    definitions=guide_rows(sheet_meta)
+    guide=table('Column Guide',definitions,['column','meaning','how_to_read','sheet'],note='Every column explained. TRUE can mean a passed check OR a warning; read its definition. N/A is not zero. Accuracy is not trading profit. Dates use UTC.')
+    guide.set_column(0,0,39,fmt['text']);guide.set_column(1,1,60,fmt['text']);guide.set_column(2,2,85,fmt['text']);guide.set_column(3,3,48,fmt['text'])
+    guide.freeze_panes(4,1)
+    for i in range(4,4+len(definitions)):guide.set_row(i,100)
     w.close()
     with zipfile.ZipFile(temporary) as z:
         if z.testzip() is not None:raise ValueError('Workbook zip integrity failed')
+        if len([n for n in z.namelist() if n.startswith('xl/charts/chart') and n.endswith('.xml')])!=4:raise ValueError('Workbook chart coverage incomplete')
     import openpyxl
     check=openpyxl.load_workbook(temporary,read_only=True,data_only=True)
     if check['All Strategies'].max_row!=445:raise ValueError('Workbook inventory incomplete')
+    if check['Column Guide'].max_row!=4+len(definitions):raise ValueError('Column guide incomplete')
     check.close()
     temporary.replace(DEST)
     # A visible top-level copy lets beginners navigate from their signed-in repo.
     import shutil
     shutil.copyfile(DEST,ROOT/'DOWNLOAD_BTC_INDICATOR_RESULTS.xlsx')
+    write_markdown(ROOT/'WORKBOOK_COLUMN_GUIDE.md',definitions)
     write_json(DEST.with_suffix('.json'),dict(created_at=utc_now(),path=str(DEST.relative_to(ROOT)),bytes=DEST.stat().st_size,sha256=sha256(DEST.read_bytes()),completed_forecast_tests=len(final),attempted_indicator_timeframe_tests=441,original_pine_compatibility_probes=210,holm_family_size=combined['holm_family_size'],ranking='Retrospective, not genuinely untouched',sheets=sheet_meta,inputs={str(p.relative_to(ROOT)):sha256(p.read_bytes()) for p in [OUT/'combined.json',ROOT/'data/predictions/manifest.json',ROOT/'sources/tradingview/pine_audit.json']},automated_test_evidence='reports/predictions/verification.json'))
     print(DEST,DEST.stat().st_size,'bytes',len(final),'completed forecast tests')
 if __name__=='__main__':main()

@@ -21,8 +21,11 @@ the dashboard also has **Download indicator prediction Excel**. A successful
 download from the cloud environment does not verify access from your own browser.
 
 **Executed: 410 completed forecast tests from 441 formula/timeframe attempts;
-31 unscorable attempts. All 149 automated tests passed.** The Excel file has 19
+31 unscorable attempts. All 150 automated tests passed.** The Excel file has 20
 sheets. No tested model passed the financial gate in both 2025 and 2026.
+
+**What do the columns mean?** Open **Column Guide**, the workbook's second tab,
+or read [the complete plain-language column guide](WORKBOOK_COLUMN_GUIDE.md).
 
 This is a reproducible formula benchmark, **not every TradingView indicator**.
 Private and unavailable scripts are outside coverage, and native TradingView
