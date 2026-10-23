@@ -12,7 +12,7 @@ from btc_lab.strategies import ROOT, load_catalog
 
 st.set_page_config(page_title='Bitcoin Strategy Lab', page_icon='₿', layout='wide')
 st.title('₿ Bitcoin Strategy Lab')
-st.write('Compare 10 open-source strategy adaptations using the same real Bitcoin prices. No coding or exchange account needed.')
+st.write('Review all 100 supplied GitHub candidates on the same real Bitcoin prices. Completed signal adaptations and failed attempts are clearly separated. No coding or exchange account needed.')
 st.info('Research only. These are hourly signal adaptations, not the original Freqtrade results. A profitable past does not guarantee a profitable future.')
 st.warning('The project already examined prices through September 2026. No strategy has a verified untouched-test ranking. Historical replay cannot undo that earlier exposure.')
 st.caption('Binance spot • BTC/USDT • 1-hour candles • UTC • starting balance 10,000 USDT • fee 0.1% + slippage 0.05% on each side')
@@ -26,8 +26,39 @@ with st.expander('What do these words mean?'):
                 '**Drawdown:** the biggest percentage fall from an earlier account high. Lower is better.\n\n'
                 '**Trades:** completed buys followed by sells. Zero trades is a real outcome.\n\n'
                 '**Slippage:** a deliberately worse execution price for each buy and sell.\n\n'
-                '**Warmup:** the first 200 hours calculate indicators before trading begins.\n\n'
+                '**Warmup:** indicators need past hours before trading begins. The expanded study uses 4,096; the original study used 200 (300 in its chronological audit).\n\n'
                 '**Buy and hold:** buy once and sell at the end; a reference with the same costs and start date.')
+
+st.subheader('Full 100-candidate comparison')
+try:
+    if (ROOT/'reports/full100/run.json').exists():
+        from full_universe.audit import read_report
+        inventory, full_periods, full_run = read_report()
+        st.success(f"All 100 candidates attempted: {full_run['completed']} completed valid signal backtests; {full_run['blocked']} blocked or quarantined.")
+        st.caption('This expanded protocol uses one initial warmup of 4,096 observed candles; indicator history is retained across gaps, with no invented prices or fills across missing hours. Original stops, targets, shorts and position sizing are omitted. Supported Jesse entries are formula translations; full native equivalence is unverified.')
+        selected_period = st.selectbox('Expanded scoring period', ['retrospective_test_2026', 'validation_2025'])
+        full_display = full_periods.loc[full_periods.period == selected_period].sort_values('strategy', key=lambda x: x.str.lower())
+        st.dataframe(full_display[['strategy','return_pct','sharpe_ratio','max_drawdown_pct','profit_factor','win_rate_pct','trades','buy_and_hold_return_pct','too_few_trades','diagnostic_gate_pass']], hide_index=True, use_container_width=True)
+        st.info('These are retrospective diagnostics, not untouched rankings. Prediction accuracy is N/A: neural has a native predictor, but its separate frozen-training forecast runtime is incomplete; zero forecasts were scored.')
+        with st.expander('All 100 sources, completion status and failures'):
+            st.dataframe(inventory[['number','strategy','framework','status','reason','source_url']], hide_index=True, use_container_width=True)
+        st.download_button('Download full 100-candidate results (CSV)', (ROOT/'reports/full100/period_results.csv').read_bytes(), 'bitcoin_100_period_results.csv', 'text/csv')
+        excel_path=ROOT/'reports/Bitcoin_Strategy_Leaderboard.xlsx'
+        excel_meta=ROOT/'reports/Bitcoin_Strategy_Leaderboard.json'
+        if excel_path.exists() and excel_meta.exists():
+            from btc_lab.data import sha256
+            metadata=json.loads(excel_meta.read_text())
+            if metadata.get('all_candidates')==100 and metadata.get('input_manifest_sha256')==sha256((ROOT/'reports/full100/run.json').read_bytes()) and metadata.get('workbook_sha256')==sha256(excel_path.read_bytes()):
+                st.download_button('Download full Excel leaderboard', excel_path.read_bytes(), excel_path.name, 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+        with st.expander('How to rerun all 100 candidates'):
+            st.write('The saved results open immediately. To rerun the expanded audit, paste these commands into the project terminal; this can take several minutes. It never places real trades.')
+            st.code('.venv/bin/python -m full_universe.audit --workers 3\n.venv/bin/python -m pytest -q --junitxml=reports/test-results.xml\n.venv/bin/python -m scripts.export_full_leaderboard', language='bash')
+except (DataError, OSError, KeyError, ValueError) as exc:
+    st.warning('The expanded report cannot be verified: '+str(exc))
+
+st.divider()
+st.subheader('Original ten-strategy study (separate historical protocol)')
+st.caption('The tools below reproduce the original ten-strategy study. Its shorter warmup and parameter profiles differ from the expanded 100-candidate audit; do not merge the two comparisons.')
 
 st.subheader('1. Download prices')
 st.write('Target: January 2020 through September 2026, where the exchange actually provides verified files. Missing prices are never filled in.')
@@ -88,7 +119,7 @@ if (ROOT/'reports/run.json').exists():
         st.dataframe(summary.sort_values('strategy')[['strategy', 'return_pct', 'sharpe_ratio', 'max_drawdown_pct', 'profit_factor', 'win_rate_pct', 'trades', 'buy_and_hold_return_pct', 'trade_count_flag']], hide_index=True, use_container_width=True)
         st.write(f"Missing-hour events in this range: {run['gap_events']}. No candles were invented. Indicators restart after gaps; existing positions stay held.")
         st.warning('Fewer than 30 completed trades is flagged as too little evidence. More trades alone do not establish reliability.')
-        st.info('Next-hour directional accuracy: N/A. All current strategies provide trading signals; none provides next-hour up/down forecasts. No prediction models were scored.')
+        st.info('Next-hour directional accuracy: N/A. The original ten provide trading signals; none provides next-hour up/down forecasts. No prediction models were scored.')
         st.caption('Sharpe uses annualized hourly net returns, zero risk-free rate, idle hours included, and gap-crossing changes excluded. This alphabetical table is exploratory, not an unseen-data ranking. Return, drawdown and win rate are percentages. Blank win rates mean no completed trades. These descriptive figures do not establish an untouched-test winner.')
         equity = pd.read_csv(ROOT/'reports/equity.csv.gz', index_col='timestamp', parse_dates=True)
         choices = st.multiselect('Lines to show', list(equity.columns), default=['buy_and_hold', load_catalog()[0]['id']])

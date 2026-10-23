@@ -1,0 +1,41 @@
+name: Replay full 100-candidate audit
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  full-universe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24.19.0'
+          cache: npm
+          cache-dependency-path: sources/full100/zenbot/package-lock.json
+      - run: python -m pip install -r requirements.txt
+      - run: python -m pip check
+      - run: npm ci --no-audit --no-fund
+        working-directory: sources/full100/zenbot
+      - run: python -m full_universe.audit --workers 2
+        env:
+          OPENBLAS_NUM_THREADS: '1'
+          OMP_NUM_THREADS: '1'
+      - run: python -m scripts.report_full_universe
+      - run: python -m pytest -q --junitxml=reports/test-results.xml
+      - run: python -m scripts.export_full_leaderboard
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: bitcoin-full-100-candidate-results
+          path: |
+            reports/full100/
+            !reports/full100/cache/**
+            reports/Bitcoin_Strategy_Leaderboard.xlsx
+            reports/Bitcoin_Strategy_Leaderboard.json
+            reports/test-results.xml

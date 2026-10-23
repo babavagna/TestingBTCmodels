@@ -486,7 +486,7 @@ def build_charts(report, inputs):
 
 def export(root=ROOT, output=None):
     root=Path(root)
-    output=Path(output or root/'reports/Bitcoin_Strategy_Leaderboard.xlsx')
+    output=Path(output or root/'reports/Bitcoin_OriginalTen.xlsx')
     inputs=load_inputs(root)
     output.parent.mkdir(parents=True,exist_ok=True)
     temp=output.with_name(output.stem+'.tmp.xlsx')

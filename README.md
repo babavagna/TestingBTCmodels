@@ -1,241 +1,177 @@
-# Bitcoin Strategy Lab
+# Bitcoin Strategy Lab — your complete 100-candidate list
 
-A beginner-friendly project for comparing **10 open-source GitHub strategy
-adaptations** on the same real Bitcoin prices. Includes a browser dashboard,
-verified data, downloadable results, individual trade records and automated tests.
-It supports adding up to 100 strategies without changing the trading engine.
+A beginner-friendly Bitcoin research project using real **Binance spot BTC/USDT
+1-hour prices, January 2020–September 2026**. All 100 supplied GitHub entries are
+included in the source catalog and execution audit. Completed signal backtests,
+blocked programs and leakage failures are clearly separated. No results are invented.
 
-**Read the [integrity and chronological audit](reports/audit/REPORT.md) first.**
-Earlier comparisons already examined 2025 and January–September 2026, so those
-dates cannot honestly be called an untouched test. No unseen-data ranking is
-issued. The dashboard shows chronological diagnostics alphabetically.
+**Executed here: 83 completed signal backtests, 15 blocked candidates and two
+confirmed leakage exclusions. All 117 automated tests passed. The audit ran
+3,242 portfolio simulations; no candidate passed both yearly diagnostic gates.**
 
-**This is personal, noncommercial research. It does not place real trades.**
+**Start with the [plain-language full-list report](reports/full100/REPORT.md)** or
+[download the Excel workbook](reports/Bitcoin_Strategy_Leaderboard.xlsx).
 
-## Coverage against the supplied 100-strategy list
+**These are signal adaptations, not full reproductions of the original trading
+bots.** They buy Bitcoin or hold cash using shared account rules. Native shorts,
+leverage, stops, profit targets, pyramiding and risk sizing are omitted. Supported
+Jesse entries use documented formula translations; full native parity is unverified.
+Every row discloses its implementation scope.
 
-The original ten were a starter implementation, not the winners of a 100-entry
-screen. [The source cross-check](reports/CANDIDATE_CROSSCHECK.md) maps all ten to
-the supplied list and explains why the other 90 remain untested. All 100 source
-paths were found in checked repository snapshots; source availability does not
-establish runtime compatibility or performance.
+**There is no genuine untouched-data Top 10.** Earlier work already examined 2025
+and January–September 2026. They are held out from the new fitting step, but replay
+cannot erase that earlier exposure. The report and dashboard show retrospective
+diagnostics alphabetically. Upstream optimization history is unknown.
 
-[Download the complete candidate/status CSV](sources/candidate_crosswalk.csv).
-This source-only review adds no strategies or results to the tested leaderboard.
+This project never places real trades or requires an exchange account or API key.
 
-## Download the Excel report
+## Download and open Excel
 
-Open [Bitcoin_Strategy_Leaderboard.xlsx](reports/Bitcoin_Strategy_Leaderboard.xlsx)
-on GitHub and click **Download raw** (the downward-arrow button). Open the saved
-file in Microsoft Excel or LibreOffice Calc. If GitHub asks you to sign in, use
-the GitHub account that can access this repository. The workbook has no macros
-and does not need an exchange login or API key.
+1. Open [Bitcoin_Strategy_Leaderboard.xlsx](reports/Bitcoin_Strategy_Leaderboard.xlsx).
+2. On GitHub, click **Download raw**, the downward-arrow button.
+3. Open the saved file in Microsoft Excel or LibreOffice Calc. No macros are used.
+4. Read **Read Me**, then **All Strategies**. Filter the execution-status column to
+   distinguish completed backtests from blocked or quarantined candidates.
 
-Start with **Read Me**, then **All Strategies**. The five requested sheets are
-**All Strategies**, **Top 10**, **Prediction Accuracy**, **Charts**, and **Failed Tests**.
-Supporting sheets preserve walk-forward, sensitivity and training records,
-archive sources, and chart inputs. There are 10 distinct strategies and 30
-protocol-specific result rows; do not mix exploratory and chronological results.
+The workbook includes every supplied candidate and its immutable GitHub URL,
+metrics where actually executed, scoring dates, source data, costs, sample flags,
+leakage checks, validation status and prediction capability. **N/A means missing,
+not executed, unverified or mathematically undefined; it does not mean zero.**
 
-**Top 10 has no eligible genuine unseen ranks**, and lists why the strategies
-are excluded. No existing test period is falsely relabeled untouched.
-**Prediction Accuracy is N/A** because these rules provide no directional
-forecasts. **Failed Tests** distinguishes failed investment gates from software
-errors. Missing hours, unknown upstream training history and unverified live
-performance are explicit, not silently filled in.
+The requested sheets are **All Strategies**, **Top 10**, **Prediction Accuracy**,
+**Charts**, and **Failed Tests**. Supporting sheets preserve both scored periods,
+walk-forward runs, training fits, sensitivity runs, monthly archive evidence, robustness summaries,
+causality checks and chart inputs. The Top 10 sheet explains why no genuine unseen
+rank can be issued. Neural is recognized as a predictor, but its unsupported
+forecast runtime has no measured accuracy. Trade win rate is not prediction accuracy.
 
-The workbook is a dated snapshot of verified saved reports. To refresh it after
-running research, use:
+The neighboring [Excel manifest](reports/Bitcoin_Strategy_Leaderboard.json) records
+the workbook fingerprint, input manifest and software test evidence.
 
-```bash
-.venv/bin/python -m scripts.export_leaderboard
-```
+## What all strategies share
 
-The neighboring `Bitcoin_Strategy_Leaderboard.json` records workbook and input
-fingerprints, sheet counts and the source of the export. Exporting does not
-rerun strategies or create new performance claims.
+- **Prices:** the same 59,129 observed Binance spot BTCUSDT hourly candles from 81
+  official monthly archives, each checked against its published SHA-256 checksum.
+- **Costs per buy AND sell:** 0.1% trading fee plus 0.05% slippage, meaning a slightly
+  worse execution price. Start each scoring period with 10,000 USDT.
+- **Trading:** a completed-hour signal fills at the next adjacent hour’s open.
+  Long/cash, all-in, no borrowing. Final positions close with exit costs.
+- **Missing hours:** 31 hours in 15 gaps before 2025; no missing 2025/2026 scoring
+  hours. No prices are fabricated. Positions stay held across gaps and no fill
+  crosses a missing-hour gap. Indicators retain observed history; a period counts
+  observed bars and can stretch in calendar time when hours are missing.
+- **Warmup:** one common initial 4,096-observation warmup, covering long indicators.
+  First eligible fill: **2020-06-20 01:00 UTC**. This reduces early training evidence.
+  We do not repeatedly discard years of history after a short gap.
 
-## Start here — no coding knowledge needed
+Source evidence and all missing timestamps: [data/manifest.json](data/manifest.json).
+The 100 original source bodies, pinned commits and licenses are in
+[sources/full100/](sources/full100/). [Adapter details](sources/full100/README.md)
+explain exactly what is and is not reproduced.
 
-The integrity audit, walk-forward evaluations and parameter/fee checks have been run.
-Their [plain-language report](reports/audit/REPORT.md) explains what failed and what remains uncertain.
-The earlier exploratory comparison has also been run. Open [the plain-language results](reports/RESULTS.md)
-or [the results spreadsheet](reports/summary.csv) on GitHub.
-Use [the source list](sources/strategies.json) to see where every strategy came from.
+## Training and integrity checks
 
-To use the dashboard in a Python development environment, open a terminal in
-this repository and paste these commands, one at a time:
+Training receives **2020–2024 only**. The fixed candidate profiles are original
+settings and supported numeric neighbors at −20%/+20%. Select the highest training
+Sharpe with at least 30 completed trades, otherwise retain the original profile.
+Purge the last training hour; the final fitting candle is **2024-12-31 22:00 UTC**.
+Save the choice before scoring **2025 validation** and **January–September 2026**.
+Neither later score selects the settings.
+
+Walk forward: fit through 2021, evaluate 2022; fit through 2022, evaluate 2023;
+fit through 2023, evaluate 2024. Every scored period starts with fresh cash.
+The saved training records identify folds without enough trades for a qualified fit.
+
+Check every completed parameter profile with independently regenerated historical
+prefixes and changed future prices. Also review source code: **CCIStrategy and
+ReinforcedQuickie are quarantined for confirmed future-dependent interpolation**,
+even when a buy/sell threshold masks the change. This is a limited audit, not proof
+that every possible source bug or historical optimization has been excluded.
+
+Stress half/base/double trading fees, plus doubled fee AND slippage for each
+selected profile. A diagnostic gate requires a positive return, beating buy and
+hold, and at least 30 trades. A financial failure is different from a software error.
+Testing many strategies and published tuned settings still creates overfitting risk.
+
+## Understand the numbers
+
+- **Net return:** what your original money gained or lost after costs. +20% turns
+  100 into 120.
+- **Sharpe:** average reward compared with how bumpy hourly changes are, scaled
+  to a year. Higher often means smoother reward; it is not a percentage or promise.
+- **Maximum drawdown:** the biggest recorded fall from an earlier account peak.
+  A 30% fall turns a peak of 100 into 70.
+- **Profit factor:** total winning-trade dollars divided by losing-trade dollars.
+  Below 1 means losses outweighed wins. No loss dollars makes this undefined.
+- **Win rate:** percentage of completed trades that made money. Many tiny wins
+  can still be outweighed by a large loss.
+- **Trades:** completed buy-and-sell pairs. Fewer than **30** is flagged as too
+  little evidence, like judging a player after too few games.
+- **Buy-and-hold return:** buy once at the same scoring start and sell at the end
+  with the same costs. This is the yardstick.
+- **Directional accuracy:** correct explicit next-hour up/down forecasts divided
+  by forecasts scored. No supported frozen-training forecast model was executed;
+  accuracy remains N/A, including the native neural predictor’s incomplete runtime.
+
+## Run it without coding
+
+Saved reports and Excel open immediately. To use the browser dashboard, open the
+project terminal and paste one line at a time:
 
 ```bash
 bash setup.sh
 bash start.sh
 ```
 
-The first installs dependencies and runs the tests. The second starts the dashboard.
-Use your development environment's supported port-opening feature for port 8501.
-This cloud onboarding chat does not provide browser previews; the server can
-still run here, and all saved results are readable directly on GitHub.
-In the dashboard, use **Download / refresh real prices**, then **Run comparison**.
-The already saved verified dataset works without downloading it again.
-Stop the dashboard with Ctrl+C. No Binance login, API key or money is required.
+Setup installs pinned Python dependencies, installs the offline Node dependencies
+when Node/npm are available, and executes the tests. Node.js **24.19.0**, npm and
+C/C++ build tools are needed to rerun the old native Zenbot indicator libraries.
+The tested cloud runtime uses Python 3.12. Setup does not start any trading daemon.
 
-On GitHub, the **Actions** tab also has a **Refresh prices and compare** workflow.
-Choose **Run workflow**. It runs the tests, downloads verified data and uploads a
-`bitcoin-research-results` ZIP under the completed run's **Artifacts** section.
-It never trades, deploys or overwrites repository files. Its current run's reports
-can be compared with the saved baseline; it does not automatically commit updates.
-GitHub may ask you to enable Actions before this button is available.
+Open your environment’s supported preview for port **8501**. The dashboard shows
+the verified 100-candidate audit first and offers Excel/CSV downloads. Its lower
+section preserves the separate original ten-strategy study; do not mix protocols.
 
-## What was actually obtained
-
-- Exchange: **Binance spot**, pair **BTC/USDT**, timeframe **1 hour**, timestamps UTC.
-- Requested and obtained boundaries: **2020-01-01 00:00 through 2026-09-30 23:00 UTC**.
-- **81 monthly archives**, each verified against Binance's published SHA-256 checksum.
-- **59,129 real candles** out of 59,160 calendar hours: **31 hours are missing**.
-- All ten strategies and buy-and-hold use the exact same cleaned price file.
-
-See [data/manifest.json](data/manifest.json) for every source URL, fingerprint
-and missing timestamp. The downloader handles Binance's January 2025 timestamp
-change from milliseconds to microseconds. It validates timestamps, duplicates,
-OHLC consistency, positive prices and nonnegative volume.
-A checksum proves the download matches Binance's published archive; it cannot
-prove that the exchange's historical records themselves have no errors.
-
-## How the comparison works
-
-| Setting | Shared rule |
-| --- | --- |
-| Starting money | 10,000 USDT per strategy |
-| Trading fee | **0.1% per side**, on both buys and sells |
-| Slippage | **0.05% per side**: buy higher, sell lower |
-| Decisions | Use completed candles only; fill at the next available **adjacent hourly** open |
-| Position sizing | Use available cash for one long Bitcoin position; no leverage or shorts |
-| First trade opportunity | After 200 hourly candles, 2020-01-09 08:00 UTC for the saved run |
-| Conflicting signals | Suppress a buy; allow a sell for an existing position |
-| Last candle | No new entry; liquidate any remaining position at the last close, with exit costs |
-| Missing hours | Never fill prices; cancel a pending order crossing a gap; restart indicators and wait 200 consecutive candles |
-| Position during gaps | Remains held, including during the new indicator warmup; no assumed exit at an unknown price |
-| Benchmark | Buy once after the same initial warmup, hold and sell at the end, with the same costs |
-
-The buy price is `open × 1.0005`. Bitcoin quantity is
-`cash ÷ (buy price × 1.001)`. A sell returns
-`quantity × reference price × 0.9995 × 0.999`. Fees are charged in USDT.
-Portfolio value between transactions is cash plus Bitcoin valued at the recorded
-close. Drawdown includes initial trading costs and observes recorded prices only.
-It cannot see losses inside missing hours or inside a candle.
-
-The original strategies come from the GPL-licensed
-[freqtrade/freqtrade-strategies](https://github.com/freqtrade/freqtrade-strategies)
-collection. Original files, authorship, immutable commits and licenses are saved.
-There are ten distinct strategies from **one GitHub repository**, including EMA,
-Bollinger/RSI, MACD/CCI, oscillator, momentum and ADX rules.
-
-**These are hourly signal adaptations, not exact reproductions of the full original
-Freqtrade bots.** Native ROI targets and stoploss rules are omitted for all
-strategies; entry and exit signal formulas are preserved. Most originals used
-other timeframes. This makes a transparent, common signal comparison, but results
-must not be attributed to the original bots' complete trading behavior. In
-particular, a strategy can hold for years if no sell signal occurs.
-
-## Understanding the results
-
-- **Return:** percentage gained or lost after trading costs.
-- **Sharpe ratio:** average hourly gain compared with how bumpy hourly results are, scaled to a year. Higher is generally better; it is not a percentage or a safety guarantee. We use 8,760 hours/year, 0% risk-free rate, sample standard deviation and include idle cash hours. Changes spanning missing hours are excluded from Sharpe only.
-- **Drawdown:** largest fall from an earlier portfolio high. A 77% drawdown means
-  a 10,000 USDT peak could fall to about 2,300 USDT before recovering.
-- **Trades:** completed buys and sells. One winning trade is weak evidence.
-- **Win rate:** fraction of completed trades that made money, after costs.
-- **Profit factor:** total winning-trade profits divided by losses. Blank means
-  there were no losses to divide by; it does not mean unlimited expected profit.
-
-The earlier full-period exploratory CSV records return order for reproduction only; it is not an unseen-data leaderboard. The current audit ranks no previously examined period. Fewer than 30 completed trades is explicitly flagged; this is a caution rule, not a statistical guarantee. Every row includes the same buy-and-hold return.
-
-**Next-hour directional prediction accuracy is N/A for all ten strategies.** They produce entry/exit signals, not next-hour up/down forecasts. Trade win rate is not forecast accuracy. The separate audit is in [directional_predictions.csv](reports/directional_predictions.csv); zero forecast models were scored.
-
-No parameters were optimized against this dataset. These are descriptive
-historical comparisons, not independently validated predictions. Costs assume
-fixed slippage rather than a real order book. There is no lot-size rounding,
-partial-fill model, spread model, intrabar stop execution, funding or borrowing.
-See the [actual results and limitations](reports/RESULTS.md).
-
-## Optional terminal commands
-
-After setup, these commands refresh prices, run comparisons and inspect coverage:
+To reproduce the full saved research:
 
 ```bash
-.venv/bin/python -m btc_lab download --start 2020-01 --end 2026-09
-.venv/bin/python -m btc_lab run
-.venv/bin/python -m btc_lab audit
-.venv/bin/python -m btc_lab strategies
-.venv/bin/python -m pytest -q
+.venv/bin/python -m full_universe.audit --workers 3
+.venv/bin/python -m pytest -q --junitxml=reports/test-results.xml
+.venv/bin/python -m scripts.report_full_universe
+.venv/bin/python -m scripts.export_full_leaderboard
 ```
 
-To refuse any missing hours, use `run --gap-policy strict`. The full dataset
-will then be refused because of the documented gaps. Choose a continuous range
-from `audit`, for example `run --start 2024-01-01 --end 2024-12-31 --gap-policy strict`.
-Date-only end dates include the entire UTC day. Every run overwrites the reports
-with its actual dates; old results cannot silently appear under a new date range.
+This can take a while. A declared **120-second limit per full signal-generation
+call** records unfinished calculations as blocked, with N/A performance. It does
+not mean the strategy lost money. Unchanged causal signal caches can be reused;
+source, dependency, adapter and dataset fingerprints prevent reuse after changes.
 
-## Integrity, walk-forward testing and sensitivity
+GitHub **Actions → Replay full 100-candidate audit → Run workflow** runs the same
+research and uploads the files as an artifact. This workflow is provided for
+reproduction; a successful remote run is not claimed unless actually executed.
+It does not trade, deploy, or automatically commit updates.
 
-The audit uses 2020–2024 for parameter selection, 2025 for validation and
-January–September 2026 as a **nominal test excluded from this fit**. This last
-period is not genuinely untouched because prior project results already used it.
+## Files and the original study
 
-These strategies are indicator rules, not learning models. Training selects
-among three predeclared settings: original and roughly 20% lower/higher values.
-Only training scores select a setting; validation/test results never rescue or
-retune it. Unknown upstream tuning history is another limitation.
+- [Full-list report](reports/full100/REPORT.md), [all 100 statuses](reports/full100/inventory.csv),
+  [both scored periods](reports/full100/period_results.csv),
+  [walk forward](reports/full100/walk_forward.csv),
+  [sensitivity](reports/full100/sensitivity.csv), and
+  [runtime/causality failures](reports/full100/failed_tests.csv).
+- [Per-candidate original trade logs and frozen selections](reports/full100/candidates/),
+  [result fingerprints](reports/full100/run.json), and [software checks](reports/test-results.xml).
+- [Supplied-list crosswalk](sources/candidate_crosswalk.csv) retains all original
+  links and list numbers, now linked to expanded execution status.
+- [Archived ten-strategy documentation](docs/ORIGINAL_STUDY.md) and
+  [original chronological audit](reports/audit/REPORT.md) remain historical evidence.
+  Their shorter warmups and parameters differ from the expanded audit.
 
-Walk-forward means “practice on past years, then check the next year”: fit
-2020–2021 -> evaluate 2022; fit 2020–2022 -> evaluate 2023; fit 2020–2023 ->
-evaluate 2024. The final fit uses 2020–2024, validates on 2025, and uses the same
-frozen settings for 2026. Training ends are purged by one hour; scoring starts
-with fresh cash, past-only indicator context and no inherited positions.
-The audit uses a shared 300-hour warmup so even the 240-hour sensitivity variant
-has enough history. The old exploratory comparison retains its original 200-hour
-warmup; compare strategies within a protocol, not across different protocols.
+Code retains GPL-3.0 and upstream source licenses; Binance data and derived research
+retain the saved **CC BY-NC-SA 4.0** terms. See [data terms](sources/BINANCE_DATASET_TERMS.md)
+and [source documentation](sources/full100/README.md). This is personal,
+noncommercial research, not a claim of future profits or verified live execution.
 
-Nine parameter/fee combinations per period, plus one doubled-fee/slippage case,
-check fragility. Every case has the same-cost buy-and-hold reference. Stress
-results are diagnostic; the best stress setting is never promoted as a winner.
-No later candles were downloaded and no future test has been executed.
-
-To rerun this audit:
-
-```bash
-.venv/bin/python -m btc_lab robustness
-```
-
-[Protocol](reports/audit/protocol.json), [frozen choices](reports/audit/frozen_selection.json),
-[walk-forward rows](reports/audit/walk_forward.csv), [stress cases](reports/audit/sensitivity.csv)
-and [causality checks](reports/audit/causality.csv) are saved for inspection.
-The untouched-data leaderboard is intentionally empty. A genuine final test
-requires freezing the rules now and observing new future data without retuning.
-
-## Problems explained simply
-
-- **403 / Tunnel connection failed:** the environment blocked the website. Allow
-  `data.binance.vision` in environment settings, save, then retry. This does not
-  mean those dates are unavailable. The initial block was resolved during setup.
-- **404 on a month's published checksum:** that verified archive is unavailable.
-  The manifest records it; no invented data replaces it.
-- **Checksum mismatch:** a file is damaged or the upstream archive changed.
-  The file is not used. Remove that month's ZIP from `data/raw/` and download again.
-- **Changed result/data file:** rerun the comparison. The app refuses changed or
-  stale files instead of showing unreliable old numbers.
-- **No trades:** the rules did not produce an executable trade. It is not a
-  hidden winning result or an installation error.
-
-## For a developer helping you later
-
-[Expansion guide](docs/EXPANDING.md) explains how to add genuinely distinct
-strategies up to 100. [Validation report](reports/VALIDATION.md) describes actual
-checks. Dependencies, including transitive packages, are pinned in
-`requirements.txt`; `requirements.in` lists direct choices. Tested on Python
-3.12.14 on Linux; use Python 3.12 for the closest reproduction.
-
-Source code: GPL-3.0; retained QTPyLib test reference: Apache-2.0.
-Data and data-derived outputs: Binance Vision **CC BY-NC-SA 4.0**, plus its
-[dataset terms](sources/BINANCE_DATASET_TERMS.md), for noncommercial research.
-[Attribution and source details](sources/README.md).
+The cloud startup instructions have also been updated in an environment draft.
+To activate them for future sessions, review and save the changes in Environment
+settings, then publish the environment. Saving that draft does not itself publish
+or restart the current environment.
