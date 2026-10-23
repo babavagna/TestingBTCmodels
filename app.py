@@ -17,6 +17,22 @@ st.info('Research only. These are hourly signal adaptations, not the original Fr
 st.warning('The project already examined prices through September 2026. No strategy has a verified untouched-test ranking. Historical replay cannot undo that earlier exposure.')
 st.caption('Binance spot • BTC/USDT • 1-hour candles • UTC • starting balance 10,000 USDT • fee 0.1% + slippage 0.05% on each side')
 
+prediction_report = ROOT/'reports/predictions/combined.json'
+if prediction_report.exists():
+    st.subheader('Next-candle indicator predictions: 5m, 15m and 1h')
+    st.warning('This is a retrospective formula benchmark, not all TradingView indicators. Native TradingView formula agreement is unverified. Accuracy measures correct directions; it does not include trading costs.')
+    prediction_data = json.loads(prediction_report.read_text())
+    prediction_minutes = st.selectbox('Prediction chart timeframe', [5, 15, 60], format_func=lambda n: '1 hour' if n == 60 else f'{n} minutes')
+    prediction_rows = [r for r in prediction_data['rows'] if r['period'] == 'retrospective' and r['timeframe_minutes'] == prediction_minutes]
+    prediction_display = pd.DataFrame(prediction_rows).sort_values('retrospective_rank')
+    st.caption('Learn: 2020–2024 • choose window lengths: 2025 • retrospective comparison: January–September 2026 • target: next close above/below current close')
+    st.dataframe(prediction_display[['retrospective_rank','name','accuracy','baseline_majority_accuracy','accuracy_lift_vs_train_majority','retrospective_validation_gate_passed','rare_training_events','net_return','buy_hold_return','trades']].style.format({'accuracy':'{:.2%}','baseline_majority_accuracy':'{:.2%}','accuracy_lift_vs_train_majority':'{:.2%}','net_return':'{:.2%}','buy_hold_return':'{:.2%}'}), hide_index=True, use_container_width=True)
+    prediction_excel = ROOT/'reports/TradingView_Indicator_Predictions.xlsx'
+    if prediction_excel.exists():
+        st.download_button('Download indicator prediction Excel', prediction_excel.read_bytes(), file_name=prediction_excel.name, mime='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    with st.expander('Prediction results explained simply'):
+        st.markdown('**Accuracy:** 53% means 53 correct directions out of 100. Each indicator feeds the same trained model; most indicators do not forecast by themselves.\n\n**Baseline:** guess the direction most common in training.\n\n**Retrospective validation gate:** a limited check across earlier years, 2025 and 2026 with multiple-comparison adjustment. It is not independent untouched evidence.\n\n**Net return:** money gained or lost after every trading cost. Frequent small correct guesses can still lose money.\n\n**Scope:** all 147 formula entries were attempted on each timeframe. Failed patterns and the separate 210 original Pine compatibility probes are listed in Excel. Private and inaccessible TradingView scripts are not covered.')
+
 with st.expander('What do these words mean?'):
     st.markdown('**Backtest:** replay old prices to estimate how trading rules would have behaved.\n\n'
                 '**Return:** the percentage change in the starting money, after costs.\n\n'

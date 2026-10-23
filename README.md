@@ -1,4 +1,24 @@
-# Bitcoin Strategy Lab — your complete 100-candidate list
+# Bitcoin strategy and indicator prediction lab
+
+**New: next-candle indicator predictions on 5-minute, 15-minute and 1-hour
+Binance BTC/USDT charts.** Read the [plain-language prediction results](reports/predictions/REPORT.md)
+or [download the indicator Excel workbook directly](https://raw.githubusercontent.com/babavagna/TestingBTCmodels/main/reports/TradingView_Indicator_Predictions.xlsx).
+Save the `.xlsx` file and open it in Excel or LibreOffice; GitHub may not preview it.
+
+**Executed: 410 completed forecast tests from 441 formula/timeframe attempts;
+31 unscorable attempts. All 149 automated tests passed.** The Excel file has 19
+sheets. No tested model passed the financial gate in both 2025 and 2026.
+
+This is a reproducible formula benchmark, **not every TradingView indicator**.
+Private and unavailable scripts are outside coverage, and native TradingView
+formula agreement is unverified. Each indicator feeds the same trained forecast
+model. The report separates direction accuracy from trading profits after costs.
+Training uses 2020–2024; 2025 selects settings; January–September 2026 is a
+**retrospective comparison**, as requested. Those market dates were already examined.
+No genuine untouched-test success is claimed. Sources, prices, frozen models,
+forecasts, failures and tests are saved in [the prediction study](indicator_lab/README.md).
+
+## Earlier full 100-candidate strategy study
 
 A beginner-friendly Bitcoin research project using real **Binance spot BTC/USDT
 1-hour prices, January 2020–September 2026**. All 100 supplied GitHub entries are
