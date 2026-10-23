@@ -12,6 +12,17 @@ issued. The dashboard shows chronological diagnostics alphabetically.
 
 **This is personal, noncommercial research. It does not place real trades.**
 
+## Coverage against the supplied 100-strategy list
+
+The original ten were a starter implementation, not the winners of a 100-entry
+screen. [The source cross-check](reports/CANDIDATE_CROSSCHECK.md) maps all ten to
+the supplied list and explains why the other 90 remain untested. All 100 source
+paths were found in checked repository snapshots; source availability does not
+establish runtime compatibility or performance.
+
+[Download the complete candidate/status CSV](sources/candidate_crosswalk.csv).
+This source-only review adds no strategies or results to the tested leaderboard.
+
 ## Download the Excel report
 
 Open [Bitcoin_Strategy_Leaderboard.xlsx](reports/Bitcoin_Strategy_Leaderboard.xlsx)
