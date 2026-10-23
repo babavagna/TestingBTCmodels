@@ -137,6 +137,9 @@ def main():
     if check['All Strategies'].max_row!=445:raise ValueError('Workbook inventory incomplete')
     check.close()
     temporary.replace(DEST)
+    # A visible top-level copy lets beginners navigate from their signed-in repo.
+    import shutil
+    shutil.copyfile(DEST,ROOT/'DOWNLOAD_BTC_INDICATOR_RESULTS.xlsx')
     write_json(DEST.with_suffix('.json'),dict(created_at=utc_now(),path=str(DEST.relative_to(ROOT)),bytes=DEST.stat().st_size,sha256=sha256(DEST.read_bytes()),completed_forecast_tests=len(final),attempted_indicator_timeframe_tests=441,original_pine_compatibility_probes=210,holm_family_size=combined['holm_family_size'],ranking='Retrospective, not genuinely untouched',sheets=sheet_meta,inputs={str(p.relative_to(ROOT)):sha256(p.read_bytes()) for p in [OUT/'combined.json',ROOT/'data/predictions/manifest.json',ROOT/'sources/tradingview/pine_audit.json']},automated_test_evidence='reports/predictions/verification.json'))
     print(DEST,DEST.stat().st_size,'bytes',len(final),'completed forecast tests')
 if __name__=='__main__':main()

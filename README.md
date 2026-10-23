@@ -2,7 +2,8 @@
 
 **New: next-candle indicator predictions on 5-minute, 15-minute and 1-hour
 Binance BTC/USDT charts.** Read the [plain-language prediction results](reports/predictions/REPORT.md)
-or [open the indicator Excel file on GitHub](https://github.com/babavagna/TestingBTCmodels/blob/main/reports/TradingView_Indicator_Predictions.xlsx).
+or [open DOWNLOAD_BTC_INDICATOR_RESULTS.xlsx](DOWNLOAD_BTC_INDICATOR_RESULTS.xlsx)
+in this repository's top folder.
 While signed in to the GitHub account with repository access, use **Download raw
 file** (the down-arrow button). Save the `.xlsx` file, then open it in Excel or
 LibreOffice. GitHub may not preview it.
@@ -10,8 +11,12 @@ LibreOffice. GitHub may not preview it.
 **If you see 404:** first open [the repository](https://github.com/babavagna/TestingBTCmodels)
 in the same browser. GitHub can show 404 when an account does not have access;
 the raw-download domain may not share your signed-in session. Navigate to
-**reports → TradingView_Indicator_Predictions.xlsx → Download raw file** after
-signing in. In the Codex workspace, the same file is already in `reports/`;
+**DOWNLOAD_BTC_INDICATOR_RESULTS.xlsx → Download raw file** from the repository's
+top folder after signing in. This copy is identical to
+`reports/TradingView_Indicator_Predictions.xlsx`. If the file download still fails,
+use **Code → Download ZIP** on the repository home page, unzip the project, and
+open `DOWNLOAD_BTC_INDICATOR_RESULTS.xlsx` inside it. This fallback downloads the
+whole project. In the Codex workspace, the same file is already in `reports/`;
 the dashboard also has **Download indicator prediction Excel**. A successful
 download from the cloud environment does not verify access from your own browser.
 
