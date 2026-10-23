@@ -12,6 +12,38 @@ issued. The dashboard shows chronological diagnostics alphabetically.
 
 **This is personal, noncommercial research. It does not place real trades.**
 
+## Download the Excel report
+
+Open [Bitcoin_Strategy_Leaderboard.xlsx](reports/Bitcoin_Strategy_Leaderboard.xlsx)
+on GitHub and click **Download raw** (the downward-arrow button). Open the saved
+file in Microsoft Excel or LibreOffice Calc. If GitHub asks you to sign in, use
+the GitHub account that can access this repository. The workbook has no macros
+and does not need an exchange login or API key.
+
+Start with **Read Me**, then **All Strategies**. The five requested sheets are
+**All Strategies**, **Top 10**, **Prediction Accuracy**, **Charts**, and **Failed Tests**.
+Supporting sheets preserve walk-forward, sensitivity and training records,
+archive sources, and chart inputs. There are 10 distinct strategies and 30
+protocol-specific result rows; do not mix exploratory and chronological results.
+
+**Top 10 has no eligible genuine unseen ranks**, and lists why the strategies
+are excluded. No existing test period is falsely relabeled untouched.
+**Prediction Accuracy is N/A** because these rules provide no directional
+forecasts. **Failed Tests** distinguishes failed investment gates from software
+errors. Missing hours, unknown upstream training history and unverified live
+performance are explicit, not silently filled in.
+
+The workbook is a dated snapshot of verified saved reports. To refresh it after
+running research, use:
+
+```bash
+.venv/bin/python -m scripts.export_leaderboard
+```
+
+The neighboring `Bitcoin_Strategy_Leaderboard.json` records workbook and input
+fingerprints, sheet counts and the source of the export. Exporting does not
+rerun strategies or create new performance claims.
+
 ## Start here — no coding knowledge needed
 
 The integrity audit, walk-forward evaluations and parameter/fee checks have been run.

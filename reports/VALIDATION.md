@@ -3,7 +3,14 @@
 Validation performed in the actual cloud environment on 2026-10-23, with
 Python 3.12.14 on Linux. No performance figures were invented.
 
-- **88 automated tests passed; zero failed.** See [test-results.xml](test-results.xml).
+- **98 automated tests passed; zero failed.** See [test-results.xml](test-results.xml).
+- Ten Excel-export checks validate the actual Office ZIP/XML package, required
+  sheets, all 30 strategy/protocol rows, source hyperlinks, real UTC dates,
+  numeric percentage units, four native charts and their cached source values.
+  They also verify missing forecast/rank handling, separation of software and
+  investment failures, preservation of all 81 data-source and 350 audit-detail
+  rows, rejection of unexecuted backtests, and prevention of formula injection.
+  Workbook and input fingerprints are saved beside the `.xlsx` export.
 - The chronological audit executed **381 backtests**: 120 training-candidate fits,
   30 walk-forward evaluations, 20 validation/nominal-test runs, 200 parameter/cost
   stress runs and 11 matching-cost benchmark runs. All completed. See
