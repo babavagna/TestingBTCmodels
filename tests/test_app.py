@@ -24,6 +24,8 @@ def test_dashboard_displays_saved_real_comparison():
         pytest.skip('No saved real-data comparison to display.')
     app = AppTest.from_file(str(ROOT/'app.py')).run(timeout=30)
     assert not app.exception
-    assert len(app.dataframe) == 1
-    assert len(app.dataframe[0].value) == 11
+    assert any(len(table.value) == 11 for table in app.dataframe)
+    assert all('rank_by_net_return' not in table.value.columns for table in app.dataframe)
+    if (ROOT/'reports/audit/run.json').exists():
+        assert any(len(table.value) == 20 for table in app.dataframe)
     assert any('Missing-hour events' in text.value for text in app.markdown)

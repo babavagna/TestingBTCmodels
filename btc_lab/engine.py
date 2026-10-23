@@ -20,7 +20,7 @@ TRADE_COLUMNS = ['entry_time', 'exit_time', 'entry_price', 'exit_price', 'quanti
                  'entry_fee', 'exit_fee', 'net_pnl_usdt', 'return_pct', 'exit_reason']
 
 
-def backtest(candles, entry, exit_, *, initial_cash=10000.0, warmup=200, costs=Costs(), gap_policy='pause'):
+def backtest(candles, entry, exit_, *, initial_cash=10000.0, warmup=200, costs=Costs(), gap_policy='pause', trade_start=None):
     """Close signal at t -> fill at t+1 open. All-in; no same-bar reentry.
     Conflicting entry+exit signals suppress entry; exit wins for an existing position.
     Final open position is liquidated at the final close, including both exit costs.
@@ -54,7 +54,15 @@ def backtest(candles, entry, exit_, *, initial_cash=10000.0, warmup=200, costs=C
                            exit_reason=reason))
         qty = 0.0
 
-    for i in range(warmup, len(candles)):
+    first_index = warmup
+    if trade_start is not None:
+        boundary = pd.Timestamp(trade_start)
+        if boundary.tzinfo is None:
+            raise ValueError('trade_start needs a timezone.')
+        first_index = max(warmup, int(times.searchsorted(boundary)))
+    if first_index >= len(candles):
+        raise ValueError('No trading candles at or after trade_start.')
+    for i in range(first_index, len(candles)):
         # t=warmup-1 is the first usable completed signal.
         if adjacent[i] and qty > 0 and ex[i-1]:
             sell(opens[i], times[i], 'signal')
@@ -68,7 +76,7 @@ def backtest(candles, entry, exit_, *, initial_cash=10000.0, warmup=200, costs=C
         if i == len(candles)-1 and qty > 0:
             sell(closes[i], times[i] + pd.Timedelta(hours=1), 'end_of_data')
         values.append(cash + qty * closes[i])
-    equity = pd.Series(values, index=times[warmup:], name='equity_usdt')
+    equity = pd.Series(values, index=times[first_index:], name='equity_usdt')
     equity.index.name = 'timestamp'
     trades = pd.DataFrame(trades, columns=TRADE_COLUMNS)
     # Include starting cash as an equity high so entry costs count in drawdown.

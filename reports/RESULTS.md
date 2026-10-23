@@ -1,4 +1,6 @@
-# Actual historical comparison
+# Exploratory historical comparison — not an unseen-data ranking
+
+**This full-period comparison used 2025 and 2026 before the chronological audit was requested. It cannot validate an untouched test. See [the audit](audit/REPORT.md).**
 
 Source: **Binance Vision** spot BTC/USDT 1-hour candles. Derived research output: CC BY-NC-SA 4.0; see [data terms](../sources/BINANCE_DATASET_TERMS.md).
 

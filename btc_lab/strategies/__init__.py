@@ -24,9 +24,9 @@ def load_catalog(path=None):
     return catalog
 
 
-def signals(strategy, candles):
+def signals(strategy, candles, parameters=None):
     fn = getattr(importlib.import_module(strategy['module']), strategy['function'])
-    entry, exit_ = fn(candles.copy())
+    entry, exit_ = fn(candles.copy(), **(parameters or {}))
     for s in (entry, exit_):
         if not s.index.equals(candles.index) or len(s) != len(candles):
             raise ValueError('Strategy signals must match every candle in order.')

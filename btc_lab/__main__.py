@@ -19,6 +19,7 @@ def main():
     run.add_argument('--start', help='Optional first UTC date (YYYY-MM-DD).')
     run.add_argument('--end', help='Optional last UTC date, inclusive (YYYY-MM-DD).')
     sub.add_parser('strategies', help='List the strategies and immutable original GitHub sources.')
+    sub.add_parser('robustness', help='Run chronological leakage, walk-forward and sensitivity diagnostics; never claim an already seen test is untouched.')
     sub.add_parser('audit', help='Show actual coverage and gaps; does not trade or invent missing prices.')
     args = parser.parse_args()
     try:
@@ -29,6 +30,12 @@ def main():
             summary, run = run_all(ROOT, args.start, args.end, gap_policy=args.gap_policy)
             print(summary[['strategy', 'return_pct', 'max_drawdown_pct', 'trades']].to_string(index=False))
             print(f"Real data only: {run['first_candle']} through {run['last_candle']}. See reports/run.json.")
+        elif args.command == 'robustness':
+            from btc_lab.robustness import run_audit
+            _, report = run_audit(ROOT)
+            print('Audit completed. No genuinely unseen ranks are eligible: 2025/2026 were previously inspected.')
+            print(report['execution_counts'])
+            print('Read reports/audit/REPORT.md.')
         elif args.command == 'strategies':
             for s in load_catalog():
                 print(f"{s['id']}: {s['title']}\n  {s['source_url']}")

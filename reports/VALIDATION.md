@@ -3,7 +3,25 @@
 Validation performed in the actual cloud environment on 2026-10-23, with
 Python 3.12.14 on Linux. No performance figures were invented.
 
-- **67 automated tests passed; zero failed.** See [test-results.xml](test-results.xml).
+- **88 automated tests passed; zero failed.** See [test-results.xml](test-results.xml).
+- The chronological audit executed **381 backtests**: 120 training-candidate fits,
+  30 walk-forward evaluations, 20 validation/nominal-test runs, 200 parameter/cost
+  stress runs and 11 matching-cost benchmark runs. All completed. See
+  [audit/run.json](audit/run.json) and [the audit report](audit/REPORT.md).
+- **240 actual-data causal checks** tested seven chronological prefixes and one
+  future-price/volume mutation for each of three settings across all ten rules.
+  No future dependence was detected. This is evidence, not proof of absence.
+- New negative controls deliberately introduce a future-row read and full-sample
+  normalization leak; the dynamic comparisons detect both.
+- New boundary tests enforce one-hour training purges, future-invariant parameter
+  choice, no inherited training positions, correct period-only portfolio scores,
+  source-default parity and monotonic cost stress. Saved audit integrity checks
+  verify completed-run counts, train/validation/test boundaries and empty ranks.
+- The 2025 and 2026 periods were already examined before the audit request. The
+  audit never calls them genuinely untouched; all unseen ranks are null and the
+  unseen leaderboard is empty. Unknown upstream optimization is disclosed.
+- No strategy passed the diagnostic gate in both 2025 and January–September 2026.
+  The gate requires positive return, beating same-cost buy-and-hold, and >=30 trades.
 - Ten signal-parity tests execute the saved original GitHub strategy methods,
   using real TA-Lib and the retained official QTPyLib implementation. Only
   Freqtrade's framework/parameter containers are stubbed. These tests compare

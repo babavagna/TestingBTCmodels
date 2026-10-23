@@ -23,17 +23,17 @@ def implementation_hash(root):
     return digest.hexdigest()
 
 
-def prepared_signals(strategy, candles):
+def prepared_signals(strategy, candles, *, parameters=None, warmup=WARMUP):
     """Reset indicators at every gap and mask the shared warmup in each segment."""
     entry = pd.Series(False, index=candles.index)
     exit_ = pd.Series(False, index=candles.index)
     groups = candles.index.to_series().diff().ne(pd.Timedelta(hours=1)).cumsum()
     for _, segment in candles.groupby(groups):
-        if len(segment) < WARMUP:
+        if len(segment) < warmup:
             continue
-        en, ex = signals(strategy, segment)
-        entry.loc[segment.index[WARMUP-1:]] = en.iloc[WARMUP-1:]
-        exit_.loc[segment.index[WARMUP-1:]] = ex.iloc[WARMUP-1:]
+        en, ex = signals(strategy, segment, parameters)
+        entry.loc[segment.index[warmup-1:]] = en.iloc[warmup-1:]
+        exit_.loc[segment.index[warmup-1:]] = ex.iloc[warmup-1:]
     return entry, exit_
 
 
@@ -98,7 +98,7 @@ def run_all(root, start=None, end=None, initial_cash=10000.0, gap_policy='pause'
                first_trade_opportunity=first_opportunity.isoformat(), rows=len(candles),
                gap_policy=gap_policy, gap_events=int(candles.index.to_series().diff().gt(pd.Timedelta(hours=1)).sum()),
                gap_handling='No filling; no execution across gaps; reset indicators and wait 200 consecutive candles; existing positions stay held.',
-               ranking='Descending total net return; benchmark has no strategy rank.',
+               ranking='Exploratory descending total return on previously inspected full-period data; not eligible for an unseen leaderboard.',
                low_trade_threshold=LOW_TRADE_THRESHOLD,
                sharpe_definition=dict(annualization_hours=HOURS_PER_YEAR, risk_free_annual_rate=0.0,
                                       standard_deviation='sample, ddof=1', returns='arithmetic hourly portfolio returns after trading costs; idle cash hours included',
@@ -123,7 +123,8 @@ def run_all(root, start=None, end=None, initial_cash=10000.0, gap_policy='pause'
     def number(value, digits=2, suffix=''):
         return 'N/A' if pd.isna(value) else f'{value:.{digits}f}{suffix}'
 
-    lines = ['# Actual historical comparison', '',
+    lines = ['# Exploratory historical comparison — not an unseen-data ranking', '',
+             '**This full-period comparison used 2025 and 2026 before the chronological audit was requested. It cannot validate an untouched test. See [the audit](audit/REPORT.md).**', '',
              'Source: **Binance Vision** spot BTC/USDT 1-hour candles. Derived research output: CC BY-NC-SA 4.0; see [data terms](../sources/BINANCE_DATASET_TERMS.md).', '',
              f"**{len(catalog)} strategy backtests completed successfully**, plus the buy-and-hold benchmark. Only completed runs are ranked.",
              f"Candle range: **{run['first_candle']} through {run['last_candle']}**.",

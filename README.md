@@ -5,11 +5,18 @@ adaptations** on the same real Bitcoin prices. Includes a browser dashboard,
 verified data, downloadable results, individual trade records and automated tests.
 It supports adding up to 100 strategies without changing the trading engine.
 
+**Read the [integrity and chronological audit](reports/audit/REPORT.md) first.**
+Earlier comparisons already examined 2025 and January–September 2026, so those
+dates cannot honestly be called an untouched test. No unseen-data ranking is
+issued. The dashboard shows chronological diagnostics alphabetically.
+
 **This is personal, noncommercial research. It does not place real trades.**
 
 ## Start here — no coding knowledge needed
 
-The first comparison has already been run. Open [the plain-language results](reports/RESULTS.md)
+The integrity audit, walk-forward evaluations and parameter/fee checks have been run.
+Their [plain-language report](reports/audit/REPORT.md) explains what failed and what remains uncertain.
+The earlier exploratory comparison has also been run. Open [the plain-language results](reports/RESULTS.md)
 or [the results spreadsheet](reports/summary.csv) on GitHub.
 Use [the source list](sources/strategies.json) to see where every strategy came from.
 
@@ -98,7 +105,7 @@ particular, a strategy can hold for years if no sell signal occurs.
 - **Profit factor:** total winning-trade profits divided by losses. Blank means
   there were no losses to divide by; it does not mean unlimited expected profit.
 
-Rankings include only successfully completed backtests, ordered by total net return. Fewer than 30 completed trades is explicitly flagged; this is a caution rule, not a statistical guarantee. Every row includes the same buy-and-hold return.
+The earlier full-period exploratory CSV records return order for reproduction only; it is not an unseen-data leaderboard. The current audit ranks no previously examined period. Fewer than 30 completed trades is explicitly flagged; this is a caution rule, not a statistical guarantee. Every row includes the same buy-and-hold return.
 
 **Next-hour directional prediction accuracy is N/A for all ten strategies.** They produce entry/exit signals, not next-hour up/down forecasts. Trade win rate is not forecast accuracy. The separate audit is in [directional_predictions.csv](reports/directional_predictions.csv); zero forecast models were scored.
 
@@ -125,6 +132,43 @@ will then be refused because of the documented gaps. Choose a continuous range
 from `audit`, for example `run --start 2024-01-01 --end 2024-12-31 --gap-policy strict`.
 Date-only end dates include the entire UTC day. Every run overwrites the reports
 with its actual dates; old results cannot silently appear under a new date range.
+
+## Integrity, walk-forward testing and sensitivity
+
+The audit uses 2020–2024 for parameter selection, 2025 for validation and
+January–September 2026 as a **nominal test excluded from this fit**. This last
+period is not genuinely untouched because prior project results already used it.
+
+These strategies are indicator rules, not learning models. Training selects
+among three predeclared settings: original and roughly 20% lower/higher values.
+Only training scores select a setting; validation/test results never rescue or
+retune it. Unknown upstream tuning history is another limitation.
+
+Walk-forward means “practice on past years, then check the next year”: fit
+2020–2021 -> evaluate 2022; fit 2020–2022 -> evaluate 2023; fit 2020–2023 ->
+evaluate 2024. The final fit uses 2020–2024, validates on 2025, and uses the same
+frozen settings for 2026. Training ends are purged by one hour; scoring starts
+with fresh cash, past-only indicator context and no inherited positions.
+The audit uses a shared 300-hour warmup so even the 240-hour sensitivity variant
+has enough history. The old exploratory comparison retains its original 200-hour
+warmup; compare strategies within a protocol, not across different protocols.
+
+Nine parameter/fee combinations per period, plus one doubled-fee/slippage case,
+check fragility. Every case has the same-cost buy-and-hold reference. Stress
+results are diagnostic; the best stress setting is never promoted as a winner.
+No later candles were downloaded and no future test has been executed.
+
+To rerun this audit:
+
+```bash
+.venv/bin/python -m btc_lab robustness
+```
+
+[Protocol](reports/audit/protocol.json), [frozen choices](reports/audit/frozen_selection.json),
+[walk-forward rows](reports/audit/walk_forward.csv), [stress cases](reports/audit/sensitivity.csv)
+and [causality checks](reports/audit/causality.csv) are saved for inspection.
+The untouched-data leaderboard is intentionally empty. A genuine final test
+requires freezing the rules now and observing new future data without retuning.
 
 ## Problems explained simply
 
