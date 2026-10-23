@@ -10,7 +10,7 @@ confirmed leakage exclusions. All 117 automated tests passed. The audit ran
 3,242 portfolio simulations; no candidate passed both yearly diagnostic gates.**
 
 **Start with the [plain-language full-list report](reports/full100/REPORT.md)** or
-[download the Excel workbook](reports/Bitcoin_Strategy_Leaderboard.xlsx).
+[download the Excel workbook](https://raw.githubusercontent.com/babavagna/TestingBTCmodels/main/reports/Bitcoin_Strategy_Leaderboard.xlsx).
 
 **These are signal adaptations, not full reproductions of the original trading
 bots.** They buy Bitcoin or hold cash using shared account rules. Native shorts,
@@ -27,11 +27,16 @@ This project never places real trades or requires an exchange account or API key
 
 ## Download and open Excel
 
-1. Open [Bitcoin_Strategy_Leaderboard.xlsx](reports/Bitcoin_Strategy_Leaderboard.xlsx).
-2. On GitHub, click **Download raw**, the downward-arrow button.
-3. Open the saved file in Microsoft Excel or LibreOffice Calc. No macros are used.
-4. Read **Read Me**, then **All Strategies**. Filter the execution-status column to
+1. Click **[Download the Excel file directly](https://raw.githubusercontent.com/babavagna/TestingBTCmodels/main/reports/Bitcoin_Strategy_Leaderboard.xlsx)**.
+2. Save `Bitcoin_Strategy_Leaderboard.xlsx`, then open it in Microsoft Excel or
+   LibreOffice Calc. No macros are used.
+3. Read **Read Me**, then **All Strategies**. Filter the execution-status column to
    distinguish completed backtests from blocked or quarantined candidates.
+
+GitHub's file page may show an error or no spreadsheet preview. That does not
+mean the Excel file is damaged; use the direct download above. If GitHub still
+shows **404**, sign in with the account that owns or has access to this repository.
+You can also use the dashboard's **Download full Excel leaderboard** button.
 
 The workbook includes every supplied candidate and its immutable GitHub URL,
 metrics where actually executed, scoring dates, source data, costs, sample flags,
