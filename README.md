@@ -1,5 +1,13 @@
 # Bitcoin strategy and indicator prediction lab
 
+**Your selected UP/DOWN list:** [open BTC_UP_DOWN_ACCURACY.xlsx](BTC_UP_DOWN_ACCURACY.xlsx)
+or [read every requested indicator's directional results](reports/selected_directional/REPORT.md).
+The 90 supplied entries contain 52 distinct indicators. All 156 indicator/timeframe
+forecasts were re-executed using the frozen models. Separate columns show correct
+UP guesses, correct DOWN guesses, their counts, and pattern-only occurrence results.
+These remain retrospective January–September 2026 comparisons, not untouched future
+tests. [Read the exact definitions and protocol](directional_study/PROTOCOL.md).
+
 **New: next-candle indicator predictions on 5-minute, 15-minute and 1-hour
 Binance BTC/USDT charts.** Read the [plain-language prediction results](reports/predictions/REPORT.md)
 or [open DOWNLOAD_BTC_INDICATOR_RESULTS.xlsx](DOWNLOAD_BTC_INDICATOR_RESULTS.xlsx)
