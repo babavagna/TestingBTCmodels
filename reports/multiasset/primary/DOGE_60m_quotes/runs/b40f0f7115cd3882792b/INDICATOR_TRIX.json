@@ -1,0 +1,196 @@
+{
+  "candidate_id": "INDICATOR:TRIX",
+  "name": "1-day Rate-Of-Change (ROC) of a Triple Smooth EMA",
+  "family": "indicator + trained binary readout",
+  "status": "COMPLETED_PREDICTION_ONLY",
+  "source_url": "https://github.com/TA-Lib/ta-lib/blob/v0.6.4/src/ta_func/ta_TRIX.c",
+  "license": "See pinned formula source and retained upstream license",
+  "executed": true,
+  "selected_profile": "long",
+  "parameters": {
+    "timeperiod": 36
+  },
+  "model": {
+    "mean": [
+      0.01586728181995237,
+      8.846019208263194e-05,
+      0.015778821627869734,
+      0.015592797737824593
+    ],
+    "scale": [
+      0.07266733074930588,
+      0.0020129686230935997,
+      0.0726747584993108,
+      0.07268356791336275
+    ],
+    "keep": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "weights": [
+      0.06500438709111439,
+      0.023017602725540737,
+      0.026186250960837425,
+      0.022289935078183228,
+      -0.0018934568153935762
+    ],
+    "training_samples": 1294,
+    "training_up_rate": 0.5162287480680062,
+    "objective": 0.6922928525004777,
+    "iterations": 12,
+    "ridge": 0.01
+  },
+  "profiles": {
+    "default": {
+      "parameters": {
+        "timeperiod": 30
+      },
+      "selection_accuracy": 0.4583333333333333
+    },
+    "short": {
+      "parameters": {
+        "timeperiod": 24
+      },
+      "selection_accuracy": 0.44907407407407407
+    },
+    "long": {
+      "parameters": {
+        "timeperiod": 36
+      },
+      "selection_accuracy": 0.4722222222222222
+    }
+  },
+  "profile_failures": [],
+  "causality_checks": [
+    {
+      "profile": "default",
+      "check": "numeric_prefix",
+      "cut": 897,
+      "passed": true
+    },
+    {
+      "profile": "default",
+      "check": "numeric_prefix",
+      "cut": 1794,
+      "passed": true
+    },
+    {
+      "profile": "default",
+      "check": "numeric_future_mutation",
+      "cut": 1794,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_prefix",
+      "cut": 897,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_prefix",
+      "cut": 1794,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_future_mutation",
+      "cut": 1794,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_prefix",
+      "cut": 897,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_prefix",
+      "cut": 1794,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_future_mutation",
+      "cut": 1794,
+      "passed": true
+    }
+  ],
+  "periods": {
+    "validation": {
+      "direction": {
+        "forecasts": 216,
+        "accuracy": 0.4861111111111111,
+        "balanced_accuracy": 0.4909948542024014,
+        "up_precision": 0.48484848484848486,
+        "up_recall": 0.7547169811320755,
+        "mcc": -0.021200346511679034,
+        "brier": 0.2505223997935065,
+        "log_loss": 0.6941925954892795,
+        "actual_up_rate": 0.49074074074074076,
+        "predicted_up_rate": 0.7638888888888888,
+        "tp": 80,
+        "tn": 25,
+        "fp": 85,
+        "fn": 26,
+        "wilson_low": 0.42028466897921324,
+        "wilson_high": 0.5524229357092468,
+        "down_precision": 0.49019607843137253,
+        "down_recall": 0.22727272727272727
+      }
+    },
+    "retrospective_test": {
+      "direction": {
+        "forecasts": 325,
+        "accuracy": 0.49538461538461537,
+        "balanced_accuracy": 0.4854701826172615,
+        "up_precision": 0.5032051282051282,
+        "up_recall": 0.9457831325301205,
+        "mcc": -0.07412996321350575,
+        "brier": 0.2509214204138898,
+        "log_loss": 0.6949959796127697,
+        "actual_up_rate": 0.5107692307692308,
+        "predicted_up_rate": 0.96,
+        "tp": 157,
+        "tn": 4,
+        "fp": 155,
+        "fn": 9,
+        "wilson_low": 0.4413996282444671,
+        "wilson_high": 0.5494774344873469,
+        "down_precision": 0.3076923076923077,
+        "down_recall": 0.025157232704402517
+      }
+    }
+  },
+  "sensitivity": [],
+  "walk_forward": [
+    {
+      "status": "INSUFFICIENT_FOLD_OR_FIT_FAILED",
+      "training_rows": 322,
+      "reason": "Fewer than 1000 valid training targets"
+    },
+    {
+      "status": "INSUFFICIENT_FOLD_OR_FIT_FAILED",
+      "training_rows": 646,
+      "reason": "Fewer than 1000 valid training targets"
+    },
+    {
+      "status": "INSUFFICIENT_FOLD_OR_FIT_FAILED",
+      "training_rows": 969,
+      "reason": "Fewer than 1000 valid training targets"
+    }
+  ],
+  "identity": "b40f0f7115cd3882792bd928430df1459f8ce79007d28b1dbeed2d38bcc6cf38",
+  "asset_id": "DOGE",
+  "contract": "KXDOGEPERP",
+  "minutes": 60,
+  "basis": "quotes",
+  "price_basis": "OBSERVED_BID_ASK_MIDPOINT_CLOSE_ONLY",
+  "historical_test_status": "RETROSPECTIVE_SHORT_HISTORY_HOLDOUT",
+  "fully_validated_financial_rank_eligible": false,
+  "finished_at": "2026-10-25T19:43:23.682515+00:00",
+  "signal_cache_sha256": "47d687923929910111a1b32dc130a174259f2beca5fbe2fdc95eb5ac9b41395e"
+}

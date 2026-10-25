@@ -1,0 +1,252 @@
+{
+  "candidate_id": "INDICATOR:MACD",
+  "name": "Moving Average Convergence/Divergence",
+  "family": "indicator + trained binary readout",
+  "status": "COMPLETED_PREDICTION_ONLY",
+  "source_url": "https://github.com/TA-Lib/ta-lib/blob/v0.6.4/src/ta_func/ta_MACD.c",
+  "license": "See pinned formula source and retained upstream license",
+  "executed": true,
+  "selected_profile": "long",
+  "parameters": {
+    "fastperiod": 14,
+    "slowperiod": 31,
+    "signalperiod": 11
+  },
+  "model": {
+    "mean": [
+      0.00018846519819097719,
+      0.00024341053623446,
+      -5.494533804348234e-05,
+      -8.994397459970791e-06,
+      -1.1259511279638796e-05,
+      2.2651138196679888e-06,
+      0.0001974595956509479,
+      0.0002546700475140986,
+      -5.721045186315039e-05,
+      0.00021727343321682204,
+      0.0002783674768836272,
+      -6.109404366680531e-05
+    ],
+    "scale": [
+      0.004729124738217348,
+      0.004488684460607264,
+      0.0013946866785462598,
+      0.0004747443234856767,
+      0.00027970936094290485,
+      0.0003521974117405628,
+      0.004729385898212512,
+      0.004491279212560392,
+      0.0013923784999801455,
+      0.004734333949852381,
+      0.004496982471300927,
+      0.0013878954169628005
+    ],
+    "keep": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "weights": [
+      0.02444572236134535,
+      -0.013646382625472183,
+      0.008358899573054893,
+      -0.0731747924838761,
+      -0.008406117221555612,
+      0.010215114269698173,
+      -0.019443696317874085,
+      -0.012801807788765513,
+      0.007717890136972316,
+      -0.06837787912279701,
+      0.007612056628872057,
+      0.014350830956284047,
+      -0.020532827462684023
+    ],
+    "training_samples": 1478,
+    "training_up_rate": 0.5060893098782138,
+    "objective": 0.6897126743866893,
+    "iterations": 18,
+    "ridge": 0.01
+  },
+  "profiles": {
+    "default": {
+      "parameters": {
+        "fastperiod": 12,
+        "slowperiod": 26,
+        "signalperiod": 9
+      },
+      "selection_accuracy": 0.4878048780487805
+    },
+    "short": {
+      "parameters": {
+        "fastperiod": 10,
+        "slowperiod": 21,
+        "signalperiod": 7
+      },
+      "selection_accuracy": 0.491869918699187
+    },
+    "long": {
+      "parameters": {
+        "fastperiod": 14,
+        "slowperiod": 31,
+        "signalperiod": 11
+      },
+      "selection_accuracy": 0.532520325203252
+    }
+  },
+  "profile_failures": [],
+  "causality_checks": [
+    {
+      "profile": "default",
+      "check": "numeric_prefix",
+      "cut": 1013,
+      "passed": true
+    },
+    {
+      "profile": "default",
+      "check": "numeric_prefix",
+      "cut": 2026,
+      "passed": true
+    },
+    {
+      "profile": "default",
+      "check": "numeric_future_mutation",
+      "cut": 2026,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_prefix",
+      "cut": 1013,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_prefix",
+      "cut": 2026,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_future_mutation",
+      "cut": 2026,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_prefix",
+      "cut": 1013,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_prefix",
+      "cut": 2026,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_future_mutation",
+      "cut": 2026,
+      "passed": true
+    }
+  ],
+  "periods": {
+    "validation": {
+      "direction": {
+        "forecasts": 247,
+        "accuracy": 0.5101214574898786,
+        "balanced_accuracy": 0.5046064753882601,
+        "up_precision": 0.5342465753424658,
+        "up_recall": 0.5954198473282443,
+        "mcc": 0.009352469023848547,
+        "brier": 0.25062196741409026,
+        "log_loss": 0.6943973212236904,
+        "actual_up_rate": 0.5303643724696356,
+        "predicted_up_rate": 0.5910931174089069,
+        "tp": 78,
+        "tn": 48,
+        "fp": 68,
+        "fn": 53,
+        "wilson_low": 0.44810347979146203,
+        "wilson_high": 0.5718294293197632,
+        "down_precision": 0.4752475247524752,
+        "down_recall": 0.41379310344827586
+      }
+    },
+    "retrospective_test": {
+      "direction": {
+        "forecasts": 372,
+        "accuracy": 0.46236559139784944,
+        "balanced_accuracy": 0.46414624974689767,
+        "up_precision": 0.4549763033175355,
+        "up_recall": 0.5303867403314917,
+        "mcc": -0.07233798214774544,
+        "brier": 0.26267958402550357,
+        "log_loss": 0.7202256498667745,
+        "actual_up_rate": 0.48655913978494625,
+        "predicted_up_rate": 0.5672043010752689,
+        "tp": 96,
+        "tn": 76,
+        "fp": 115,
+        "fn": 85,
+        "wilson_low": 0.41234280714214144,
+        "wilson_high": 0.5131576948837454,
+        "down_precision": 0.4720496894409938,
+        "down_recall": 0.39790575916230364
+      }
+    }
+  },
+  "sensitivity": [],
+  "walk_forward": [
+    {
+      "status": "INSUFFICIENT_FOLD_OR_FIT_FAILED",
+      "training_rows": 368,
+      "reason": "Fewer than 1000 valid training targets"
+    },
+    {
+      "status": "INSUFFICIENT_FOLD_OR_FIT_FAILED",
+      "training_rows": 738,
+      "reason": "Fewer than 1000 valid training targets"
+    },
+    {
+      "status": "COMPLETED",
+      "training_rows": 1107,
+      "evaluation_start": "2026-09-16T10:00:00+00:00",
+      "forecasts": 369,
+      "accuracy": 0.46070460704607047,
+      "balanced_accuracy": 0.4703240058910162,
+      "up_precision": 0.4782608695652174,
+      "up_recall": 0.28350515463917525,
+      "mcc": -0.06398665136468401,
+      "brier": 0.2559613574343454,
+      "log_loss": 0.7051796296150036,
+      "actual_up_rate": 0.5257452574525745,
+      "predicted_up_rate": 0.3116531165311653,
+      "tp": 55,
+      "tn": 115,
+      "fp": 60,
+      "fn": 139,
+      "wilson_low": 0.41051250301276015,
+      "wilson_high": 0.5117064473911791
+    }
+  ],
+  "identity": "8f7910739e7e82288669d9c530b0081c240989adde300eb6662547a109dab386",
+  "asset_id": "AAVE",
+  "contract": "KXAAVEPERP",
+  "minutes": 15,
+  "basis": "quotes",
+  "price_basis": "OBSERVED_BID_ASK_MIDPOINT_CLOSE_ONLY",
+  "historical_test_status": "RETROSPECTIVE_SHORT_HISTORY_HOLDOUT",
+  "fully_validated_financial_rank_eligible": false,
+  "finished_at": "2026-10-25T19:35:46.415719+00:00",
+  "signal_cache_sha256": "fd3c633be85b1639f204a7c62e54d5be2a81c86d0ddd1d271a8ed2a3e7fddc5c"
+}

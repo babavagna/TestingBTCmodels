@@ -1,0 +1,272 @@
+{
+  "candidate_id": "INDICATOR:STOCHRSI",
+  "name": "Stochastic Relative Strength Index",
+  "family": "indicator + trained binary readout",
+  "status": "COMPLETED_PREDICTION_ONLY",
+  "source_url": "https://github.com/TA-Lib/ta-lib/blob/v0.6.4/src/ta_func/ta_STOCHRSI.c",
+  "license": "See pinned formula source and retained upstream license",
+  "executed": true,
+  "selected_profile": "long",
+  "parameters": {
+    "timeperiod": 17,
+    "fastk_period": 6,
+    "fastd_period": 4,
+    "fastd_matype": 0
+  },
+  "model": {
+    "mean": [
+      50.07165731267411,
+      50.02138714291368,
+      0.12677213456614406,
+      -0.008050063008374346,
+      49.94488517810796,
+      50.02943720592201,
+      50.10503691619605,
+      50.084664774073964
+    ],
+    "scale": [
+      40.38183014872059,
+      30.41836018234755,
+      36.951922652464596,
+      14.173673709154183,
+      40.352661531384484,
+      30.413307079489023,
+      40.31385449919008,
+      30.421710279785405
+    ],
+    "keep": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "weights": [
+      0.0032758229886862117,
+      -0.020042495331150413,
+      -0.0040206809165433234,
+      -0.023683330643728018,
+      -0.025912238731179347,
+      0.0016304242987682572,
+      0.008054668172437841,
+      -0.016784634199923446,
+      -0.010885186092883371
+    ],
+    "training_samples": 13450,
+    "training_up_rate": 0.500817843866171,
+    "objective": 0.692725397421861,
+    "iterations": 15,
+    "ridge": 0.01
+  },
+  "profiles": {
+    "default": {
+      "parameters": {
+        "timeperiod": 14,
+        "fastk_period": 5,
+        "fastd_period": 3,
+        "fastd_matype": 0
+      },
+      "selection_accuracy": 0.5035618878005342
+    },
+    "short": {
+      "parameters": {
+        "timeperiod": 11,
+        "fastk_period": 4,
+        "fastd_period": 2,
+        "fastd_matype": 0
+      },
+      "selection_accuracy": 0.5022261798753339
+    },
+    "long": {
+      "parameters": {
+        "timeperiod": 17,
+        "fastk_period": 6,
+        "fastd_period": 4,
+        "fastd_matype": 0
+      },
+      "selection_accuracy": 0.5089047195013358
+    }
+  },
+  "profile_failures": [],
+  "causality_checks": [
+    {
+      "profile": "default",
+      "check": "numeric_prefix",
+      "cut": 1024,
+      "passed": true
+    },
+    {
+      "profile": "default",
+      "check": "numeric_prefix",
+      "cut": 2048,
+      "passed": true
+    },
+    {
+      "profile": "default",
+      "check": "numeric_future_mutation",
+      "cut": 2048,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_prefix",
+      "cut": 1024,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_prefix",
+      "cut": 2048,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_future_mutation",
+      "cut": 2048,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_prefix",
+      "cut": 1024,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_prefix",
+      "cut": 2048,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_future_mutation",
+      "cut": 2048,
+      "passed": true
+    }
+  ],
+  "periods": {
+    "validation": {
+      "direction": {
+        "forecasts": 2245,
+        "accuracy": 0.5162583518930958,
+        "balanced_accuracy": 0.5161564018432712,
+        "up_precision": 0.5195143104943626,
+        "up_recall": 0.5296198054818745,
+        "mcc": 0.03232381162568237,
+        "brier": 0.2498643076589998,
+        "log_loss": 0.6928759228660912,
+        "actual_up_rate": 0.5037861915367483,
+        "predicted_up_rate": 0.5135857461024499,
+        "tp": 599,
+        "tn": 560,
+        "fp": 554,
+        "fn": 532,
+        "wilson_low": 0.49557633327466066,
+        "wilson_high": 0.5368848256539379,
+        "down_precision": 0.5128205128205128,
+        "down_recall": 0.5026929982046678
+      }
+    },
+    "retrospective_test": {
+      "direction": {
+        "forecasts": 3374,
+        "accuracy": 0.5210432720806165,
+        "balanced_accuracy": 0.520970394736842,
+        "up_precision": 0.5275498241500586,
+        "up_recall": 0.5263157894736842,
+        "mcc": 0.0419395513979142,
+        "brier": 0.24964418305273142,
+        "log_loss": 0.6924354290964372,
+        "actual_up_rate": 0.5068168346176645,
+        "predicted_up_rate": 0.5056312981624185,
+        "tp": 900,
+        "tn": 858,
+        "fp": 806,
+        "fn": 810,
+        "wilson_low": 0.5041726758085194,
+        "wilson_high": 0.537866005322944,
+        "down_precision": 0.5143884892086331,
+        "down_recall": 0.515625
+      }
+    }
+  },
+  "sensitivity": [],
+  "walk_forward": [
+    {
+      "status": "COMPLETED",
+      "training_rows": 3361,
+      "evaluation_start": "2026-07-13T18:40:00+00:00",
+      "forecasts": 3362,
+      "accuracy": 0.5092207019631172,
+      "balanced_accuracy": 0.5093530119629079,
+      "up_precision": 0.5034883720930232,
+      "up_recall": 0.5210589651022864,
+      "mcc": 0.018709865093723865,
+      "brier": 0.2503729611653932,
+      "log_loss": 0.6938964871162075,
+      "actual_up_rate": 0.4943486020226056,
+      "predicted_up_rate": 0.5116002379535991,
+      "tp": 866,
+      "tn": 846,
+      "fp": 854,
+      "fn": 796,
+      "wilson_low": 0.4923214289426679,
+      "wilson_high": 0.5260989276779683
+    },
+    {
+      "status": "COMPLETED",
+      "training_rows": 6724,
+      "evaluation_start": "2026-07-27T17:35:00+00:00",
+      "forecasts": 3362,
+      "accuracy": 0.5142772159428911,
+      "balanced_accuracy": 0.5143506533721434,
+      "up_precision": 0.5167493796526055,
+      "up_recall": 0.49377593360995853,
+      "mcc": 0.028725333141973976,
+      "brier": 0.2498241618504074,
+      "log_loss": 0.6927959307464392,
+      "actual_up_rate": 0.5017846519928614,
+      "predicted_up_rate": 0.47947650208209397,
+      "tp": 833,
+      "tn": 896,
+      "fp": 779,
+      "fn": 854,
+      "wilson_low": 0.49737618250465804,
+      "wilson_high": 0.5311456600047142
+    },
+    {
+      "status": "COMPLETED",
+      "training_rows": 10086,
+      "evaluation_start": "2026-08-12T23:00:00+00:00",
+      "forecasts": 3362,
+      "accuracy": 0.49791790600832836,
+      "balanced_accuracy": 0.498158941583427,
+      "up_precision": 0.5046324891908586,
+      "up_recall": 0.47974163241338813,
+      "mcc": -0.003684308292356653,
+      "brier": 0.2502806549782969,
+      "log_loss": 0.6937088652616965,
+      "actual_up_rate": 0.5065437239738251,
+      "predicted_up_rate": 0.4815585960737656,
+      "tp": 817,
+      "tn": 857,
+      "fp": 802,
+      "fn": 886,
+      "wilson_low": 0.4810288099753122,
+      "wilson_high": 0.5148117546587375
+    }
+  ],
+  "identity": "d0f23f33890bea02716919593f9f347a0fc5ee854a405fc47d613cbb73b7936c",
+  "asset_id": "BCH",
+  "contract": "KXBCHPERP",
+  "minutes": 5,
+  "basis": "quotes",
+  "price_basis": "OBSERVED_BID_ASK_MIDPOINT_CLOSE_ONLY",
+  "historical_test_status": "RETROSPECTIVE_SHORT_HISTORY_HOLDOUT",
+  "fully_validated_financial_rank_eligible": false,
+  "finished_at": "2026-10-25T19:54:51.893736+00:00",
+  "signal_cache_sha256": "a73666be126f1c47b723420e2af7c34a1004193223dd21f39c440bcdd6a51a6f"
+}

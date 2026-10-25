@@ -1,5 +1,27 @@
 # Bitcoin strategy and indicator prediction lab
 
+**Kalshi multi-asset expansion:** [download the Excel workbook](KALSHI_MULTI_ASSET_RESEARCH.xlsx),
+[read the actual execution report](reports/multiasset/REPORT.md), or
+[see coverage for every asset and timeframe](reports/multiasset/coverage.csv).
+The existing Streamlit dashboard now has **39 Kalshi contract tabs**: the 28 named
+assets plus 11 contracts found in the original dashboard. Select 5m, 15m or 1h.
+Run it with `bash run_dashboard.sh`. The separate public Perpetual Edge website
+has not been redeployed by this task.
+
+Kalshi contract prices are primary. Binance datasets are supplementary and are
+kept separate. There is **no fully validated financial top 10**: historical
+funding, financing, liquidation rules and rollover costs remain unverified.
+2026 comparisons are retrospective, and missing source observations have explicit
+errors rather than invented results. September probabilities are not current in
+October. [Read the frozen testing protocol](multiasset/PROTOCOL.md).
+
+For Excel, click **Download raw file** on GitHub, then open the downloaded `.xlsx`
+in Excel or LibreOffice. GitHub itself does not preview Excel workbooks.
+Collection retries and research checkpoints are automated with the
+[Kalshi collection](.github/workflows/kalshi-data.yml) and
+[resumable research](.github/workflows/multiasset-research.yml) workflows.
+Workflow files being present does not by itself confirm a successful GitHub run.
+
 **For a TradingView/dashboard builder:** [exact signal source and UP/DOWN rules](SIGNAL_SOURCE_HANDOFF.md).
 The accuracy table was produced by Python formulas plus frozen trained models;
 there is no matching native Pine Script or installed alert connection yet.

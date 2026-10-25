@@ -99,8 +99,12 @@ def candle_window(ticker,minutes,start,stop):
     return trades,quotes,dict(**evidence,**stats,start=start.isoformat(),stop=stop.isoformat(),timeframe_minutes=minutes)
 
 def save_frame(d,path):
-    temp=path.with_suffix('.tmp.parquet');d.to_parquet(temp,index=True,compression='zstd');temp.replace(path)
-    return dict(path=str(path.relative_to(ROOT)),sha256=sha256(path.read_bytes()),rows=len(d),first=d.index[0].isoformat() if len(d) else None,last=d.index[-1].isoformat() if len(d) else None)
+    temp=path.with_suffix('.tmp.parquet');d.to_parquet(temp,index=True,compression='zstd');digest=sha256(temp.read_bytes())
+    versions=path.parent/'versions';versions.mkdir(exist_ok=True)
+    immutable=versions/(path.stem+'_'+digest[:16]+'.parquet')
+    if immutable.exists():temp.unlink()
+    else:temp.replace(immutable)
+    return dict(path=str(immutable.relative_to(ROOT)),sha256=digest,rows=len(d),first=d.index[0].isoformat() if len(d) else None,last=d.index[-1].isoformat() if len(d) else None)
 
 def collect_market(spec,max_windows=180):
     ticker=spec['symbol'];directory=OUT/ticker;directory.mkdir(exist_ok=True,parents=True);checkpoint=directory/'checkpoint.json'

@@ -1,0 +1,196 @@
+{
+  "candidate_id": "INDICATOR:TRIX",
+  "name": "1-day Rate-Of-Change (ROC) of a Triple Smooth EMA",
+  "family": "indicator + trained binary readout",
+  "status": "COMPLETED_PREDICTION_ONLY",
+  "source_url": "https://github.com/TA-Lib/ta-lib/blob/v0.6.4/src/ta_func/ta_TRIX.c",
+  "license": "See pinned formula source and retained upstream license",
+  "executed": true,
+  "selected_profile": "short",
+  "parameters": {
+    "timeperiod": 24
+  },
+  "model": {
+    "mean": [
+      0.024987742295670638,
+      -4.826129339554328e-05,
+      0.02503600358906618,
+      0.025130551140912834
+    ],
+    "scale": [
+      0.11852054125646433,
+      0.005307504574641485,
+      0.11853086031499976,
+      0.11855193527533398
+    ],
+    "keep": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "weights": [
+      0.05715967413826926,
+      0.011960844203458668,
+      0.00654861393776568,
+      0.011666572964803681,
+      -0.02303212353054763
+    ],
+    "training_samples": 1295,
+    "training_up_rate": 0.5142857142857142,
+    "objective": 0.6927242918573195,
+    "iterations": 8,
+    "ridge": 0.01
+  },
+  "profiles": {
+    "default": {
+      "parameters": {
+        "timeperiod": 30
+      },
+      "selection_accuracy": 0.4558139534883721
+    },
+    "short": {
+      "parameters": {
+        "timeperiod": 24
+      },
+      "selection_accuracy": 0.48372093023255813
+    },
+    "long": {
+      "parameters": {
+        "timeperiod": 36
+      },
+      "selection_accuracy": 0.4790697674418605
+    }
+  },
+  "profile_failures": [],
+  "causality_checks": [
+    {
+      "profile": "default",
+      "check": "numeric_prefix",
+      "cut": 898,
+      "passed": true
+    },
+    {
+      "profile": "default",
+      "check": "numeric_prefix",
+      "cut": 1796,
+      "passed": true
+    },
+    {
+      "profile": "default",
+      "check": "numeric_future_mutation",
+      "cut": 1796,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_prefix",
+      "cut": 898,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_prefix",
+      "cut": 1796,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_future_mutation",
+      "cut": 1796,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_prefix",
+      "cut": 898,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_prefix",
+      "cut": 1796,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_future_mutation",
+      "cut": 1796,
+      "passed": true
+    }
+  ],
+  "periods": {
+    "validation": {
+      "direction": {
+        "forecasts": 215,
+        "accuracy": 0.4883720930232558,
+        "balanced_accuracy": 0.5,
+        "up_precision": 0.4883720930232558,
+        "up_recall": 1.0,
+        "mcc": null,
+        "brier": 0.250435795112863,
+        "log_loss": 0.6940190037137317,
+        "actual_up_rate": 0.4883720930232558,
+        "predicted_up_rate": 1.0,
+        "tp": 105,
+        "tn": 0,
+        "fp": 110,
+        "fn": 0,
+        "wilson_low": 0.42234877742992183,
+        "wilson_high": 0.5548036322325602,
+        "down_precision": null,
+        "down_recall": 0.0
+      }
+    },
+    "retrospective_test": {
+      "direction": {
+        "forecasts": 326,
+        "accuracy": 0.5153374233128835,
+        "balanced_accuracy": 0.5,
+        "up_precision": 0.5153374233128835,
+        "up_recall": 1.0,
+        "mcc": null,
+        "brier": 0.24983721412105112,
+        "log_loss": 0.6928216426563085,
+        "actual_up_rate": 0.5153374233128835,
+        "predicted_up_rate": 1.0,
+        "tp": 168,
+        "tn": 0,
+        "fp": 158,
+        "fn": 0,
+        "wilson_low": 0.4612246978827635,
+        "wilson_high": 0.5690928978365669,
+        "down_precision": null,
+        "down_recall": 0.0
+      }
+    }
+  },
+  "sensitivity": [],
+  "walk_forward": [
+    {
+      "status": "INSUFFICIENT_FOLD_OR_FIT_FAILED",
+      "training_rows": 322,
+      "reason": "Fewer than 1000 valid training targets"
+    },
+    {
+      "status": "INSUFFICIENT_FOLD_OR_FIT_FAILED",
+      "training_rows": 646,
+      "reason": "Fewer than 1000 valid training targets"
+    },
+    {
+      "status": "INSUFFICIENT_FOLD_OR_FIT_FAILED",
+      "training_rows": 970,
+      "reason": "Fewer than 1000 valid training targets"
+    }
+  ],
+  "identity": "731d8cef57e5cf181ccc4ef7148247dccdf495924ccc2760a8224eeaa62adc52",
+  "asset_id": "BCH",
+  "contract": "KXBCHPERP",
+  "minutes": 60,
+  "basis": "quotes",
+  "price_basis": "OBSERVED_BID_ASK_MIDPOINT_CLOSE_ONLY",
+  "historical_test_status": "RETROSPECTIVE_SHORT_HISTORY_HOLDOUT",
+  "fully_validated_financial_rank_eligible": false,
+  "finished_at": "2026-10-25T19:37:48.939962+00:00",
+  "signal_cache_sha256": "fa55696c1c037e6eb235b4061aee3450e6b460407dba1f6e7fc7c2ecafa38665"
+}

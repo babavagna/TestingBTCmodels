@@ -1,0 +1,228 @@
+{
+  "candidate_id": "INDICATOR:ROC",
+  "name": "Rate of change : ((price/prevPrice)-1)*100",
+  "family": "indicator + trained binary readout",
+  "status": "COMPLETED_PREDICTION_ONLY",
+  "source_url": "https://github.com/TA-Lib/ta-lib/blob/v0.6.4/src/ta_func/ta_ROC.c",
+  "license": "See pinned formula source and retained upstream license",
+  "executed": true,
+  "selected_profile": "short",
+  "parameters": {
+    "timeperiod": 8
+  },
+  "model": {
+    "mean": [
+      0.0222605359399182,
+      0.0018412921596116481,
+      0.02041924378030653,
+      0.013471375121842072
+    ],
+    "scale": [
+      1.1801064157340506,
+      0.5629808774152854,
+      1.1765240314830037,
+      1.17644146851858
+    ],
+    "keep": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "weights": [
+      0.020981230136603034,
+      -0.029351840999925282,
+      -0.03926597298656665,
+      0.004594936299406639,
+      -0.01988397055047611
+    ],
+    "training_samples": 3620,
+    "training_up_rate": 0.5052486187845304,
+    "objective": 0.6926388373729887,
+    "iterations": 11,
+    "ridge": 0.01
+  },
+  "profiles": {
+    "default": {
+      "parameters": {
+        "timeperiod": 10
+      },
+      "selection_accuracy": 0.49169435215946844
+    },
+    "short": {
+      "parameters": {
+        "timeperiod": 8
+      },
+      "selection_accuracy": 0.5299003322259136
+    },
+    "long": {
+      "parameters": {
+        "timeperiod": 12
+      },
+      "selection_accuracy": 0.5016611295681063
+    }
+  },
+  "profile_failures": [],
+  "causality_checks": [
+    {
+      "profile": "default",
+      "check": "numeric_prefix",
+      "cut": 1024,
+      "passed": true
+    },
+    {
+      "profile": "default",
+      "check": "numeric_prefix",
+      "cut": 2048,
+      "passed": true
+    },
+    {
+      "profile": "default",
+      "check": "numeric_future_mutation",
+      "cut": 2048,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_prefix",
+      "cut": 1024,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_prefix",
+      "cut": 2048,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_future_mutation",
+      "cut": 2048,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_prefix",
+      "cut": 1024,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_prefix",
+      "cut": 2048,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_future_mutation",
+      "cut": 2048,
+      "passed": true
+    }
+  ],
+  "periods": {
+    "validation": {
+      "direction": {
+        "forecasts": 603,
+        "accuracy": 0.5257048092868989,
+        "balanced_accuracy": 0.521676650662908,
+        "up_precision": 0.5329815303430079,
+        "up_recall": 0.6495176848874598,
+        "mcc": 0.044838407581836104,
+        "brier": 0.24874022935761186,
+        "log_loss": 0.6906237851816783,
+        "actual_up_rate": 0.5157545605306799,
+        "predicted_up_rate": 0.6285240464344942,
+        "tp": 202,
+        "tn": 115,
+        "fp": 177,
+        "fn": 109,
+        "wilson_low": 0.4858129254896876,
+        "wilson_high": 0.5652712572888655,
+        "down_precision": 0.5133928571428571,
+        "down_recall": 0.3938356164383562
+      }
+    },
+    "retrospective_test": {
+      "direction": {
+        "forecasts": 909,
+        "accuracy": 0.5379537953795379,
+        "balanced_accuracy": 0.5341444270015698,
+        "up_precision": 0.541958041958042,
+        "up_recall": 0.6623931623931624,
+        "mcc": 0.07066088639214144,
+        "brier": 0.24875250916385797,
+        "log_loss": 0.6906579127878072,
+        "actual_up_rate": 0.5148514851485149,
+        "predicted_up_rate": 0.6292629262926293,
+        "tp": 310,
+        "tn": 179,
+        "fp": 262,
+        "fn": 158,
+        "wilson_low": 0.5054517766584703,
+        "wilson_high": 0.57013637650138,
+        "down_precision": 0.5311572700296736,
+        "down_recall": 0.40589569160997735
+      }
+    }
+  },
+  "sensitivity": [],
+  "walk_forward": [
+    {
+      "status": "INSUFFICIENT_FOLD_OR_FIT_FAILED",
+      "training_rows": 904,
+      "reason": "Fewer than 1000 valid training targets"
+    },
+    {
+      "status": "COMPLETED",
+      "training_rows": 1809,
+      "evaluation_start": "2026-07-31T11:00:00+00:00",
+      "forecasts": 905,
+      "accuracy": 0.49613259668508286,
+      "balanced_accuracy": 0.4962454319829591,
+      "up_precision": 0.5055928411633109,
+      "up_recall": 0.49023861171366595,
+      "mcc": -0.007508365736487678,
+      "brier": 0.2548350515683869,
+      "log_loss": 0.703488416224442,
+      "actual_up_rate": 0.5093922651933702,
+      "predicted_up_rate": 0.49392265193370166,
+      "tp": 226,
+      "tn": 223,
+      "fp": 221,
+      "fn": 235,
+      "wilson_low": 0.463643125730807,
+      "wilson_high": 0.5286547608454906
+    },
+    {
+      "status": "COMPLETED",
+      "training_rows": 2714,
+      "evaluation_start": "2026-08-22T06:15:00+00:00",
+      "forecasts": 905,
+      "accuracy": 0.48287292817679556,
+      "balanced_accuracy": 0.4843101343101343,
+      "up_precision": 0.48691860465116277,
+      "up_recall": 0.7444444444444445,
+      "mcc": -0.0367482862585458,
+      "brier": 0.25092610611866156,
+      "log_loss": 0.6949976436351589,
+      "actual_up_rate": 0.4972375690607735,
+      "predicted_up_rate": 0.7602209944751381,
+      "tp": 335,
+      "tn": 102,
+      "fp": 353,
+      "fn": 115,
+      "wilson_low": 0.45045753022045815,
+      "wilson_high": 0.5154331103317175
+    }
+  ],
+  "identity": "23090eaa9d7128f2938f844a70943113072e34d3ef830c50ae4271f564f39bb4",
+  "asset_id": "BCH",
+  "contract": "KXBCHPERP",
+  "minutes": 15,
+  "basis": "quotes",
+  "price_basis": "OBSERVED_BID_ASK_MIDPOINT_CLOSE_ONLY",
+  "historical_test_status": "RETROSPECTIVE_SHORT_HISTORY_HOLDOUT",
+  "fully_validated_financial_rank_eligible": false,
+  "finished_at": "2026-10-25T19:36:10.687993+00:00",
+  "signal_cache_sha256": "70386ebc9e3657d9b3c0e6685102cb40d7993c086d746b933923ecc74ac68cb4"
+}

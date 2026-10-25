@@ -1,0 +1,196 @@
+{
+  "candidate_id": "INDICATOR:DPO",
+  "name": "Detrended Price Oscillator (causal)",
+  "family": "indicator + trained binary readout",
+  "status": "COMPLETED_PREDICTION_ONLY",
+  "source_url": "https://github.com/babavagna/TestingBTCmodels/blob/main/indicator_lab/features.py",
+  "license": "See pinned formula source and retained upstream license",
+  "executed": true,
+  "selected_profile": "long",
+  "parameters": {
+    "timeperiod": 24
+  },
+  "model": {
+    "mean": [
+      -0.0002292631604361604,
+      2.3948772000327768e-05,
+      -0.0002532119324364881,
+      -0.0002664926424108681
+    ],
+    "scale": [
+      0.008436852432331636,
+      0.005985776724328759,
+      0.00845314201611,
+      0.008494552103364863
+    ],
+    "keep": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "weights": [
+      0.06546340140255535,
+      0.07678724770090811,
+      0.08446347136492599,
+      0.08498464626807961,
+      0.03229132648122423
+    ],
+    "training_samples": 1294,
+    "training_up_rate": 0.5162287480680062,
+    "objective": 0.6885689219657045,
+    "iterations": 12,
+    "ridge": 0.01
+  },
+  "profiles": {
+    "default": {
+      "parameters": {
+        "timeperiod": 20
+      },
+      "selection_accuracy": 0.5231481481481481
+    },
+    "short": {
+      "parameters": {
+        "timeperiod": 16
+      },
+      "selection_accuracy": 0.5046296296296297
+    },
+    "long": {
+      "parameters": {
+        "timeperiod": 24
+      },
+      "selection_accuracy": 0.5509259259259259
+    }
+  },
+  "profile_failures": [],
+  "causality_checks": [
+    {
+      "profile": "default",
+      "check": "numeric_prefix",
+      "cut": 897,
+      "passed": true
+    },
+    {
+      "profile": "default",
+      "check": "numeric_prefix",
+      "cut": 1794,
+      "passed": true
+    },
+    {
+      "profile": "default",
+      "check": "numeric_future_mutation",
+      "cut": 1794,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_prefix",
+      "cut": 897,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_prefix",
+      "cut": 1794,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_future_mutation",
+      "cut": 1794,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_prefix",
+      "cut": 897,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_prefix",
+      "cut": 1794,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_future_mutation",
+      "cut": 1794,
+      "passed": true
+    }
+  ],
+  "periods": {
+    "validation": {
+      "direction": {
+        "forecasts": 216,
+        "accuracy": 0.49074074074074076,
+        "balanced_accuracy": 0.49451114922813033,
+        "up_precision": 0.4868421052631579,
+        "up_recall": 0.6981132075471698,
+        "mcc": -0.012018462520846438,
+        "brier": 0.2542900185285967,
+        "log_loss": 0.7019735688510282,
+        "actual_up_rate": 0.49074074074074076,
+        "predicted_up_rate": 0.7037037037037037,
+        "tp": 74,
+        "tn": 32,
+        "fp": 78,
+        "fn": 32,
+        "wilson_low": 0.4248194789781802,
+        "wilson_high": 0.5569855908141266,
+        "down_precision": 0.5,
+        "down_recall": 0.2909090909090909
+      }
+    },
+    "retrospective_test": {
+      "direction": {
+        "forecasts": 325,
+        "accuracy": 0.5046153846153846,
+        "balanced_accuracy": 0.5036561339698417,
+        "up_precision": 0.5141242937853108,
+        "up_recall": 0.5481927710843374,
+        "mcc": 0.00733985046225906,
+        "brier": 0.25733937047126,
+        "log_loss": 0.708491115111553,
+        "actual_up_rate": 0.5107692307692308,
+        "predicted_up_rate": 0.5446153846153846,
+        "tp": 91,
+        "tn": 73,
+        "fp": 86,
+        "fn": 75,
+        "wilson_low": 0.45052256551265313,
+        "wilson_high": 0.5586003717555329,
+        "down_precision": 0.49324324324324326,
+        "down_recall": 0.4591194968553459
+      }
+    }
+  },
+  "sensitivity": [],
+  "walk_forward": [
+    {
+      "status": "INSUFFICIENT_FOLD_OR_FIT_FAILED",
+      "training_rows": 322,
+      "reason": "Fewer than 1000 valid training targets"
+    },
+    {
+      "status": "INSUFFICIENT_FOLD_OR_FIT_FAILED",
+      "training_rows": 646,
+      "reason": "Fewer than 1000 valid training targets"
+    },
+    {
+      "status": "INSUFFICIENT_FOLD_OR_FIT_FAILED",
+      "training_rows": 969,
+      "reason": "Fewer than 1000 valid training targets"
+    }
+  ],
+  "identity": "b40f0f7115cd3882792bd928430df1459f8ce79007d28b1dbeed2d38bcc6cf38",
+  "asset_id": "DOGE",
+  "contract": "KXDOGEPERP",
+  "minutes": 60,
+  "basis": "quotes",
+  "price_basis": "OBSERVED_BID_ASK_MIDPOINT_CLOSE_ONLY",
+  "historical_test_status": "RETROSPECTIVE_SHORT_HISTORY_HOLDOUT",
+  "fully_validated_financial_rank_eligible": false,
+  "finished_at": "2026-10-25T19:43:25.277646+00:00",
+  "signal_cache_sha256": "43c8350d56dac6aaff30946631cbaa316d6c4c0dde4ed98260159a4a4d3a8604"
+}

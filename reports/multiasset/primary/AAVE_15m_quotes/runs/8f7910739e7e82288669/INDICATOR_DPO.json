@@ -1,0 +1,212 @@
+{
+  "candidate_id": "INDICATOR:DPO",
+  "name": "Detrended Price Oscillator (causal)",
+  "family": "indicator + trained binary readout",
+  "status": "COMPLETED_PREDICTION_ONLY",
+  "source_url": "https://github.com/babavagna/TestingBTCmodels/blob/main/indicator_lab/features.py",
+  "license": "See pinned formula source and retained upstream license",
+  "executed": true,
+  "selected_profile": "short",
+  "parameters": {
+    "timeperiod": 16
+  },
+  "model": {
+    "mean": [
+      -2.7080356935595886e-08,
+      -1.0407837671259124e-06,
+      1.0137034101902337e-06,
+      -1.3383863329736196e-06
+    ],
+    "scale": [
+      0.005111234991925521,
+      0.00412123797017775,
+      0.005108020170339407,
+      0.005120120821241172
+    ],
+    "keep": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "weights": [
+      0.02437119310947741,
+      0.0041306901856931364,
+      -0.027446738895526315,
+      0.02627778791695656,
+      -0.02316955295494536
+    ],
+    "training_samples": 1478,
+    "training_up_rate": 0.5060893098782138,
+    "objective": 0.692842681253825,
+    "iterations": 6,
+    "ridge": 0.01
+  },
+  "profiles": {
+    "default": {
+      "parameters": {
+        "timeperiod": 20
+      },
+      "selection_accuracy": 0.45934959349593496
+    },
+    "short": {
+      "parameters": {
+        "timeperiod": 16
+      },
+      "selection_accuracy": 0.5203252032520326
+    },
+    "long": {
+      "parameters": {
+        "timeperiod": 24
+      },
+      "selection_accuracy": 0.516260162601626
+    }
+  },
+  "profile_failures": [],
+  "causality_checks": [
+    {
+      "profile": "default",
+      "check": "numeric_prefix",
+      "cut": 1013,
+      "passed": true
+    },
+    {
+      "profile": "default",
+      "check": "numeric_prefix",
+      "cut": 2026,
+      "passed": true
+    },
+    {
+      "profile": "default",
+      "check": "numeric_future_mutation",
+      "cut": 2026,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_prefix",
+      "cut": 1013,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_prefix",
+      "cut": 2026,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_future_mutation",
+      "cut": 2026,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_prefix",
+      "cut": 1013,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_prefix",
+      "cut": 2026,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_future_mutation",
+      "cut": 2026,
+      "passed": true
+    }
+  ],
+  "periods": {
+    "validation": {
+      "direction": {
+        "forecasts": 247,
+        "accuracy": 0.4979757085020243,
+        "balanced_accuracy": 0.48772703342984997,
+        "up_precision": 0.5212121212121212,
+        "up_recall": 0.6564885496183206,
+        "mcc": -0.026013290510296685,
+        "brier": 0.2503743459805874,
+        "log_loss": 0.693899536042037,
+        "actual_up_rate": 0.5303643724696356,
+        "predicted_up_rate": 0.6680161943319838,
+        "tp": 86,
+        "tn": 37,
+        "fp": 79,
+        "fn": 45,
+        "wilson_low": 0.436131749022771,
+        "wilson_high": 0.5598816691549839,
+        "down_precision": 0.45121951219512196,
+        "down_recall": 0.31896551724137934
+      }
+    },
+    "retrospective_test": {
+      "direction": {
+        "forecasts": 372,
+        "accuracy": 0.4838709677419355,
+        "balanced_accuracy": 0.48942755488704404,
+        "up_precision": 0.4790874524714829,
+        "up_recall": 0.6961325966850829,
+        "mcc": -0.023220431329495864,
+        "brier": 0.25132773209611337,
+        "log_loss": 0.695807404175283,
+        "actual_up_rate": 0.48655913978494625,
+        "predicted_up_rate": 0.706989247311828,
+        "tp": 126,
+        "tn": 54,
+        "fp": 137,
+        "fn": 55,
+        "wilson_low": 0.4335124895186595,
+        "wilson_high": 0.5345591542067206,
+        "down_precision": 0.4954128440366973,
+        "down_recall": 0.28272251308900526
+      }
+    }
+  },
+  "sensitivity": [],
+  "walk_forward": [
+    {
+      "status": "INSUFFICIENT_FOLD_OR_FIT_FAILED",
+      "training_rows": 368,
+      "reason": "Fewer than 1000 valid training targets"
+    },
+    {
+      "status": "INSUFFICIENT_FOLD_OR_FIT_FAILED",
+      "training_rows": 738,
+      "reason": "Fewer than 1000 valid training targets"
+    },
+    {
+      "status": "COMPLETED",
+      "training_rows": 1107,
+      "evaluation_start": "2026-09-16T10:00:00+00:00",
+      "forecasts": 369,
+      "accuracy": 0.43360433604336046,
+      "balanced_accuracy": 0.43391752577319587,
+      "up_precision": 0.4585635359116022,
+      "up_recall": 0.42783505154639173,
+      "mcc": -0.13201338532423484,
+      "brier": 0.25232456955080673,
+      "log_loss": 0.6978062670189644,
+      "actual_up_rate": 0.5257452574525745,
+      "predicted_up_rate": 0.4905149051490515,
+      "tp": 83,
+      "tn": 77,
+      "fp": 98,
+      "fn": 111,
+      "wilson_low": 0.3839809027388587,
+      "wilson_high": 0.4845959444953836
+    }
+  ],
+  "identity": "8f7910739e7e82288669d9c530b0081c240989adde300eb6662547a109dab386",
+  "asset_id": "AAVE",
+  "contract": "KXAAVEPERP",
+  "minutes": 15,
+  "basis": "quotes",
+  "price_basis": "OBSERVED_BID_ASK_MIDPOINT_CLOSE_ONLY",
+  "historical_test_status": "RETROSPECTIVE_SHORT_HISTORY_HOLDOUT",
+  "fully_validated_financial_rank_eligible": false,
+  "finished_at": "2026-10-25T19:35:49.433088+00:00",
+  "signal_cache_sha256": "771f6f19d3abe78e91deda4b243e706ec6252622ea3ff3aaead7ec5d53b8843e"
+}

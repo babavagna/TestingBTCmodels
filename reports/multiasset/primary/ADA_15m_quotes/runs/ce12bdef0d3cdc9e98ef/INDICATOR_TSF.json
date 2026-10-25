@@ -1,0 +1,196 @@
+{
+  "candidate_id": "INDICATOR:TSF",
+  "name": "Time Series Forecast",
+  "family": "indicator + trained binary readout",
+  "status": "COMPLETED_PREDICTION_ONLY",
+  "source_url": "https://github.com/TA-Lib/ta-lib/blob/v0.6.4/src/ta_func/ta_TSF.c",
+  "license": "See pinned formula source and retained upstream license",
+  "executed": true,
+  "selected_profile": "long",
+  "parameters": {
+    "timeperiod": 17
+  },
+  "model": {
+    "mean": [
+      6.188815852187285e-05,
+      2.6188927781992587e-05,
+      3.569923073988026e-05,
+      6.207161271748236e-05
+    ],
+    "scale": [
+      0.006548598501373908,
+      0.004181729649724165,
+      0.006527639774463599,
+      0.006444561564783405
+    ],
+    "keep": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "weights": [
+      0.06210437342910182,
+      0.058142721720231744,
+      0.023389027072051503,
+      0.04334595077449105,
+      -0.044253639135521966
+    ],
+    "training_samples": 1195,
+    "training_up_rate": 0.5154811715481171,
+    "objective": 0.69157627488537,
+    "iterations": 6,
+    "ridge": 0.01
+  },
+  "profiles": {
+    "default": {
+      "parameters": {
+        "timeperiod": 14
+      },
+      "selection_accuracy": 0.5487179487179488
+    },
+    "short": {
+      "parameters": {
+        "timeperiod": 11
+      },
+      "selection_accuracy": 0.517948717948718
+    },
+    "long": {
+      "parameters": {
+        "timeperiod": 17
+      },
+      "selection_accuracy": 0.5692307692307692
+    }
+  },
+  "profile_failures": [],
+  "causality_checks": [
+    {
+      "profile": "default",
+      "check": "numeric_prefix",
+      "cut": 880,
+      "passed": true
+    },
+    {
+      "profile": "default",
+      "check": "numeric_prefix",
+      "cut": 1760,
+      "passed": true
+    },
+    {
+      "profile": "default",
+      "check": "numeric_future_mutation",
+      "cut": 1760,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_prefix",
+      "cut": 880,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_prefix",
+      "cut": 1760,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_future_mutation",
+      "cut": 1760,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_prefix",
+      "cut": 880,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_prefix",
+      "cut": 1760,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_future_mutation",
+      "cut": 1760,
+      "passed": true
+    }
+  ],
+  "periods": {
+    "validation": {
+      "direction": {
+        "forecasts": 197,
+        "accuracy": 0.5025380710659898,
+        "balanced_accuracy": 0.4936016511867905,
+        "up_precision": 0.5135135135135135,
+        "up_recall": 0.7450980392156863,
+        "mcc": -0.014792136266344754,
+        "brier": 0.24941790017083948,
+        "log_loss": 0.6919841246269915,
+        "actual_up_rate": 0.5177664974619289,
+        "predicted_up_rate": 0.751269035532995,
+        "tp": 76,
+        "tn": 23,
+        "fp": 72,
+        "fn": 26,
+        "wilson_low": 0.4333405227308989,
+        "wilson_high": 0.5716385289343888,
+        "down_precision": 0.46938775510204084,
+        "down_recall": 0.24210526315789474
+      }
+    },
+    "retrospective_test": {
+      "direction": {
+        "forecasts": 306,
+        "accuracy": 0.5098039215686274,
+        "balanced_accuracy": 0.5178327061238454,
+        "up_precision": 0.4956140350877193,
+        "up_recall": 0.7635135135135135,
+        "mcc": 0.04089704455313584,
+        "brier": 0.25133886023405116,
+        "log_loss": 0.6958504080478621,
+        "actual_up_rate": 0.48366013071895425,
+        "predicted_up_rate": 0.7450980392156863,
+        "tp": 113,
+        "tn": 43,
+        "fp": 115,
+        "fn": 35,
+        "wilson_low": 0.45401946662071885,
+        "wilson_high": 0.5653452756666333,
+        "down_precision": 0.5512820512820513,
+        "down_recall": 0.2721518987341772
+      }
+    }
+  },
+  "sensitivity": [],
+  "walk_forward": [
+    {
+      "status": "INSUFFICIENT_FOLD_OR_FIT_FAILED",
+      "training_rows": 297,
+      "reason": "Fewer than 1000 valid training targets"
+    },
+    {
+      "status": "INSUFFICIENT_FOLD_OR_FIT_FAILED",
+      "training_rows": 596,
+      "reason": "Fewer than 1000 valid training targets"
+    },
+    {
+      "status": "INSUFFICIENT_FOLD_OR_FIT_FAILED",
+      "training_rows": 895,
+      "reason": "Fewer than 1000 valid training targets"
+    }
+  ],
+  "identity": "ce12bdef0d3cdc9e98ef5b3c4ac622a444f13436e95a8049220a96a86863c95e",
+  "asset_id": "ADA",
+  "contract": "KXADAPERP",
+  "minutes": 15,
+  "basis": "quotes",
+  "price_basis": "OBSERVED_BID_ASK_MIDPOINT_CLOSE_ONLY",
+  "historical_test_status": "RETROSPECTIVE_SHORT_HISTORY_HOLDOUT",
+  "fully_validated_financial_rank_eligible": false,
+  "finished_at": "2026-10-25T19:35:52.136361+00:00",
+  "signal_cache_sha256": "430d6721a35a538ddf142552e658fb2744943c71923006c1f074855e97c33218"
+}

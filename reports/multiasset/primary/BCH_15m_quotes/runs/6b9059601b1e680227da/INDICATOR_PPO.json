@@ -1,0 +1,236 @@
+{
+  "candidate_id": "INDICATOR:PPO",
+  "name": "Percentage Price Oscillator",
+  "family": "indicator + trained binary readout",
+  "status": "COMPLETED_PREDICTION_ONLY",
+  "source_url": "https://github.com/TA-Lib/ta-lib/blob/v0.6.4/src/ta_func/ta_PPO.c",
+  "license": "See pinned formula source and retained upstream license",
+  "executed": true,
+  "selected_profile": "short",
+  "parameters": {
+    "fastperiod": 10,
+    "slowperiod": 21,
+    "matype": 0
+  },
+  "model": {
+    "mean": [
+      0.004663810531214177,
+      0.00031852160308266263,
+      0.004345288928131567,
+      0.0039760606072343765
+    ],
+    "scale": [
+      0.5960360530753923,
+      0.09325672211490428,
+      0.5957321297043067,
+      0.5951960876454248
+    ],
+    "keep": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "weights": [
+      0.02486683127442576,
+      -0.021601031904769707,
+      -0.015758836530228713,
+      -0.019145142239318635,
+      0.016744009159262867
+    ],
+    "training_samples": 3700,
+    "training_up_rate": 0.5062162162162163,
+    "objective": 0.6929267626824118,
+    "iterations": 9,
+    "ridge": 0.01
+  },
+  "profiles": {
+    "default": {
+      "parameters": {
+        "fastperiod": 12,
+        "slowperiod": 26,
+        "matype": 0
+      },
+      "selection_accuracy": 0.5089141004862237
+    },
+    "short": {
+      "parameters": {
+        "fastperiod": 10,
+        "slowperiod": 21,
+        "matype": 0
+      },
+      "selection_accuracy": 0.5299837925445705
+    },
+    "long": {
+      "parameters": {
+        "fastperiod": 14,
+        "slowperiod": 31,
+        "matype": 0
+      },
+      "selection_accuracy": 0.49108589951377635
+    }
+  },
+  "profile_failures": [],
+  "causality_checks": [
+    {
+      "profile": "default",
+      "check": "numeric_prefix",
+      "cut": 1024,
+      "passed": true
+    },
+    {
+      "profile": "default",
+      "check": "numeric_prefix",
+      "cut": 2048,
+      "passed": true
+    },
+    {
+      "profile": "default",
+      "check": "numeric_future_mutation",
+      "cut": 2048,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_prefix",
+      "cut": 1024,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_prefix",
+      "cut": 2048,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_future_mutation",
+      "cut": 2048,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_prefix",
+      "cut": 1024,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_prefix",
+      "cut": 2048,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_future_mutation",
+      "cut": 2048,
+      "passed": true
+    }
+  ],
+  "periods": {
+    "validation": {
+      "direction": {
+        "forecasts": 617,
+        "accuracy": 0.5413290113452188,
+        "balanced_accuracy": 0.5356932618522022,
+        "up_precision": 0.5337552742616034,
+        "up_recall": 0.8031746031746032,
+        "mcc": 0.08457028468204743,
+        "brier": 0.24927739964865145,
+        "log_loss": 0.6917014662803628,
+        "actual_up_rate": 0.5105348460291734,
+        "predicted_up_rate": 0.7682333873581848,
+        "tp": 253,
+        "tn": 81,
+        "fp": 221,
+        "fn": 62,
+        "wilson_low": 0.501876699785119,
+        "wilson_high": 0.5802698760844693,
+        "down_precision": 0.5664335664335665,
+        "down_recall": 0.2682119205298013
+      }
+    },
+    "retrospective_test": {
+      "direction": {
+        "forecasts": 928,
+        "accuracy": 0.5,
+        "balanced_accuracy": 0.49160390516039054,
+        "up_precision": 0.5096952908587258,
+        "up_recall": 0.7698744769874477,
+        "mcc": -0.020194138359014117,
+        "brier": 0.24989701028320396,
+        "log_loss": 0.6929422588617363,
+        "actual_up_rate": 0.5150862068965517,
+        "predicted_up_rate": 0.7780172413793104,
+        "tp": 368,
+        "tn": 96,
+        "fp": 354,
+        "fn": 110,
+        "wilson_low": 0.46789689191796985,
+        "wilson_high": 0.5321031080820301,
+        "down_precision": 0.46601941747572817,
+        "down_recall": 0.21333333333333335
+      }
+    }
+  },
+  "sensitivity": [],
+  "walk_forward": [
+    {
+      "status": "INSUFFICIENT_FOLD_OR_FIT_FAILED",
+      "training_rows": 924,
+      "reason": "Fewer than 1000 valid training targets"
+    },
+    {
+      "status": "COMPLETED",
+      "training_rows": 1849,
+      "evaluation_start": "2026-07-30T04:45:00+00:00",
+      "forecasts": 925,
+      "accuracy": 0.4681081081081081,
+      "balanced_accuracy": 0.46829185054977934,
+      "up_precision": 0.46990291262135925,
+      "up_recall": 0.5249457700650759,
+      "mcc": -0.06382852407691265,
+      "brier": 0.25333442360202674,
+      "log_loss": 0.7003329908416449,
+      "actual_up_rate": 0.4983783783783784,
+      "predicted_up_rate": 0.5567567567567567,
+      "tp": 242,
+      "tn": 191,
+      "fp": 273,
+      "fn": 219,
+      "wilson_low": 0.4361502996654672,
+      "wilson_high": 0.5003297105238824
+    },
+    {
+      "status": "COMPLETED",
+      "training_rows": 2774,
+      "evaluation_start": "2026-08-21T12:00:00+00:00",
+      "forecasts": 925,
+      "accuracy": 0.5037837837837837,
+      "balanced_accuracy": 0.5011528604033375,
+      "up_precision": 0.5111876075731497,
+      "up_recall": 0.6292372881355932,
+      "mcc": 0.00238484156026256,
+      "brier": 0.24989861690007892,
+      "log_loss": 0.6929381281248825,
+      "actual_up_rate": 0.5102702702702703,
+      "predicted_up_rate": 0.6281081081081081,
+      "tp": 297,
+      "tn": 169,
+      "fp": 284,
+      "fn": 175,
+      "wilson_low": 0.4716141418404402,
+      "wilson_high": 0.5359221281370945
+    }
+  ],
+  "identity": "6b9059601b1e680227da5824ac60d4ea81c4cd299d1fdf195181b5861759c9e6",
+  "asset_id": "BCH",
+  "contract": "KXBCHPERP",
+  "minutes": 15,
+  "basis": "quotes",
+  "price_basis": "OBSERVED_BID_ASK_MIDPOINT_CLOSE_ONLY",
+  "historical_test_status": "RETROSPECTIVE_SHORT_HISTORY_HOLDOUT",
+  "fully_validated_financial_rank_eligible": false,
+  "finished_at": "2026-10-25T19:54:57.498604+00:00",
+  "signal_cache_sha256": "553376436fb9a198fd91917626c3cd2f1c845784f66ced057f4e30aca890b913"
+}

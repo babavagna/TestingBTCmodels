@@ -17,6 +17,9 @@ st.info('Research only. These are hourly signal adaptations, not the original Fr
 st.warning('The project already examined prices through September 2026. No strategy has a verified untouched-test ranking. Historical replay cannot undo that earlier exposure.')
 st.caption('Binance spot • BTC/USDT • 1-hour candles • UTC • starting balance 10,000 USDT • fee 0.1% + slippage 0.05% on each side')
 
+from multiasset_dashboard import render as render_multiasset
+render_multiasset(ROOT)
+
 prediction_report = ROOT/'reports/predictions/combined.json'
 if prediction_report.exists():
     st.subheader('Next-candle indicator predictions: 5m, 15m and 1h')
