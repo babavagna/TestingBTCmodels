@@ -70,6 +70,9 @@ def render(root):
                 if age>max(minutes*120,600):current=None
                 if current is not None:
                     a,b,c=st.columns(3);a.metric('UP',pct(current[2]));b.metric('STAY SIMILAR',pct(current[1]));c.metric('DOWN',pct(current[0]));st.caption('Calibrated model estimate, not guaranteed accuracy. Latest closed candle: '+str(asof))
+                    if fresh.get('rolling_refit'):
+                        refit=fresh['rolling_refit'];measured=refit['diagnostic'];baseline=refit['training_frequency_baseline']
+                        st.caption('Current model refitted on the preceding 30 days; training ends '+refit['training_end']+'. Recent held-out diagnostic: '+pct(measured.get('accuracy'))+' versus baseline '+pct(baseline.get('accuracy'))+' on '+str(measured.get('observations'))+' forecasts. September results below remain a separate frozen study.')
                 else:
                     st.info('No current probability: latest stored prediction uses '+str(asof)+'. Historical results are available below; stale percentages are not shown as current.')
                     if fresh.get('reason'):st.caption('Latest automatic refresh: '+plain_problem(fresh['reason']))

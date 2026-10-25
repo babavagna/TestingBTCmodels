@@ -87,3 +87,16 @@ def test_current_predictions_expire_and_cannot_cross_model_identities(tmp_path):
     row['as_of']=(pd.Timestamp.now(tz='UTC')-pd.Timedelta(hours=1)).isoformat();path.write_text(json.dumps(row))
     expired=current_record(status,tmp_path);assert expired['status']=='STALE' and expired['probabilities'] is None
     row['identity']='model-B';path.write_text(json.dumps(row));assert current_record(status,tmp_path)=={}
+
+
+def test_current_rolling_refit_does_not_use_later_diagnostic_answers():
+    from scripts.refresh_kalshi_current import refit_recent
+    d=prices();x=tri.features(d)
+    model,details=refit_recent(d,x,60)
+    assert pd.Timestamp(details['training_end'])<pd.Timestamp(details['calibration_end'])<pd.Timestamp(details['diagnostic_stop'])
+    changed=d.copy();cut=pd.Timestamp(details['diagnostic_start'])
+    changed.loc[changed.index>=cut,'close']*=1.7
+    other,_=refit_recent(changed,tri.features(changed),60)
+    np.testing.assert_allclose(model['weights'],other['weights'],rtol=0,atol=1e-10)
+    assert model['temperature']==pytest.approx(other['temperature'],abs=1e-10)
+    assert details['independent_untouched_validation'] is False

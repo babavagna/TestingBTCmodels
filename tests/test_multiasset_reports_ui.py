@@ -83,7 +83,7 @@ def test_every_asset_tab_and_timeframe_opens_and_keeps_original_features():
         app.selectbox(key='multi_tf').set_value(minutes).run(timeout=45)
         assert not app.exception
         assert app.selectbox(key='multi_tf').value==minutes
-    assert any('No current probability' in m.value for m in app.info)
+    assert any('No current probability' in m.value for m in app.info) or any(m.label=='UP' for m in app.metric)
     app.selectbox(key='replay_pick_BTC').set_value('INDICATOR:RSI').run(timeout=45)
     app.button(key='replay_BTC').click().run(timeout=45)
     assert not app.exception
