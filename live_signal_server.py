@@ -8,10 +8,11 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent
 IDS = 'CDLSTICKSANDWICH CDLTRISTAR CDL3BLACKCROWS CDL3LINESTRIKE CDLGAPSIDESIDEWHITE CDLMORNINGDOJISTAR CDLMORNINGSTAR CDLRISEFALL3METHODS ADOSC CDLADVANCEBLOCK EFI CDLHANGINGMAN EOM CDLXSIDEGAP3METHODS CDLSEPARATINGLINES CDLMARUBOZU DPO CDLDOJISTAR CDLSTALLEDPATTERN CDL3OUTSIDE CDLHIGHWAVE CDLRICKSHAWMAN CDLGRAVESTONEDOJI CDLLONGLEGGEDDOJI ATR NATR CDLDOJI CDLTAKURI CDLHIKKAKE STDDEV CDLHARAMICROSS TRANGE RVOL CDLDRAGONFLYDOJI CORREL'.split()
 IDS_15 = 'CORREL CDLRISEFALL3METHODS CDLIDENTICAL3CROWS EFI CDLTAKURI CDLDRAGONFLYDOJI CDLSEPARATINGLINES EOM CDLSTALLEDPATTERN CDLDOJISTAR ADOSC CDLHARAMICROSS CDLEVENINGSTAR CDLHANGINGMAN TRANGE ATR NATR CDLHIKKAKE CDLHIGHWAVE CDLMARUBOZU CDLHAMMER CDLADVANCEBLOCK CHOP RVOL BETA CDLXSIDEGAP3METHODS'.split()
+IDS_60 = 'CDLDOJISTAR CDLXSIDEGAP3METHODS CDLGAPSIDESIDEWHITE CDLLONGLEGGEDDOJI CDLMARUBOZU CDLHARAMICROSS CDLDOJI ADXR CDLHANGINGMAN ATR NATR EOM BETA DPO ADOSC CDLGRAVESTONEDOJI CDLDRAGONFLYDOJI EFI CDLADVANCEBLOCK CDLSTALLEDPATTERN CDLTAKURI CORREL CDLHIGHWAVE CDL3OUTSIDE TRANGE'.split()
 API = 'https://data-api.binance.vision/api/v3'
 STEP = 300000
 lock = threading.Lock()
-states = {tf: {'schema': 1, 'timeframe_minutes': tf, 'status': 'warming', 'message': 'Loading verified price history and frozen models.', 'models': []} for tf in (5, 15)}
+states = {tf: {'schema': 1, 'timeframe_minutes': tf, 'status': 'warming', 'message': 'Loading verified price history and frozen models.', 'models': []} for tf in (5, 15, 60)}
 compute_lock = threading.Lock()
 
 def get_json(path, params=None):
@@ -55,7 +56,7 @@ def infer(d, frozen, ids=IDS):
 
 def run_loop(timeframe=5):
     step = timeframe * 60000
-    ids = IDS if timeframe == 5 else IDS_15
+    ids = {5: IDS, 15: IDS_15, 60: IDS_60}[timeframe]
     import pandas as pd
     from indicator_lab.data import load, validate, COLS
     frozen = json.loads((ROOT/f'reports/predictions/frozen_{timeframe}m.json').read_text())
@@ -73,7 +74,7 @@ def run_loop(timeframe=5):
             cursor = int(d.index[-1].timestamp()*1000)+step
             batches = []
             while cursor <= latest_open:
-                rows = closed_rows(get_json('/klines', {'symbol':'BTCUSDT','interval':f'{timeframe}m','startTime':cursor,'endTime':latest_open+step-1,'limit':1000}), server_ms, step)
+                rows = closed_rows(get_json('/klines', {'symbol':'BTCUSDT','interval':('1h' if timeframe == 60 else f'{timeframe}m'),'startTime':cursor,'endTime':latest_open+step-1,'limit':1000}), server_ms, step)
                 if not rows:
                     raise ValueError('Binance has not supplied the required closed candles')
                 times = [int(r[0]) for r in rows]
@@ -118,8 +119,8 @@ class Handler(BaseHTTPRequestHandler):
         url=urllib.parse.urlsplit(self.path)
         path=url.path
         value=urllib.parse.parse_qs(url.query).get('timeframe',['5'])[0]
-        if value not in ('5','15'):
-            self.send_error(400, 'Supported timeframes: 5, 15'); return
+        if value not in ('5','15','60'):
+            self.send_error(400, 'Supported timeframes: 5, 15, 60'); return
         timeframe=int(value)
         if path not in ('/', '/health', '/signals'):
             self.send_error(404); return
@@ -132,6 +133,6 @@ class Handler(BaseHTTPRequestHandler):
         self.send_header('Content-Length',str(len(data))); self.end_headers(); self.wfile.write(data)
 
 if __name__=='__main__':
-    for timeframe in (5,15):
+    for timeframe in (5,15,60):
         threading.Thread(target=start_loop,args=(timeframe,),daemon=True).start()
     ThreadingHTTPServer(('0.0.0.0',int(os.environ.get('PORT','10000'))),Handler).serve_forever()
