@@ -1,0 +1,196 @@
+{
+  "candidate_id": "INDICATOR:HMA",
+  "name": "Hull Moving Average",
+  "family": "indicator + trained binary readout",
+  "status": "COMPLETED_PREDICTION_ONLY",
+  "source_url": "https://github.com/babavagna/TestingBTCmodels/blob/main/indicator_lab/features.py",
+  "license": "See pinned formula source and retained upstream license",
+  "executed": true,
+  "selected_profile": "short",
+  "parameters": {
+    "timeperiod": 16
+  },
+  "model": {
+    "mean": [
+      -2.6307215597726027e-05,
+      4.111481339463648e-06,
+      -3.0418696937189674e-05,
+      -8.653931927360492e-05
+    ],
+    "scale": [
+      0.008674880838941676,
+      0.007020037050725875,
+      0.008672827445364779,
+      0.00865516506246837
+    ],
+    "keep": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "weights": [
+      0.0499094754060419,
+      0.07560683307645351,
+      0.06819827690417749,
+      -0.04751061265323935,
+      0.0016381436240771293
+    ],
+    "training_samples": 1300,
+    "training_up_rate": 0.5123076923076924,
+    "objective": 0.691192044715607,
+    "iterations": 11,
+    "ridge": 0.01
+  },
+  "profiles": {
+    "default": {
+      "parameters": {
+        "timeperiod": 20
+      },
+      "selection_accuracy": 0.49074074074074076
+    },
+    "short": {
+      "parameters": {
+        "timeperiod": 16
+      },
+      "selection_accuracy": 0.5
+    },
+    "long": {
+      "parameters": {
+        "timeperiod": 24
+      },
+      "selection_accuracy": 0.49537037037037035
+    }
+  },
+  "profile_failures": [],
+  "causality_checks": [
+    {
+      "profile": "default",
+      "check": "numeric_prefix",
+      "cut": 899,
+      "passed": true
+    },
+    {
+      "profile": "default",
+      "check": "numeric_prefix",
+      "cut": 1798,
+      "passed": true
+    },
+    {
+      "profile": "default",
+      "check": "numeric_future_mutation",
+      "cut": 1798,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_prefix",
+      "cut": 899,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_prefix",
+      "cut": 1798,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_future_mutation",
+      "cut": 1798,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_prefix",
+      "cut": 899,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_prefix",
+      "cut": 1798,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_future_mutation",
+      "cut": 1798,
+      "passed": true
+    }
+  ],
+  "periods": {
+    "validation": {
+      "direction": {
+        "forecasts": 216,
+        "accuracy": 0.5092592592592593,
+        "balanced_accuracy": 0.5140283140283141,
+        "up_precision": 0.496551724137931,
+        "up_recall": 0.6857142857142857,
+        "mcc": 0.02985234405059252,
+        "brier": 0.24823263257040584,
+        "log_loss": 0.6895799301020888,
+        "actual_up_rate": 0.4861111111111111,
+        "predicted_up_rate": 0.6712962962962963,
+        "tp": 72,
+        "tn": 38,
+        "fp": 73,
+        "fn": 33,
+        "wilson_low": 0.44301440918587354,
+        "wilson_high": 0.5751805210218198,
+        "down_precision": 0.5352112676056338,
+        "down_recall": 0.34234234234234234
+      }
+    },
+    "retrospective_test": {
+      "direction": {
+        "forecasts": 326,
+        "accuracy": 0.49079754601226994,
+        "balanced_accuracy": 0.4847179719672069,
+        "up_precision": 0.517948717948718,
+        "up_recall": 0.5838150289017341,
+        "mcc": -0.03111191912009382,
+        "brier": 0.2506313771039723,
+        "log_loss": 0.6943595122669781,
+        "actual_up_rate": 0.5306748466257669,
+        "predicted_up_rate": 0.598159509202454,
+        "tp": 101,
+        "tn": 59,
+        "fp": 94,
+        "fn": 72,
+        "wilson_low": 0.4369545581844779,
+        "wilson_high": 0.5448548843839237,
+        "down_precision": 0.45038167938931295,
+        "down_recall": 0.38562091503267976
+      }
+    }
+  },
+  "sensitivity": [],
+  "walk_forward": [
+    {
+      "status": "INSUFFICIENT_FOLD_OR_FIT_FAILED",
+      "training_rows": 324,
+      "reason": "Fewer than 1000 valid training targets"
+    },
+    {
+      "status": "INSUFFICIENT_FOLD_OR_FIT_FAILED",
+      "training_rows": 649,
+      "reason": "Fewer than 1000 valid training targets"
+    },
+    {
+      "status": "INSUFFICIENT_FOLD_OR_FIT_FAILED",
+      "training_rows": 974,
+      "reason": "Fewer than 1000 valid training targets"
+    }
+  ],
+  "identity": "231641733c29b53b57fd13a70c85e16971358886a73ca00b1a55c6284a47413d",
+  "asset_id": "SUI",
+  "contract": "KXSUIPERP",
+  "minutes": 60,
+  "basis": "quotes",
+  "price_basis": "OBSERVED_BID_ASK_MIDPOINT_CLOSE_ONLY",
+  "historical_test_status": "RETROSPECTIVE_SHORT_HISTORY_HOLDOUT",
+  "fully_validated_financial_rank_eligible": false,
+  "finished_at": "2026-10-25T20:48:09.434801+00:00",
+  "signal_cache_sha256": "accf75adaba8af2986007ee4fefe7880273a7dfd517c3f169c5df44a08fd48bd"
+}

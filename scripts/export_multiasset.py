@@ -18,8 +18,12 @@ OUT=ROOT/'reports/multiasset'
 
 def source_inventory():
     rows=[]
-    for r in source_catalog():rows.append(dict(candidate_id='SOURCE:'+r['id'],name=r['name'],framework=r['framework'],source_url=r['source_url'],license=r.get('license'),source_path=r.get('source_path'),source_sha256=r.get('source_sha256'),scope='Published signal hooks or documented Jesse translation; native risk management omitted'))
-    for r in indicator_catalog():rows.append(dict(candidate_id='INDICATOR:'+r['id'],name=r['name'],framework=r.get('family'),source_url=r['github_url'],license='Retained upstream license; see sources/indicator_provenance.json',scope='Pinned formula + binary logistic readout; not native TradingView parity'))
+    for r in source_catalog():rows.append(dict(candidate_id='SOURCE:'+r['id'],name=r['name'],framework=r['framework'],source_url=r['source_url'],license=r.get('license'),upstream_commit=r.get('commit'),native_timeframe=r.get('native_timeframe'),source_path=r.get('source_path'),source_sha256=r.get('source_sha256'),scope='Published signal hooks or documented Jesse translation; native risk management omitted'))
+    provenance=read_json(ROOT/'sources/tradingview/provenance.json',{}) or {}
+    for r in indicator_catalog():
+        library='TA-Lib/ta-lib' in r['github_url'];everget='/everget/' in r['github_url']
+        source='sources/tradingview/talib/src/ta_'+r['id']+'.c' if library else 'indicator_lab/features.py'
+        rows.append(dict(candidate_id='INDICATOR:'+r['id'],name=r['name'],framework=r['group'],source_url=r['github_url'],license='GPL-3.0-or-later Python readout/adaptation',upstream_license='BSD-3-Clause' if library else ('GPL-3.0; retained Pine headers apply' if everget else 'UNVERIFIED reference terms; Python implementation license retained'),upstream_commit=provenance.get('talib_commit' if library else 'everget_commit') if library or everget else None,source_path=source,source_sha256=sha256((ROOT/source).read_bytes()) if (ROOT/source).exists() else None,default_parameters=r['parameters'],provenance_path='sources/tradingview/provenance.json',scope='Pinned formula + binary logistic readout; not native TradingView parity'))
     return rows
 
 
@@ -39,7 +43,7 @@ def probability_tables(report):
                     current=current_record(status)
                     if current.get('status')=='CURRENT' and model['threshold']==.001:
                         age=(pd.Timestamp.now(tz='UTC')-pd.Timestamp(current['as_of'])).total_seconds()
-                        if 0<=age<=max(summary['timeframe_minutes']*120,600):row.update(current_status='CURRENT',current_down=current['probabilities'][0],current_stay=current['probabilities'][1],current_up=current['probabilities'][2])
+                        if 0<=age<summary['timeframe_minutes']*60:row.update(current_status='FORECAST_SNAPSHOT_ONLY: check target timestamp',current_down=current['probabilities'][0],current_stay=current['probabilities'][1],current_up=current['probabilities'][2],current_prediction_as_of=current['as_of'],current_forecast_target_at=current.get('forecast_target_at'),current_model_training_end=current['training_end'],current_model_calibration_end=current['calibration_end'],current_model_diagnostic_accuracy=current.get('rolling_refit',{}).get('diagnostic',{}).get('accuracy'),current_model_diagnostic_forecasts=current.get('rolling_refit',{}).get('diagnostic',{}).get('observations'))
                     thresholds.append(row)
                     if model['threshold']==.001:
                         rows.append(row)
@@ -69,10 +73,13 @@ DEFINITIONS=[
  ('STAY SIMILAR','Three-class model uses next-close movement within −0.10% to +0.10%. Threshold sensitivity repeats ±0.05% and ±0.20%. A quiet market can make always guessing STAY appear accurate; compare the baseline and balanced accuracy.'),
  ('Baseline','The most frequent class in training predicts every held-out candle. Compare on the same eligible rows. High raw accuracy alone does not establish useful prediction.'),
  ('Confidence interval','An uncertainty range around a measured percentage. Wilson ranges are descriptive: nearby candles can be correlated, and trying many models creates lucky winners.'),
+ ('Overfitting','Like memorizing answers to a practice exam instead of learning. A rule can look smart on old prices and fail later. Separate later tests and fixed setting changes help detect this, but cannot prove future success.'),
+ ('Look-ahead and leakage','Peeking at tomorrow’s price while deciding today makes a backtest cheat. Checks recompute earlier outputs without later data. Known leaking sources remain excluded.'),
+ ('Held-out versus untouched','Held-out means not used to fit that model. Untouched also means nobody inspected or selected against those dates earlier. These historical comparisons cannot meet that stronger claim.'),
  ('Brier/log loss','Scores for probability quality; smaller is better. Log loss strongly penalizes confident wrong predictions. Three-class Brier sums squared errors across all three classes.'),
  ('Calibration','A model that says 60% should succeed about 60 times out of 100 similar cases. Temperature is fitted only on a separate earlier calibration segment. Calibration is not guaranteed in later markets.'),
  ('Joint outcomes','When selected indicators agree, count what actually happened after their joint historical configuration. Do not multiply individual accuracy percentages or treat correlated indicators as independent votes.'),
- ('Freshness','September historical snapshots are not current in October. Current probability cells remain N/A until a separate recent buffer is retrieved and a fresh calibrated model output is checked.'),
+ ('Freshness','September snapshots are historical. Current probabilities require fresh primary prices and a separate rolling 30-day model refit/calibration. Static workbook probabilities are current only at the recorded export/as-of time; the dashboard checks age again every time it displays them.'),
  ('Walk forward','Repeatedly learn on earlier observations, then score later ones. Small folds can fail for lack of history; failures remain visible.'),
  ('Sensitivity','Fixed parameter neighbors are selected before held-out scoring. Fee stresses halve/double fees and double fees plus slippage. Parameter selection records and earlier-fold results are retained.'),
  ('Cheating checks','Past-prefix and future-mutation checks look for later prices changing earlier signals. Known leaking original sources remain quarantined. Finite checks cannot prove the absence of every possible bias.'),
@@ -94,6 +101,10 @@ def write_workbook(path,tables,report):
         sheet=book.add_worksheet(name);sheet.write(0,0,name,title);sheet.merge_range(1,0,2,7,'Retrospective research. Funding/financing/rollover unverified; no fully validated financial ranking. N/A means missing or undefined.',warning);sheet.set_row(1,28)
         if not rows:sheet.write(4,0,'No eligible results. See Coverage, Failed Tests and Read Me.');continue
         columns=list(dict.fromkeys(k for row in rows for k in row))
+        priority=['asset','timeframe_minutes','minutes','strategy','candidate_id','price_basis','basis','period','status']
+        if name=='Prediction Accuracy':priority+=['directional_accuracy','up_precision','down_precision','up_recall','down_recall','forecasts','up_calls','down_calls','few_up_calls','few_down_calls','too_few_forecasts','training_majority_baseline_accuracy','accuracy_ci_low','accuracy_ci_high']
+        else:priority+=['net_return','buy_hold_return','directional_accuracy','up_precision','down_precision','trades','too_few_trades','forecasts','sharpe','sortino','max_drawdown','profit_factor','win_rate']
+        columns=[k for k in priority if k in columns]+[k for k in columns if k not in priority]
         data=[]
         for row in rows:
             values=[]
@@ -150,6 +161,18 @@ def export():
     completed=[r for r in report['results'] if r['executed']]
     tables={'Read Me':[dict(term=k,explanation=v) for k,v in DEFINITIONS],'Coverage':report['summary'],'All Strategies':completed,'Top 10':[dict(status='NO FULLY VALIDATED FINANCIAL RANKS',reason='Missing verified derivative costs and independent test evidence. Sortable exploratory results are in All Strategies; no historical winner is promoted as validated.')],'Prediction Accuracy':[r for r in completed if r['directional_accuracy'] is not None],'Three Outcome Models':probabilities,'Class Precision Recall':classes,'Calibration Bins':bins,'Stay Sensitivity':thresholds,'Walk Forward':report['walk_forward'],'Fee Parameter Sensitivity':report['robustness'],'Monthly':report['monthly'],'Annual':report['annual'],'Data Sources':report['data_sources'],'Contract Specs':assets(),'Source Catalog':source_inventory(),'Failed Tests':report['failures'],'Signal Correlations':report['correlations'],'Supplementary Data':secondary}
     tables.update({'Data Integrity':audit.get('data_integrity',[]),'Paired Accuracy Evidence':audit.get('paired_prediction_evidence',[]),'Causality Checks':audit.get('causality_checks',[]),'Parameter Selection':audit.get('parameter_selection',[])})
+    tables['Variant Failures']=audit.get('variant_failures',[]) or [dict(status='NO_FAILED_VARIANT_ATTEMPTS_RECORDED')]
+    sensitivity=[]
+    sensitivity_sha=sha256((ROOT/'scripts/sensitivity_multiasset_indicators.py').read_bytes())
+    identities={case_status(ROOT,s['id'],m,b).get('identity') for s in assets() for m in [5,15,60] for b in ['trades','quotes']}
+    for file in (OUT/'parameter_sensitivity').glob('*.json'):
+        value=read_json(file,{}) or {}
+        if value.get('identity') in identities and value.get('audit_sha256')==sensitivity_sha:sensitivity.extend(value.get('rows',[]))
+    joint=read_json(OUT/'joint_audit.json',{}) or {}
+    tables['Indicator Param Sensitivity']=sensitivity
+    tables['Joint Outcome Tests']=joint.get('rows',[]) or [dict(status='NO_EXECUTED_JOINT_REPLAY_SAVED')]
+    if not sensitivity:tables['Indicator Param Sensitivity']=[dict(status='NO_EXECUTED_PARAMETER_REPLAY_SAVED')]
+    tables['Case Failures']=[dict(asset=spec['id'],contract=spec['symbol'],minutes=minutes,basis=basis,status=status.get('status'),reason=status.get('reason'),candidate_tests_completed=0,source_url=spec['source_url']) for spec in assets() for minutes in [5,15,60] for basis in ['trades','quotes'] if (status:=case_status(ROOT,spec['id'],minutes,basis)).get('status','').startswith('BLOCKED')]
     test_path=OUT/'test-results.xml'
     if test_path.exists():
         suite=ET.parse(test_path).getroot();suites=[suite] if suite.tag=='testsuite' else list(suite.findall('testsuite'))

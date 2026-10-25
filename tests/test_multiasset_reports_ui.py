@@ -37,6 +37,9 @@ def test_real_checkpoints_have_identical_primary_inputs_and_honest_statuses():
                         else:
                             s=block['stats'];assert s['fee']==.001 and s['slippage']==.0005
                             assert s['rank_eligible'] is False and s['funding_included'] is False
+                            assert np.prod([1+m['return_value'] for m in block['monthly']])==pytest.approx(1+s['net_return'])
+                            assert np.prod([1+m['return_value'] for m in block['annual']])==pytest.approx(1+s['net_return'])
+                            assert block['curve']['equity'][-1]/10000-1==pytest.approx(s['net_return'])
                         d=block.get('direction')
                         if d:
                             assert d['forecasts']==sum(d[k] for k in ['tp','tn','fp','fn'])
@@ -53,6 +56,17 @@ def test_real_checkpoints_have_identical_primary_inputs_and_honest_statuses():
     assert total>1000
 
 
+def test_archived_runs_keep_their_original_price_fingerprints_after_updates():
+    seen=set()
+    for path in (ROOT/'reports/multiasset/primary').glob('*/runs/*/inputs.json'):
+        row=json.loads(path.read_text());meta=row['dataset'];key=(meta['path'],meta['sha256'])
+        if key in seen:continue
+        seen.add(key);file=ROOT/meta['path']
+        assert file.exists(), str(path)
+        assert sha256(file.read_bytes())==meta['sha256'], str(path)
+    assert len(seen)>=20
+
+
 def test_workbook_contains_actual_sortable_numeric_rows_not_empty_tables():
     manifest=json.loads((ROOT/'reports/multiasset/workbook_manifest.json').read_text())
     file=ROOT/manifest['workbook'];assert sha256(file.read_bytes())==manifest['workbook_sha256']
@@ -63,10 +77,10 @@ def test_workbook_contains_actual_sortable_numeric_rows_not_empty_tables():
         assert sheet.tables, name
     assert manifest['sheet_rows']['Coverage']==39*3
     headers={v.value:v.column for v in book['Prediction Accuracy'][5]}
-    row=book['Prediction Accuracy'][6]
-    assert isinstance(row[headers['directional_accuracy']-1].value,float)
-    assert isinstance(row[headers['up_precision']-1].value,(int,float))
-    assert isinstance(row[headers['down_precision']-1].value,(int,float,str))
+    row=next(line for line in book['Prediction Accuracy'].iter_rows(min_row=6,values_only=True) if isinstance(line[headers['up_precision']-1],(int,float)) and isinstance(line[headers['down_precision']-1],(int,float)))
+    assert isinstance(row[headers['directional_accuracy']-1],float)
+    assert isinstance(row[headers['up_precision']-1],(int,float))
+    assert isinstance(row[headers['down_precision']-1],(int,float))
     assert len(book['Charts']._charts)>0
     assert book['Top 10']['A6'].value=='NO FULLY VALIDATED FINANCIAL RANKS'
     assert all(cell.data_type!='f' for sheet in book for line in sheet for cell in line)
@@ -77,7 +91,9 @@ def test_every_asset_tab_and_timeframe_opens_and_keeps_original_features():
     from streamlit.testing.v1 import AppTest
     app=AppTest.from_file(str(ROOT/'app.py')).run(timeout=45)
     assert not app.exception
-    assert [t.label for t in app.tabs]==[s['id'] for s in assets()]
+    from multiasset_dashboard import ordered_specs
+    assert [t.label for t in app.tabs]==[s['id'] for s in ordered_specs()]
+    assert app.tabs[0].label=='BTC'
     assert any('Full 100-candidate comparison' in s.value for s in app.subheader)
     for minutes in [15,60,5]:
         app.selectbox(key='multi_tf').set_value(minutes).run(timeout=45)

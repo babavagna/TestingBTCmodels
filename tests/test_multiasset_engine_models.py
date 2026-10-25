@@ -84,7 +84,7 @@ def test_current_predictions_expire_and_cannot_cross_model_identities(tmp_path):
     path=directory/'BTC_5m_trades.json'
     row=dict(identity='model-A',status='CURRENT',as_of=pd.Timestamp.now(tz='UTC').isoformat(),probabilities=[.2,.5,.3])
     path.write_text(json.dumps(row));assert current_record(status,tmp_path)['status']=='CURRENT'
-    row['as_of']=(pd.Timestamp.now(tz='UTC')-pd.Timedelta(hours=1)).isoformat();path.write_text(json.dumps(row))
+    row['as_of']=(pd.Timestamp.now(tz='UTC')-pd.Timedelta(minutes=8)).isoformat();path.write_text(json.dumps(row))
     expired=current_record(status,tmp_path);assert expired['status']=='STALE' and expired['probabilities'] is None
     row['identity']='model-B';path.write_text(json.dumps(row));assert current_record(status,tmp_path)=={}
 

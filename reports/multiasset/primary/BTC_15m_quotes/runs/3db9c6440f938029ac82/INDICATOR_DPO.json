@@ -1,0 +1,244 @@
+{
+  "candidate_id": "INDICATOR:DPO",
+  "name": "Detrended Price Oscillator (causal)",
+  "family": "indicator + trained binary readout",
+  "status": "COMPLETED_PREDICTION_ONLY",
+  "source_url": "https://github.com/babavagna/TestingBTCmodels/blob/main/indicator_lab/features.py",
+  "license": "See pinned formula source and retained upstream license",
+  "executed": true,
+  "selected_profile": "default",
+  "parameters": {
+    "timeperiod": 20
+  },
+  "model": {
+    "mean": [
+      1.4453091472538227e-06,
+      1.6275421920210899e-06,
+      -1.8223304476723907e-07,
+      4.35433199331838e-06
+    ],
+    "scale": [
+      0.002540150783189682,
+      0.0018671497180780437,
+      0.0025373722911801984,
+      0.0025407326894477146
+    ],
+    "keep": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "weights": [
+      -0.014903824549443175,
+      -0.015432053149211472,
+      0.0043871576321304565,
+      0.008345857671971005,
+      0.014177245103848728
+    ],
+    "training_samples": 6444,
+    "training_up_rate": 0.4962756052141527,
+    "objective": 0.6930892664970306,
+    "iterations": 11,
+    "ridge": 0.01
+  },
+  "profiles": {
+    "default": {
+      "parameters": {
+        "timeperiod": 20
+      },
+      "selection_accuracy": 0.49720149253731344
+    },
+    "short": {
+      "parameters": {
+        "timeperiod": 16
+      },
+      "selection_accuracy": 0.49533582089552236
+    },
+    "long": {
+      "parameters": {
+        "timeperiod": 24
+      },
+      "selection_accuracy": 0.48973880597014924
+    }
+  },
+  "profile_failures": [],
+  "causality_checks": [
+    {
+      "profile": "default",
+      "check": "numeric_prefix",
+      "cut": 1024,
+      "passed": true
+    },
+    {
+      "profile": "default",
+      "check": "numeric_prefix",
+      "cut": 2048,
+      "passed": true
+    },
+    {
+      "profile": "default",
+      "check": "numeric_future_mutation",
+      "cut": 2048,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_prefix",
+      "cut": 1024,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_prefix",
+      "cut": 2048,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_future_mutation",
+      "cut": 2048,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_prefix",
+      "cut": 1024,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_prefix",
+      "cut": 2048,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_future_mutation",
+      "cut": 2048,
+      "passed": true
+    }
+  ],
+  "periods": {
+    "validation": {
+      "direction": {
+        "forecasts": 1075,
+        "accuracy": 0.5032558139534884,
+        "balanced_accuracy": 0.502083737158364,
+        "up_precision": 0.5116279069767442,
+        "up_recall": 0.08208955223880597,
+        "mcc": 0.007680727159644626,
+        "brier": 0.2499268415505151,
+        "log_loss": 0.6930008183720843,
+        "actual_up_rate": 0.4986046511627907,
+        "predicted_up_rate": 0.08,
+        "tp": 44,
+        "tn": 497,
+        "fp": 42,
+        "fn": 492,
+        "wilson_low": 0.4734089416600097,
+        "wilson_high": 0.5330795001242464,
+        "down_precision": 0.5025278058645096,
+        "down_recall": 0.922077922077922
+      }
+    },
+    "retrospective_test": {
+      "direction": {
+        "forecasts": 1618,
+        "accuracy": 0.48702101359703337,
+        "balanced_accuracy": 0.49240632067974816,
+        "up_precision": 0.47023809523809523,
+        "up_recall": 0.09634146341463415,
+        "mcc": -0.024891552151506936,
+        "brier": 0.2501917122590742,
+        "log_loss": 0.6935306885809284,
+        "actual_up_rate": 0.5067985166872683,
+        "predicted_up_rate": 0.103831891223733,
+        "tp": 79,
+        "tn": 709,
+        "fp": 89,
+        "fn": 741,
+        "wilson_low": 0.4627259136330785,
+        "wilson_high": 0.5113775970574548,
+        "down_precision": 0.4889655172413793,
+        "down_recall": 0.8884711779448622
+      }
+    }
+  },
+  "sensitivity": [],
+  "walk_forward": [
+    {
+      "status": "COMPLETED",
+      "training_rows": 1610,
+      "evaluation_start": "2026-06-26T04:15:00+00:00",
+      "forecasts": 1611,
+      "accuracy": 0.48789571694599626,
+      "balanced_accuracy": 0.4859513407350996,
+      "up_precision": 0.4735099337748344,
+      "up_recall": 0.36065573770491804,
+      "mcc": -0.029016492626575123,
+      "brier": 0.25124412522568235,
+      "log_loss": 0.6956459078592511,
+      "actual_up_rate": 0.49224084419615144,
+      "predicted_up_rate": 0.3749224084419615,
+      "tp": 286,
+      "tn": 500,
+      "fp": 318,
+      "fn": 507,
+      "wilson_low": 0.463544934768066,
+      "wilson_high": 0.5123040875697172
+    },
+    {
+      "status": "COMPLETED",
+      "training_rows": 3221,
+      "evaluation_start": "2026-07-13T05:45:00+00:00",
+      "forecasts": 1611,
+      "accuracy": 0.49844816883923027,
+      "balanced_accuracy": 0.5025063274749598,
+      "up_precision": 0.5161290322580645,
+      "up_recall": 0.11793611793611794,
+      "mcc": 0.007842332822917535,
+      "brier": 0.2501685531877616,
+      "log_loss": 0.6934846189989451,
+      "actual_up_rate": 0.505276225946617,
+      "predicted_up_rate": 0.1154562383612663,
+      "tp": 96,
+      "tn": 707,
+      "fp": 90,
+      "fn": 718,
+      "wilson_low": 0.4740652711666969,
+      "wilson_high": 0.5228384496458394
+    },
+    {
+      "status": "COMPLETED",
+      "training_rows": 4832,
+      "evaluation_start": "2026-07-30T06:00:00+00:00",
+      "forecasts": 1611,
+      "accuracy": 0.4897579143389199,
+      "balanced_accuracy": 0.4842865467865468,
+      "up_precision": 0.44642857142857145,
+      "up_recall": 0.15782828282828282,
+      "mcc": -0.04146084324742579,
+      "brier": 0.25001145077105547,
+      "log_loss": 0.6931700360277412,
+      "actual_up_rate": 0.49162011173184356,
+      "predicted_up_rate": 0.17380509000620734,
+      "tp": 125,
+      "tn": 664,
+      "fp": 155,
+      "fn": 667,
+      "wilson_low": 0.4654006769755877,
+      "wilson_high": 0.5141638803871521
+    }
+  ],
+  "identity": "3db9c6440f938029ac826d7943a75085675b9e7ebd6bc5f1a759aa29e6114a94",
+  "asset_id": "BTC",
+  "contract": "KXBTCPERP",
+  "minutes": 15,
+  "basis": "quotes",
+  "price_basis": "OBSERVED_BID_ASK_MIDPOINT_CLOSE_ONLY",
+  "historical_test_status": "RETROSPECTIVE_SHORT_HISTORY_HOLDOUT",
+  "fully_validated_financial_rank_eligible": false,
+  "finished_at": "2026-10-25T20:15:42.484067+00:00",
+  "signal_cache_sha256": "733dae5721b9286ec92e4aa4d3e429c20d16c0ee7a2d356223dd35acb87853f7"
+}

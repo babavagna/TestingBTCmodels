@@ -1,0 +1,256 @@
+{
+  "candidate_id": "INDICATOR:STOCHRSI",
+  "name": "Stochastic Relative Strength Index",
+  "family": "indicator + trained binary readout",
+  "status": "COMPLETED_PREDICTION_ONLY",
+  "source_url": "https://github.com/TA-Lib/ta-lib/blob/v0.6.4/src/ta_func/ta_STOCHRSI.c",
+  "license": "See pinned formula source and retained upstream license",
+  "executed": true,
+  "selected_profile": "short",
+  "parameters": {
+    "timeperiod": 11,
+    "fastk_period": 4,
+    "fastd_period": 2,
+    "fastd_matype": 0
+  },
+  "model": {
+    "mean": [
+      49.29021950326673,
+      49.254438320696295,
+      0.07156236514106828,
+      0.0016358888584206478,
+      49.21865713812567,
+      49.25280243183784,
+      49.61807859348561,
+      49.56488918685455
+    ],
+    "scale": [
+      43.33682965138884,
+      36.5826105010229,
+      46.374015379636724,
+      28.9957637988497,
+      43.287049207828694,
+      36.64202183401175,
+      43.29275319103081,
+      36.50027127813339
+    ],
+    "keep": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "weights": [
+      -0.018601939962601923,
+      -0.030119784614254304,
+      -0.018576504260169706,
+      -0.026985757002999978,
+      0.0030569551753261803,
+      -0.0012442073475053056,
+      -0.020965430715254113,
+      -0.08483708215491674,
+      0.00467215542631631
+    ],
+    "training_samples": 2911,
+    "training_up_rate": 0.4953624184129165,
+    "objective": 0.6916987057491805,
+    "iterations": 12,
+    "ridge": 0.01
+  },
+  "profiles": {
+    "default": {
+      "parameters": {
+        "timeperiod": 14,
+        "fastk_period": 5,
+        "fastd_period": 3,
+        "fastd_matype": 0
+      },
+      "selection_accuracy": 0.5030425963488844
+    },
+    "short": {
+      "parameters": {
+        "timeperiod": 11,
+        "fastk_period": 4,
+        "fastd_period": 2,
+        "fastd_matype": 0
+      },
+      "selection_accuracy": 0.5233265720081136
+    },
+    "long": {
+      "parameters": {
+        "timeperiod": 17,
+        "fastk_period": 6,
+        "fastd_period": 4,
+        "fastd_matype": 0
+      },
+      "selection_accuracy": 0.5212981744421906
+    }
+  },
+  "profile_failures": [],
+  "causality_checks": [
+    {
+      "profile": "default",
+      "check": "numeric_prefix",
+      "cut": 1024,
+      "passed": true
+    },
+    {
+      "profile": "default",
+      "check": "numeric_prefix",
+      "cut": 2048,
+      "passed": true
+    },
+    {
+      "profile": "default",
+      "check": "numeric_future_mutation",
+      "cut": 2048,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_prefix",
+      "cut": 1024,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_prefix",
+      "cut": 2048,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_future_mutation",
+      "cut": 2048,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_prefix",
+      "cut": 1024,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_prefix",
+      "cut": 2048,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_future_mutation",
+      "cut": 2048,
+      "passed": true
+    }
+  ],
+  "periods": {
+    "validation": {
+      "direction": {
+        "forecasts": 476,
+        "accuracy": 0.5147058823529411,
+        "balanced_accuracy": 0.5086220746532426,
+        "up_precision": 0.45714285714285713,
+        "up_recall": 0.4507042253521127,
+        "mcc": 0.017268673755388587,
+        "brier": 0.25108911805197515,
+        "log_loss": 0.6953353928813473,
+        "actual_up_rate": 0.4474789915966387,
+        "predicted_up_rate": 0.4411764705882353,
+        "tp": 96,
+        "tn": 149,
+        "fp": 114,
+        "fn": 117,
+        "wilson_low": 0.46987010851483424,
+        "wilson_high": 0.5593061949134017,
+        "down_precision": 0.5601503759398496,
+        "down_recall": 0.5665399239543726
+      }
+    },
+    "retrospective_test": {
+      "direction": {
+        "forecasts": 746,
+        "accuracy": 0.5160857908847185,
+        "balanced_accuracy": 0.5148891767415084,
+        "up_precision": 0.49855907780979825,
+        "up_recall": 0.48055555555555557,
+        "mcc": 0.029832826224648928,
+        "brier": 0.24930990814233084,
+        "log_loss": 0.6917651340097764,
+        "actual_up_rate": 0.48257372654155495,
+        "predicted_up_rate": 0.4651474530831099,
+        "tp": 173,
+        "tn": 212,
+        "fp": 174,
+        "fn": 187,
+        "wilson_low": 0.4802341474804081,
+        "wilson_high": 0.5517726183734643,
+        "down_precision": 0.531328320802005,
+        "down_recall": 0.5492227979274611
+      }
+    }
+  },
+  "sensitivity": [],
+  "walk_forward": [
+    {
+      "status": "INSUFFICIENT_FOLD_OR_FIT_FAILED",
+      "training_rows": 726,
+      "reason": "Fewer than 1000 valid training targets"
+    },
+    {
+      "status": "COMPLETED",
+      "training_rows": 1454,
+      "evaluation_start": "2026-09-18T01:15:00+00:00",
+      "forecasts": 727,
+      "accuracy": 0.517193947730399,
+      "balanced_accuracy": 0.5171230284866648,
+      "up_precision": 0.5184049079754601,
+      "up_recall": 0.465564738292011,
+      "mcc": 0.03442972808940147,
+      "brier": 0.2502135231531794,
+      "log_loss": 0.6935790820056448,
+      "actual_up_rate": 0.49931224209078406,
+      "predicted_up_rate": 0.4484181568088033,
+      "tp": 169,
+      "tn": 207,
+      "fp": 157,
+      "fn": 194,
+      "wilson_low": 0.4808750250104106,
+      "wilson_high": 0.553332120326337
+    },
+    {
+      "status": "COMPLETED",
+      "training_rows": 2182,
+      "evaluation_start": "2026-09-21T06:35:00+00:00",
+      "forecasts": 727,
+      "accuracy": 0.5116918844566712,
+      "balanced_accuracy": 0.5111300333030578,
+      "up_precision": 0.5077881619937694,
+      "up_recall": 0.4527777777777778,
+      "mcc": 0.022412753206349695,
+      "brier": 0.25092906271694854,
+      "log_loss": 0.6950103411686414,
+      "actual_up_rate": 0.4951856946354883,
+      "predicted_up_rate": 0.44154057771664373,
+      "tp": 163,
+      "tn": 209,
+      "fp": 158,
+      "fn": 197,
+      "wilson_low": 0.47539041488199335,
+      "wilson_high": 0.5478704439469948
+    }
+  ],
+  "identity": "8d69cce6f97345ed8f4e35d28bdc832558395d044ec0303537aef59d21d42ae2",
+  "asset_id": "GOLD",
+  "contract": "KXGOLDPERP",
+  "minutes": 5,
+  "basis": "quotes",
+  "price_basis": "OBSERVED_BID_ASK_MIDPOINT_CLOSE_ONLY",
+  "historical_test_status": "RETROSPECTIVE_SHORT_HISTORY_HOLDOUT",
+  "fully_validated_financial_rank_eligible": false,
+  "finished_at": "2026-10-25T20:27:54.081732+00:00",
+  "signal_cache_sha256": "168ab21c2d61d8afeb380af8bc571e4f21d879c6d509be02a50c149f5da913b9"
+}

@@ -1,0 +1,236 @@
+{
+  "candidate_id": "INDICATOR:MACD",
+  "name": "Moving Average Convergence/Divergence",
+  "family": "indicator + trained binary readout",
+  "status": "COMPLETED_PREDICTION_ONLY",
+  "source_url": "https://github.com/TA-Lib/ta-lib/blob/v0.6.4/src/ta_func/ta_MACD.c",
+  "license": "See pinned formula source and retained upstream license",
+  "executed": true,
+  "selected_profile": "short",
+  "parameters": {
+    "fastperiod": 10,
+    "slowperiod": 21,
+    "signalperiod": 7
+  },
+  "model": {
+    "mean": [
+      0.0005748849631187203,
+      0.0005824211501136213,
+      -7.536186994901059e-06,
+      -4.245099010572618e-06,
+      -2.6899618745627095e-06,
+      -1.5551371360099035e-06,
+      0.0005791300621292928,
+      0.0005851111119881841,
+      -5.981049858891153e-06,
+      0.0005853512678008013,
+      0.0005889480055590894,
+      -3.5967377582880837e-06
+    ],
+    "scale": [
+      0.006152503967649894,
+      0.005827378310180713,
+      0.0017033987066728022,
+      0.0008500958941255582,
+      0.0005694284249762559,
+      0.0005853055469300481,
+      0.006153452156078204,
+      0.005826516159485668,
+      0.0017050618322554593,
+      0.0061503558823296,
+      0.0058236047621757665,
+      0.001705852907044575
+    ],
+    "keep": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "weights": [
+      0.04949174136337834,
+      0.00205858331695578,
+      -0.016268706584785013,
+      0.06309113039195594,
+      -0.09959488013975472,
+      -0.040671299909824155,
+      -0.08717414643309226,
+      0.015817241808227286,
+      -0.012296286782084031,
+      0.09910206841121282,
+      -0.03858008417690566,
+      0.006445557178337463,
+      -0.16110276800651738
+    ],
+    "training_samples": 1300,
+    "training_up_rate": 0.5123076923076924,
+    "objective": 0.6899483740018919,
+    "iterations": 22,
+    "ridge": 0.01
+  },
+  "profiles": {
+    "default": {
+      "parameters": {
+        "fastperiod": 12,
+        "slowperiod": 26,
+        "signalperiod": 9
+      },
+      "selection_accuracy": 0.5
+    },
+    "short": {
+      "parameters": {
+        "fastperiod": 10,
+        "slowperiod": 21,
+        "signalperiod": 7
+      },
+      "selection_accuracy": 0.5046296296296297
+    },
+    "long": {
+      "parameters": {
+        "fastperiod": 14,
+        "slowperiod": 31,
+        "signalperiod": 11
+      },
+      "selection_accuracy": 0.4861111111111111
+    }
+  },
+  "profile_failures": [],
+  "causality_checks": [
+    {
+      "profile": "default",
+      "check": "numeric_prefix",
+      "cut": 899,
+      "passed": true
+    },
+    {
+      "profile": "default",
+      "check": "numeric_prefix",
+      "cut": 1798,
+      "passed": true
+    },
+    {
+      "profile": "default",
+      "check": "numeric_future_mutation",
+      "cut": 1798,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_prefix",
+      "cut": 899,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_prefix",
+      "cut": 1798,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_future_mutation",
+      "cut": 1798,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_prefix",
+      "cut": 899,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_prefix",
+      "cut": 1798,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_future_mutation",
+      "cut": 1798,
+      "passed": true
+    }
+  ],
+  "periods": {
+    "validation": {
+      "direction": {
+        "forecasts": 216,
+        "accuracy": 0.49074074074074076,
+        "balanced_accuracy": 0.49678249678249675,
+        "up_precision": 0.4838709677419355,
+        "up_recall": 0.7142857142857143,
+        "mcc": -0.007144541411859329,
+        "brier": 0.24907474347291758,
+        "log_loss": 0.6911597240824326,
+        "actual_up_rate": 0.4861111111111111,
+        "predicted_up_rate": 0.7175925925925926,
+        "tp": 75,
+        "tn": 31,
+        "fp": 80,
+        "fn": 30,
+        "wilson_low": 0.4248194789781802,
+        "wilson_high": 0.5569855908141266,
+        "down_precision": 0.5081967213114754,
+        "down_recall": 0.27927927927927926
+      }
+    },
+    "retrospective_test": {
+      "direction": {
+        "forecasts": 326,
+        "accuracy": 0.49693251533742333,
+        "balanced_accuracy": 0.4961653254750841,
+        "up_precision": 0.5269461077844312,
+        "up_recall": 0.5086705202312138,
+        "mcc": -0.007657208507767723,
+        "brier": 0.25350091743035685,
+        "log_loss": 0.7003322422290558,
+        "actual_up_rate": 0.5306748466257669,
+        "predicted_up_rate": 0.5122699386503068,
+        "tp": 88,
+        "tn": 74,
+        "fp": 79,
+        "fn": 85,
+        "wilson_low": 0.4430100475601545,
+        "wilson_high": 0.5509264332959795,
+        "down_precision": 0.46540880503144655,
+        "down_recall": 0.48366013071895425
+      }
+    }
+  },
+  "sensitivity": [],
+  "walk_forward": [
+    {
+      "status": "INSUFFICIENT_FOLD_OR_FIT_FAILED",
+      "training_rows": 324,
+      "reason": "Fewer than 1000 valid training targets"
+    },
+    {
+      "status": "INSUFFICIENT_FOLD_OR_FIT_FAILED",
+      "training_rows": 649,
+      "reason": "Fewer than 1000 valid training targets"
+    },
+    {
+      "status": "INSUFFICIENT_FOLD_OR_FIT_FAILED",
+      "training_rows": 974,
+      "reason": "Fewer than 1000 valid training targets"
+    }
+  ],
+  "identity": "231641733c29b53b57fd13a70c85e16971358886a73ca00b1a55c6284a47413d",
+  "asset_id": "SUI",
+  "contract": "KXSUIPERP",
+  "minutes": 60,
+  "basis": "quotes",
+  "price_basis": "OBSERVED_BID_ASK_MIDPOINT_CLOSE_ONLY",
+  "historical_test_status": "RETROSPECTIVE_SHORT_HISTORY_HOLDOUT",
+  "fully_validated_financial_rank_eligible": false,
+  "finished_at": "2026-10-25T20:48:07.821339+00:00",
+  "signal_cache_sha256": "26ede532404fb44e09c3018ad27dfd2b19475421c4ff60a0b88e0875e2417d9f"
+}

@@ -1,0 +1,196 @@
+{
+  "candidate_id": "INDICATOR:DPO",
+  "name": "Detrended Price Oscillator (causal)",
+  "family": "indicator + trained binary readout",
+  "status": "COMPLETED_PREDICTION_ONLY",
+  "source_url": "https://github.com/babavagna/TestingBTCmodels/blob/main/indicator_lab/features.py",
+  "license": "See pinned formula source and retained upstream license",
+  "executed": true,
+  "selected_profile": "long",
+  "parameters": {
+    "timeperiod": 24
+  },
+  "model": {
+    "mean": [
+      -7.189216194913463e-05,
+      3.721361875907341e-05,
+      -0.0001091057807082082,
+      -8.213883687543732e-05
+    ],
+    "scale": [
+      0.011031242401163526,
+      0.008798518518735754,
+      0.011041989615982104,
+      0.011076540222110815
+    ],
+    "keep": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "weights": [
+      0.03531881928082797,
+      0.027264602653101495,
+      0.1175281934286561,
+      0.001326695679073885,
+      0.09199856369381011
+    ],
+    "training_samples": 1317,
+    "training_up_rate": 0.5087319665907365,
+    "objective": 0.6902602562913657,
+    "iterations": 11,
+    "ridge": 0.01
+  },
+  "profiles": {
+    "default": {
+      "parameters": {
+        "timeperiod": 20
+      },
+      "selection_accuracy": 0.4954128440366973
+    },
+    "short": {
+      "parameters": {
+        "timeperiod": 16
+      },
+      "selection_accuracy": 0.5045871559633027
+    },
+    "long": {
+      "parameters": {
+        "timeperiod": 24
+      },
+      "selection_accuracy": 0.5091743119266054
+    }
+  },
+  "profile_failures": [],
+  "causality_checks": [
+    {
+      "profile": "default",
+      "check": "numeric_prefix",
+      "cut": 908,
+      "passed": true
+    },
+    {
+      "profile": "default",
+      "check": "numeric_prefix",
+      "cut": 1817,
+      "passed": true
+    },
+    {
+      "profile": "default",
+      "check": "numeric_future_mutation",
+      "cut": 1817,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_prefix",
+      "cut": 908,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_prefix",
+      "cut": 1817,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_future_mutation",
+      "cut": 1817,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_prefix",
+      "cut": 908,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_prefix",
+      "cut": 1817,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_future_mutation",
+      "cut": 1817,
+      "passed": true
+    }
+  ],
+  "periods": {
+    "validation": {
+      "direction": {
+        "forecasts": 219,
+        "accuracy": 0.547945205479452,
+        "balanced_accuracy": 0.5411010558069382,
+        "up_precision": 0.5681818181818182,
+        "up_recall": 0.6410256410256411,
+        "mcc": 0.08379717903763219,
+        "brier": 0.24719122478687475,
+        "log_loss": 0.6874749657790052,
+        "actual_up_rate": 0.5342465753424658,
+        "predicted_up_rate": 0.6027397260273972,
+        "tp": 75,
+        "tn": 45,
+        "fp": 57,
+        "fn": 42,
+        "wilson_low": 0.4817681974583236,
+        "wilson_high": 0.6124692039262065,
+        "down_precision": 0.5172413793103449,
+        "down_recall": 0.4411764705882353
+      }
+    },
+    "retrospective_test": {
+      "direction": {
+        "forecasts": 330,
+        "accuracy": 0.4636363636363636,
+        "balanced_accuracy": 0.45125482625482627,
+        "up_precision": 0.5123152709359606,
+        "up_recall": 0.5714285714285714,
+        "mcc": -0.09965022660589529,
+        "brier": 0.252702087353541,
+        "log_loss": 0.6985587654820422,
+        "actual_up_rate": 0.5515151515151515,
+        "predicted_up_rate": 0.6151515151515151,
+        "tp": 104,
+        "tn": 49,
+        "fp": 99,
+        "fn": 78,
+        "wilson_low": 0.4105602301749557,
+        "wilson_high": 0.5175493578768674,
+        "down_precision": 0.3858267716535433,
+        "down_recall": 0.3310810810810811
+      }
+    }
+  },
+  "sensitivity": [],
+  "walk_forward": [
+    {
+      "status": "INSUFFICIENT_FOLD_OR_FIT_FAILED",
+      "training_rows": 328,
+      "reason": "Fewer than 1000 valid training targets"
+    },
+    {
+      "status": "INSUFFICIENT_FOLD_OR_FIT_FAILED",
+      "training_rows": 657,
+      "reason": "Fewer than 1000 valid training targets"
+    },
+    {
+      "status": "INSUFFICIENT_FOLD_OR_FIT_FAILED",
+      "training_rows": 986,
+      "reason": "Fewer than 1000 valid training targets"
+    }
+  ],
+  "identity": "dcf8a968fe3a4d6920d65de040e3ab3ac4185fdf26b6649e0e526a8a1ae593a6",
+  "asset_id": "HYPE",
+  "contract": "KXHYPEPERP",
+  "minutes": 60,
+  "basis": "quotes",
+  "price_basis": "OBSERVED_BID_ASK_MIDPOINT_CLOSE_ONLY",
+  "historical_test_status": "RETROSPECTIVE_SHORT_HISTORY_HOLDOUT",
+  "fully_validated_financial_rank_eligible": false,
+  "finished_at": "2026-10-25T20:33:44.145277+00:00",
+  "signal_cache_sha256": "a0ece23544072279a431b0a1580f9af41ebf250218ea5dd2208fb12994c9768e"
+}

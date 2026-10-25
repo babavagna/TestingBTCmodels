@@ -1,0 +1,212 @@
+{
+  "candidate_id": "INDICATOR:ROC",
+  "name": "Rate of change : ((price/prevPrice)-1)*100",
+  "family": "indicator + trained binary readout",
+  "status": "COMPLETED_PREDICTION_ONLY",
+  "source_url": "https://github.com/TA-Lib/ta-lib/blob/v0.6.4/src/ta_func/ta_ROC.c",
+  "license": "See pinned formula source and retained upstream license",
+  "executed": true,
+  "selected_profile": "short",
+  "parameters": {
+    "timeperiod": 8
+  },
+  "model": {
+    "mean": [
+      0.2813038718694029,
+      -0.004857246051770436,
+      0.2861611179211732,
+      0.2858801210304422
+    ],
+    "scale": [
+      2.9317337820833105,
+      1.466293877013294,
+      2.9335794915403044,
+      2.937845111333146
+    ],
+    "keep": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "weights": [
+      -0.09425992527476355,
+      -0.071146677862395,
+      -0.029475814255025424,
+      -0.0563689899956425,
+      0.07085784716935896
+    ],
+    "training_samples": 1534,
+    "training_up_rate": 0.4765319426336376,
+    "objective": 0.6906604246913817,
+    "iterations": 8,
+    "ridge": 0.01
+  },
+  "profiles": {
+    "default": {
+      "parameters": {
+        "timeperiod": 10
+      },
+      "selection_accuracy": 0.5234375
+    },
+    "short": {
+      "parameters": {
+        "timeperiod": 8
+      },
+      "selection_accuracy": 0.52734375
+    },
+    "long": {
+      "parameters": {
+        "timeperiod": 12
+      },
+      "selection_accuracy": 0.515625
+    }
+  },
+  "profile_failures": [],
+  "causality_checks": [
+    {
+      "profile": "default",
+      "check": "numeric_prefix",
+      "cut": 1024,
+      "passed": true
+    },
+    {
+      "profile": "default",
+      "check": "numeric_prefix",
+      "cut": 2048,
+      "passed": true
+    },
+    {
+      "profile": "default",
+      "check": "numeric_future_mutation",
+      "cut": 2048,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_prefix",
+      "cut": 1024,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_prefix",
+      "cut": 2048,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_future_mutation",
+      "cut": 2048,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_prefix",
+      "cut": 1024,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_prefix",
+      "cut": 2048,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_future_mutation",
+      "cut": 2048,
+      "passed": true
+    }
+  ],
+  "periods": {
+    "validation": {
+      "direction": {
+        "forecasts": 256,
+        "accuracy": 0.5390625,
+        "balanced_accuracy": 0.504912797838369,
+        "up_precision": 0.5,
+        "up_recall": 0.06779661016949153,
+        "mcc": 0.02023363091153141,
+        "brier": 0.24965777943911088,
+        "log_loss": 0.6924604338662409,
+        "actual_up_rate": 0.4609375,
+        "predicted_up_rate": 0.0625,
+        "tp": 8,
+        "tn": 130,
+        "fp": 8,
+        "fn": 110,
+        "wilson_low": 0.4778736268782385,
+        "wilson_high": 0.5990963843384903,
+        "down_precision": 0.5416666666666666,
+        "down_recall": 0.9420289855072463
+      }
+    },
+    "retrospective_test": {
+      "direction": {
+        "forecasts": 384,
+        "accuracy": 0.5026041666666666,
+        "balanced_accuracy": 0.4825462849685996,
+        "up_precision": 0.35714285714285715,
+        "up_recall": 0.0546448087431694,
+        "mcc": -0.06705596788591445,
+        "brier": 0.24937829023145164,
+        "log_loss": 0.6919048309964556,
+        "actual_up_rate": 0.4765625,
+        "predicted_up_rate": 0.07291666666666667,
+        "tp": 10,
+        "tn": 183,
+        "fp": 18,
+        "fn": 173,
+        "wilson_low": 0.45281782596572545,
+        "wilson_high": 0.5523389203142658,
+        "down_precision": 0.5140449438202247,
+        "down_recall": 0.9104477611940298
+      }
+    }
+  },
+  "sensitivity": [],
+  "walk_forward": [
+    {
+      "status": "INSUFFICIENT_FOLD_OR_FIT_FAILED",
+      "training_rows": 382,
+      "reason": "Fewer than 1000 valid training targets"
+    },
+    {
+      "status": "INSUFFICIENT_FOLD_OR_FIT_FAILED",
+      "training_rows": 766,
+      "reason": "Fewer than 1000 valid training targets"
+    },
+    {
+      "status": "COMPLETED",
+      "training_rows": 1149,
+      "evaluation_start": "2026-09-16T00:45:00+00:00",
+      "forecasts": 383,
+      "accuracy": 0.5039164490861618,
+      "balanced_accuracy": 0.521516393442623,
+      "up_precision": 0.625,
+      "up_recall": 0.125,
+      "mcc": 0.07028505026247137,
+      "brier": 0.2531352245337208,
+      "log_loss": 0.6994882428335546,
+      "actual_up_rate": 0.5221932114882507,
+      "predicted_up_rate": 0.10443864229765012,
+      "tp": 25,
+      "tn": 168,
+      "fp": 15,
+      "fn": 175,
+      "wilson_low": 0.45405357961237125,
+      "wilson_high": 0.5537015353878296
+    }
+  ],
+  "identity": "f09d3c6ae8e7686f594c00f1bf18ee5a0f2f22449e86d1d97082d9e14e067103",
+  "asset_id": "VVV",
+  "contract": "KXVVVPERP",
+  "minutes": 15,
+  "basis": "quotes",
+  "price_basis": "OBSERVED_BID_ASK_MIDPOINT_CLOSE_ONLY",
+  "historical_test_status": "RETROSPECTIVE_SHORT_HISTORY_HOLDOUT",
+  "fully_validated_financial_rank_eligible": false,
+  "finished_at": "2026-10-25T20:48:15.387032+00:00",
+  "signal_cache_sha256": "272d1fe1a3b9ade437a44b9d2eae7b12135c5e2743d7adbea9884d087c0e715d"
+}

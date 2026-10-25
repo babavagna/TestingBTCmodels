@@ -1,0 +1,220 @@
+{
+  "candidate_id": "INDICATOR:PPO",
+  "name": "Percentage Price Oscillator",
+  "family": "indicator + trained binary readout",
+  "status": "COMPLETED_PREDICTION_ONLY",
+  "source_url": "https://github.com/TA-Lib/ta-lib/blob/v0.6.4/src/ta_func/ta_PPO.c",
+  "license": "See pinned formula source and retained upstream license",
+  "executed": true,
+  "selected_profile": "short",
+  "parameters": {
+    "fastperiod": 10,
+    "slowperiod": 21,
+    "matype": 0
+  },
+  "model": {
+    "mean": [
+      0.12899429730245213,
+      0.00046807937068056327,
+      0.12852621793177155,
+      0.1274050332534549
+    ],
+    "scale": [
+      0.7089261150741767,
+      0.11781798081116687,
+      0.7082311891831041,
+      0.709692240594884
+    ],
+    "keep": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "weights": [
+      0.07637210829797973,
+      -0.04305230038234861,
+      0.025257155999195046,
+      -0.04729620452688403,
+      0.061617050329578094
+    ],
+    "training_samples": 1389,
+    "training_up_rate": 0.5190784737221023,
+    "objective": 0.6922189000322782,
+    "iterations": 7,
+    "ridge": 0.01
+  },
+  "profiles": {
+    "default": {
+      "parameters": {
+        "fastperiod": 12,
+        "slowperiod": 26,
+        "matype": 0
+      },
+      "selection_accuracy": 0.48484848484848486
+    },
+    "short": {
+      "parameters": {
+        "fastperiod": 10,
+        "slowperiod": 21,
+        "matype": 0
+      },
+      "selection_accuracy": 0.48917748917748916
+    },
+    "long": {
+      "parameters": {
+        "fastperiod": 14,
+        "slowperiod": 31,
+        "matype": 0
+      },
+      "selection_accuracy": 0.4805194805194805
+    }
+  },
+  "profile_failures": [],
+  "causality_checks": [
+    {
+      "profile": "default",
+      "check": "numeric_prefix",
+      "cut": 948,
+      "passed": true
+    },
+    {
+      "profile": "default",
+      "check": "numeric_prefix",
+      "cut": 1897,
+      "passed": true
+    },
+    {
+      "profile": "default",
+      "check": "numeric_future_mutation",
+      "cut": 1897,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_prefix",
+      "cut": 948,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_prefix",
+      "cut": 1897,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_future_mutation",
+      "cut": 1897,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_prefix",
+      "cut": 948,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_prefix",
+      "cut": 1897,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_future_mutation",
+      "cut": 1897,
+      "passed": true
+    }
+  ],
+  "periods": {
+    "validation": {
+      "direction": {
+        "forecasts": 231,
+        "accuracy": 0.46320346320346323,
+        "balanced_accuracy": 0.49935936086825444,
+        "up_precision": 0.462882096069869,
+        "up_recall": 0.9906542056074766,
+        "mcc": -0.006896257208952402,
+        "brier": 0.25228941155804496,
+        "log_loss": 0.6977316660750288,
+        "actual_up_rate": 0.46320346320346323,
+        "predicted_up_rate": 0.9913419913419913,
+        "tp": 106,
+        "tn": 1,
+        "fp": 123,
+        "fn": 1,
+        "wilson_low": 0.4000273830053917,
+        "wilson_high": 0.5275833545306078,
+        "down_precision": 0.5,
+        "down_recall": 0.008064516129032258
+      }
+    },
+    "retrospective_test": {
+      "direction": {
+        "forecasts": 348,
+        "accuracy": 0.5287356321839081,
+        "balanced_accuracy": 0.5075012419274715,
+        "up_precision": 0.5299684542586751,
+        "up_recall": 0.9180327868852459,
+        "mcc": 0.026297847767846563,
+        "brier": 0.2497779538784868,
+        "log_loss": 0.692704108265,
+        "actual_up_rate": 0.5258620689655172,
+        "predicted_up_rate": 0.9109195402298851,
+        "tp": 168,
+        "tn": 16,
+        "fp": 149,
+        "fn": 15,
+        "wilson_low": 0.47626231851005324,
+        "wilson_high": 0.5805814658098398,
+        "down_precision": 0.5161290322580645,
+        "down_recall": 0.09696969696969697
+      }
+    }
+  },
+  "sensitivity": [],
+  "walk_forward": [
+    {
+      "status": "INSUFFICIENT_FOLD_OR_FIT_FAILED",
+      "training_rows": 346,
+      "reason": "Fewer than 1000 valid training targets"
+    },
+    {
+      "status": "INSUFFICIENT_FOLD_OR_FIT_FAILED",
+      "training_rows": 693,
+      "reason": "Fewer than 1000 valid training targets"
+    },
+    {
+      "status": "COMPLETED",
+      "training_rows": 1040,
+      "evaluation_start": "2026-08-08T05:00:00+00:00",
+      "forecasts": 347,
+      "accuracy": 0.5100864553314121,
+      "balanced_accuracy": 0.49898061497326207,
+      "up_precision": 0.5381165919282511,
+      "up_recall": 0.6417112299465241,
+      "mcc": -0.002120731886482178,
+      "brier": 0.2503939608967692,
+      "log_loss": 0.693938645007429,
+      "actual_up_rate": 0.5389048991354467,
+      "predicted_up_rate": 0.6426512968299711,
+      "tp": 120,
+      "tn": 57,
+      "fp": 103,
+      "fn": 67,
+      "wilson_low": 0.4576671597522066,
+      "wilson_high": 0.5622848722098355
+    }
+  ],
+  "identity": "d9267e46a1b74d808a6d9441fa168da0a08b71b73f345bc453bab339c8d4019b",
+  "asset_id": "SOL",
+  "contract": "KXSOLPERP",
+  "minutes": 60,
+  "basis": "quotes",
+  "price_basis": "OBSERVED_BID_ASK_MIDPOINT_CLOSE_ONLY",
+  "historical_test_status": "RETROSPECTIVE_SHORT_HISTORY_HOLDOUT",
+  "fully_validated_financial_rank_eligible": false,
+  "finished_at": "2026-10-25T20:45:37.890836+00:00",
+  "signal_cache_sha256": "30747affb750aba8942d3f7b2778389efa61c9012465c72c42b132dd045a33f3"
+}

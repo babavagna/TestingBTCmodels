@@ -13,7 +13,7 @@ OUT=ROOT/'reports/multiasset'
 
 
 def audit():
-    integrity=[];evidence=[];causality=[];parameters=[]
+    integrity=[];evidence=[];causality=[];parameters=[];variant_failures=[];causality_exclusions=[]
     for spec in assets():
         manifest_path=ROOT/'data/kalshi'/spec['symbol']/'manifest.json'
         if not manifest_path.exists():continue
@@ -30,6 +30,8 @@ def audit():
                 if not records or status.get('status')!='COMPLETED_WITH_EXPLICIT_LIMITATIONS':continue
                 d=pd.read_parquet(ROOT/status['dataset']['path']);_,valid,decision,_,delta=targets(d,minutes);masks,_=split(d,minutes)
                 for r in records:
+                    if 'causality' in r.get('reason','').lower() or 'lookahead' in r.get('reason','').lower():causality_exclusions.append(dict(asset=spec['id'],minutes=minutes,basis=basis,candidate_id=r['candidate_id'],reason=r['reason']))
+                    for failure in r.get('profile_failures',[]):variant_failures.append(dict(asset=spec['id'],minutes=minutes,basis=basis,candidate_id=r['candidate_id'],**failure))
                     for check in r.get('causality_checks',[]):causality.append(dict(asset=spec['id'],minutes=minutes,basis=basis,candidate_id=r['candidate_id'],**check))
                     for profile,value in r.get('profiles',{}).items():parameters.append(dict(asset=spec['id'],minutes=minutes,basis=basis,candidate_id=r['candidate_id'],profile=profile,selected=profile==r.get('selected_profile'),selection_accuracy=value.get('selection_accuracy'),parameters=value.get('parameters'),selection_period='Earlier internal parameter selection; not held-out test',**value.get('fit',{})))
                     if not r.get('executed') or not r['candidate_id'].startswith('INDICATOR:'):continue
@@ -49,9 +51,9 @@ def audit():
             r['limited_chronological_gate']=bool(r['forecasts']>=1000 and r['independent_day_blocks']>=60 and r['accuracy_lift_vs_train_majority']>0 and p<=.05 and r['lift_block_ci_low']>0)
             r['independent_untouched_validation']=False
             r['gate_description']='Descriptive only: >=1000 forecasts, >=60 observed days, positive block-bootstrap lift and global Holm p<=0.05. Historical reused periods are never independently validated.'
-    result=dict(updated_at=utc_now(),data_integrity=integrity,paired_prediction_evidence=evidence,causality_checks=causality,parameter_selection=parameters,summary=dict(datasets_checked=len(integrity),source_or_integrity_failures=sum(not(r['fingerprint_verified'] and r['timestamp_ohlcv_checks_passed']) for r in integrity),numeric_causality_checks=len(causality),failed_numeric_checks=sum(not r['passed'] for r in causality),paired_prediction_comparisons=len(evidence),limited_chronological_gates_passed=sum(r['limited_chronological_gate'] for r in evidence),independently_validated_strategies=0))
+    result=dict(updated_at=utc_now(),data_integrity=integrity,paired_prediction_evidence=evidence,causality_checks=causality,parameter_selection=parameters,variant_failures=variant_failures,causality_exclusions=causality_exclusions,summary=dict(datasets_checked=len(integrity),source_or_integrity_failures=sum(not(r['fingerprint_verified'] and r['timestamp_ohlcv_checks_passed']) for r in integrity),recorded_numeric_causality_checks=len(causality),failed_recorded_numeric_checks=sum(not r['passed'] for r in causality),candidate_causality_exclusions=len(causality_exclusions),failed_variant_attempts=len(variant_failures),variant_causality_failures=sum('causality' in r.get('error','').lower() or 'lookahead' in r.get('error','').lower() for r in variant_failures),paired_prediction_comparisons=len(evidence),limited_chronological_gates_passed=sum(r['limited_chronological_gate'] for r in evidence),independently_validated_strategies=0))
     OUT.mkdir(exist_ok=True,parents=True);write_json(OUT/'audit.json',result)
-    for key in ['data_integrity','paired_prediction_evidence','causality_checks','parameter_selection']:pd.DataFrame(result[key]).to_csv(OUT/(key+'.csv'),index=False)
+    for key in ['data_integrity','paired_prediction_evidence','causality_checks','parameter_selection','variant_failures','causality_exclusions']:pd.DataFrame(result[key]).to_csv(OUT/(key+'.csv'),index=False)
     print(json.dumps(result['summary'],indent=2));return result
 
 if __name__=='__main__':audit()

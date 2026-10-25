@@ -1,0 +1,510 @@
+{
+  "candidate_id": "INDICATOR:STOCHF",
+  "name": "Stochastic Fast",
+  "family": "indicator + trained binary readout",
+  "status": "COMPLETED_COST_LIMITED_BACKTEST",
+  "source_url": "https://github.com/TA-Lib/ta-lib/blob/v0.6.4/src/ta_func/ta_STOCHF.c",
+  "license": "See pinned formula source and retained upstream license",
+  "executed": true,
+  "selected_profile": "long",
+  "parameters": {
+    "fastk_period": 6,
+    "fastd_period": 4,
+    "fastd_matype": 0
+  },
+  "model": {
+    "mean": [
+      50.89608495306764,
+      50.79391689521785,
+      0.09088617392287623,
+      -0.005428141750550523,
+      50.80519877914475,
+      50.799345036968354,
+      50.75592050337209,
+      50.874452058191245
+    ],
+    "scale": [
+      27.264477961985317,
+      21.39827144891944,
+      22.899071137630735,
+      9.284865131648107,
+      27.2426607585052,
+      21.382594824030466,
+      27.09934963312175,
+      21.389888879706444
+    ],
+    "keep": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "weights": [
+      0.017361474931903716,
+      -0.06941176912493666,
+      -0.04649483555413664,
+      -0.07536851862604048,
+      -0.022599804785064175,
+      -0.006115650065557008,
+      -0.03671551461317983,
+      -0.019510424002098285,
+      -0.00045980253643003157
+    ],
+    "training_samples": 5469,
+    "training_up_rate": 0.5042969464253063,
+    "objective": 0.6889038246487028,
+    "iterations": 16,
+    "ridge": 0.01
+  },
+  "profiles": {
+    "default": {
+      "parameters": {
+        "fastk_period": 5,
+        "fastd_period": 3,
+        "fastd_matype": 0
+      },
+      "selection_accuracy": 0.5060639470782801
+    },
+    "short": {
+      "parameters": {
+        "fastk_period": 4,
+        "fastd_period": 2,
+        "fastd_matype": 0
+      },
+      "selection_accuracy": 0.5071664829106945
+    },
+    "long": {
+      "parameters": {
+        "fastk_period": 6,
+        "fastd_period": 4,
+        "fastd_matype": 0
+      },
+      "selection_accuracy": 0.5082690187431091
+    }
+  },
+  "profile_failures": [],
+  "causality_checks": [
+    {
+      "profile": "default",
+      "check": "numeric_prefix",
+      "cut": 1024,
+      "passed": true
+    },
+    {
+      "profile": "default",
+      "check": "numeric_prefix",
+      "cut": 2048,
+      "passed": true
+    },
+    {
+      "profile": "default",
+      "check": "numeric_future_mutation",
+      "cut": 2048,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_prefix",
+      "cut": 1024,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_prefix",
+      "cut": 2048,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_future_mutation",
+      "cut": 2048,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_prefix",
+      "cut": 1024,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_prefix",
+      "cut": 2048,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_future_mutation",
+      "cut": 2048,
+      "passed": true
+    }
+  ],
+  "periods": {
+    "validation": {
+      "direction": {
+        "forecasts": 923,
+        "accuracy": 0.5005417118093174,
+        "balanced_accuracy": 0.5008334507207588,
+        "up_precision": 0.4969818913480885,
+        "up_recall": 0.5393013100436681,
+        "mcc": 0.0016718070167948216,
+        "brier": 0.2518623276513489,
+        "log_loss": 0.6969220282305106,
+        "actual_up_rate": 0.4962080173347779,
+        "predicted_up_rate": 0.5384615384615384,
+        "tp": 247,
+        "tn": 215,
+        "fp": 250,
+        "fn": 211,
+        "wilson_low": 0.4683499010202976,
+        "wilson_high": 0.532729032156982,
+        "down_precision": 0.5046948356807511,
+        "down_recall": 0.46236559139784944
+      },
+      "stats": {
+        "net_return": -0.35033683239507696,
+        "sharpe": -83.96230070606336,
+        "sortino": -18.670625115858154,
+        "max_drawdown": 0.35383767699773727,
+        "profit_factor": 0.04273765261935623,
+        "win_rate": 0.075,
+        "trades": 120,
+        "too_few_trades": false,
+        "buy_hold_return": -0.017401018893599796,
+        "excess_vs_buy_hold": -0.33293581350147716,
+        "fee": 0.001,
+        "slippage": 0.0005,
+        "whole_contracts": true,
+        "unaffordable_entry_attempts": 0,
+        "funding_included": false,
+        "missing_costs": [
+          "Historical funding/financing not verified",
+          "Historical margin/liquidation rules not reproduced",
+          "Historical contract-version changes not verified"
+        ],
+        "fully_cost_validated": false,
+        "rank_eligible": false,
+        "capital": 10000.0,
+        "first_bar": "2026-09-05T13:45:00+00:00",
+        "last_bar_close": "2026-09-15T17:00:00+00:00",
+        "observations": 941,
+        "assumptions": "Signal-only long/cash, next adjacent tradable open; actual contracts when Kalshi. Excludes unverified derivative funding/rollover; not native leveraged execution."
+      },
+      "curve": {
+        "date": [
+          "2026-09-05T00:00:00+00:00",
+          "2026-09-06T00:00:00+00:00",
+          "2026-09-07T00:00:00+00:00",
+          "2026-09-08T00:00:00+00:00",
+          "2026-09-09T00:00:00+00:00",
+          "2026-09-10T00:00:00+00:00",
+          "2026-09-11T00:00:00+00:00",
+          "2026-09-12T00:00:00+00:00",
+          "2026-09-13T00:00:00+00:00",
+          "2026-09-14T00:00:00+00:00",
+          "2026-09-15T00:00:00+00:00"
+        ],
+        "equity": [
+          9801.500934986077,
+          9425.714511879007,
+          8999.547604355132,
+          8569.009155252557,
+          8283.462833062275,
+          7940.067701211746,
+          7700.9489521996165,
+          7377.2066253055345,
+          7040.5460044835,
+          6816.289653904223,
+          6496.63167604923
+        ]
+      },
+      "monthly": [
+        {
+          "month": "2026-09",
+          "return_value": -0.35033683239507696
+        }
+      ],
+      "annual": [
+        {
+          "year": 2026,
+          "return_value": -0.35033683239507696
+        }
+      ]
+    },
+    "retrospective_test": {
+      "direction": {
+        "forecasts": 1386,
+        "accuracy": 0.5533910533910534,
+        "balanced_accuracy": 0.5532798833819241,
+        "up_precision": 0.5571227080394923,
+        "up_recall": 0.5642857142857143,
+        "mcc": 0.10658274157190165,
+        "brier": 0.24752355843271562,
+        "log_loss": 0.6881892808502735,
+        "actual_up_rate": 0.5050505050505051,
+        "predicted_up_rate": 0.5115440115440115,
+        "tp": 395,
+        "tn": 372,
+        "fp": 314,
+        "fn": 305,
+        "wilson_low": 0.5271066983614253,
+        "wilson_high": 0.5793802675156617,
+        "down_precision": 0.5494830132939439,
+        "down_recall": 0.5422740524781341
+      },
+      "stats": {
+        "net_return": -0.3921873236493575,
+        "sharpe": -46.735179412728996,
+        "sortino": -17.764064520260526,
+        "max_drawdown": 0.39361248442969665,
+        "profit_factor": 0.11653616441729628,
+        "win_rate": 0.1507537688442211,
+        "trades": 199,
+        "too_few_trades": false,
+        "buy_hold_return": 0.10534435567122036,
+        "excess_vs_buy_hold": -0.49753167932057785,
+        "fee": 0.001,
+        "slippage": 0.0005,
+        "whole_contracts": true,
+        "unaffordable_entry_attempts": 0,
+        "funding_included": false,
+        "missing_costs": [
+          "Historical funding/financing not verified",
+          "Historical margin/liquidation rules not reproduced",
+          "Historical contract-version changes not verified"
+        ],
+        "fully_cost_validated": false,
+        "rank_eligible": false,
+        "capital": 10000.0,
+        "first_bar": "2026-09-15T17:00:00+00:00",
+        "last_bar_close": "2026-10-01T00:00:00+00:00",
+        "observations": 1415,
+        "assumptions": "Signal-only long/cash, next adjacent tradable open; actual contracts when Kalshi. Excludes unverified derivative funding/rollover; not native leveraged execution."
+      },
+      "curve": {
+        "date": [
+          "2026-09-15T00:00:00+00:00",
+          "2026-09-16T00:00:00+00:00",
+          "2026-09-17T00:00:00+00:00",
+          "2026-09-18T00:00:00+00:00",
+          "2026-09-19T00:00:00+00:00",
+          "2026-09-20T00:00:00+00:00",
+          "2026-09-21T00:00:00+00:00",
+          "2026-09-22T00:00:00+00:00",
+          "2026-09-23T00:00:00+00:00",
+          "2026-09-24T00:00:00+00:00",
+          "2026-09-25T00:00:00+00:00",
+          "2026-09-26T00:00:00+00:00",
+          "2026-09-27T00:00:00+00:00",
+          "2026-09-28T00:00:00+00:00",
+          "2026-09-29T00:00:00+00:00",
+          "2026-09-30T00:00:00+00:00"
+        ],
+        "equity": [
+          9923.33810613566,
+          9625.164318139487,
+          9526.702009012959,
+          9402.895791837782,
+          9065.69527807462,
+          8632.234315326987,
+          8452.016544459408,
+          8200.836643975497,
+          7799.311005787961,
+          7555.911217461026,
+          7320.800050432398,
+          7125.602856107014,
+          6849.2880309575385,
+          6601.042305872807,
+          6310.279352414666,
+          6078.126763506425
+        ]
+      },
+      "monthly": [
+        {
+          "month": "2026-09",
+          "return_value": -0.3921873236493575
+        }
+      ],
+      "annual": [
+        {
+          "year": 2026,
+          "return_value": -0.3921873236493575
+        }
+      ]
+    }
+  },
+  "sensitivity": [
+    {
+      "kind": "cost",
+      "case": "half_fee",
+      "net_return": -0.2583798483875883,
+      "sharpe": -27.760700688154667,
+      "sortino": -15.899151313412542,
+      "max_drawdown": 0.26122802363849895,
+      "profit_factor": 0.2665994603046938,
+      "win_rate": 0.31155778894472363,
+      "trades": 199,
+      "too_few_trades": false,
+      "buy_hold_return": 0.10644864035876522,
+      "excess_vs_buy_hold": -0.36482848874635354,
+      "fee": 0.0005,
+      "slippage": 0.0005,
+      "whole_contracts": true,
+      "unaffordable_entry_attempts": 0,
+      "funding_included": false,
+      "missing_costs": [
+        "Historical funding/financing not verified",
+        "Historical margin/liquidation rules not reproduced",
+        "Historical contract-version changes not verified"
+      ],
+      "fully_cost_validated": false,
+      "rank_eligible": false,
+      "capital": 10000.0,
+      "first_bar": "2026-09-15T17:00:00+00:00",
+      "last_bar_close": "2026-10-01T00:00:00+00:00",
+      "observations": 1415,
+      "assumptions": "Signal-only long/cash, next adjacent tradable open; actual contracts when Kalshi. Excludes unverified derivative funding/rollover; not native leveraged execution."
+    },
+    {
+      "kind": "cost",
+      "case": "double_fee",
+      "net_return": -0.5917039667873271,
+      "sharpe": -67.49441517926353,
+      "sortino": -18.425484183541055,
+      "max_drawdown": 0.5917039667873271,
+      "profit_factor": 0.02488827995866329,
+      "win_rate": 0.05527638190954774,
+      "trades": 199,
+      "too_few_trades": false,
+      "buy_hold_return": 0.1031388493972003,
+      "excess_vs_buy_hold": -0.6948428161845274,
+      "fee": 0.002,
+      "slippage": 0.0005,
+      "whole_contracts": true,
+      "unaffordable_entry_attempts": 0,
+      "funding_included": false,
+      "missing_costs": [
+        "Historical funding/financing not verified",
+        "Historical margin/liquidation rules not reproduced",
+        "Historical contract-version changes not verified"
+      ],
+      "fully_cost_validated": false,
+      "rank_eligible": false,
+      "capital": 10000.0,
+      "first_bar": "2026-09-15T17:00:00+00:00",
+      "last_bar_close": "2026-10-01T00:00:00+00:00",
+      "observations": 1415,
+      "assumptions": "Signal-only long/cash, next adjacent tradable open; actual contracts when Kalshi. Excludes unverified derivative funding/rollover; not native leveraged execution."
+    },
+    {
+      "kind": "cost",
+      "case": "double_both",
+      "net_return": -0.665363782615785,
+      "sharpe": -70.75781965722955,
+      "sortino": -18.48376333311419,
+      "max_drawdown": 0.665363782615785,
+      "profit_factor": 0.011753755134395322,
+      "win_rate": 0.03015075376884422,
+      "trades": 199,
+      "too_few_trades": false,
+      "buy_hold_return": 0.10201293060654004,
+      "excess_vs_buy_hold": -0.767376713222325,
+      "fee": 0.002,
+      "slippage": 0.001,
+      "whole_contracts": true,
+      "unaffordable_entry_attempts": 0,
+      "funding_included": false,
+      "missing_costs": [
+        "Historical funding/financing not verified",
+        "Historical margin/liquidation rules not reproduced",
+        "Historical contract-version changes not verified"
+      ],
+      "fully_cost_validated": false,
+      "rank_eligible": false,
+      "capital": 10000.0,
+      "first_bar": "2026-09-15T17:00:00+00:00",
+      "last_bar_close": "2026-10-01T00:00:00+00:00",
+      "observations": 1415,
+      "assumptions": "Signal-only long/cash, next adjacent tradable open; actual contracts when Kalshi. Excludes unverified derivative funding/rollover; not native leveraged execution."
+    }
+  ],
+  "walk_forward": [
+    {
+      "status": "COMPLETED",
+      "training_rows": 1366,
+      "evaluation_start": "2026-07-01T08:45:00+00:00",
+      "forecasts": 1367,
+      "accuracy": 0.5413313825896123,
+      "balanced_accuracy": 0.5416077852004111,
+      "up_precision": 0.5513595166163142,
+      "up_recall": 0.5251798561151079,
+      "mcc": 0.08324498511837862,
+      "brier": 0.24802211705409669,
+      "log_loss": 0.6892024540672544,
+      "actual_up_rate": 0.5084125822970007,
+      "predicted_up_rate": 0.4842721287490856,
+      "tp": 365,
+      "tn": 375,
+      "fp": 297,
+      "fn": 330,
+      "wilson_low": 0.5148376878600751,
+      "wilson_high": 0.5675934344793467
+    },
+    {
+      "status": "COMPLETED",
+      "training_rows": 2733,
+      "evaluation_start": "2026-07-16T15:15:00+00:00",
+      "forecasts": 1367,
+      "accuracy": 0.5245062179956108,
+      "balanced_accuracy": 0.5244856063979176,
+      "up_precision": 0.5276162790697675,
+      "up_recall": 0.5276162790697675,
+      "mcc": 0.04897121279583519,
+      "brier": 0.24949574797816085,
+      "log_loss": 0.6921431465889902,
+      "actual_up_rate": 0.5032918800292612,
+      "predicted_up_rate": 0.5032918800292612,
+      "tp": 363,
+      "tn": 354,
+      "fp": 325,
+      "fn": 325,
+      "wilson_low": 0.4980010618306625,
+      "wilson_high": 0.5508740284059856
+    },
+    {
+      "status": "COMPLETED",
+      "training_rows": 4100,
+      "evaluation_start": "2026-08-02T20:00:00+00:00",
+      "forecasts": 1367,
+      "accuracy": 0.5259692757863935,
+      "balanced_accuracy": 0.525815857303111,
+      "up_precision": 0.5305832147937412,
+      "up_recall": 0.5397973950795948,
+      "mcc": 0.05164963026640783,
+      "brier": 0.24872056860106967,
+      "log_loss": 0.6905851837672169,
+      "actual_up_rate": 0.5054864667154353,
+      "predicted_up_rate": 0.5142648134601316,
+      "tp": 373,
+      "tn": 346,
+      "fp": 330,
+      "fn": 318,
+      "wilson_low": 0.4994639230368997,
+      "wilson_high": 0.5523290830347724
+    }
+  ],
+  "identity": "f096257adbf40100f2cc14cb41e29b6ce97995a48542c5c8a49b05d6110af77f",
+  "asset_id": "ETH",
+  "contract": "KXETHPERP",
+  "minutes": 15,
+  "basis": "trades",
+  "price_basis": "TRADED_CONTRACT_OHLCV",
+  "historical_test_status": "RETROSPECTIVE_SHORT_HISTORY_HOLDOUT",
+  "fully_validated_financial_rank_eligible": false,
+  "finished_at": "2026-10-25T20:23:10.582000+00:00",
+  "signal_cache_sha256": "c2f09943d7dad859603325a35c1c40563ef8053080f6c74fe461e6b82b3392f5"
+}

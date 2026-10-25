@@ -1,0 +1,196 @@
+{
+  "candidate_id": "INDICATOR:TRIX",
+  "name": "1-day Rate-Of-Change (ROC) of a Triple Smooth EMA",
+  "family": "indicator + trained binary readout",
+  "status": "COMPLETED_PREDICTION_ONLY",
+  "source_url": "https://github.com/TA-Lib/ta-lib/blob/v0.6.4/src/ta_func/ta_TRIX.c",
+  "license": "See pinned formula source and retained upstream license",
+  "executed": true,
+  "selected_profile": "default",
+  "parameters": {
+    "timeperiod": 30
+  },
+  "model": {
+    "mean": [
+      0.013125392626188026,
+      -1.101172860595002e-05,
+      0.01313640435479398,
+      0.013152126171205179
+    ],
+    "scale": [
+      0.07554182748882478,
+      0.0028094610721843927,
+      0.07554493656800124,
+      0.07555152655055221
+    ],
+    "keep": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "weights": [
+      0.04924908085898509,
+      0.003245765624621256,
+      -0.029307134651062182,
+      0.004335542998688212,
+      -0.018787923330687947
+    ],
+    "training_samples": 1300,
+    "training_up_rate": 0.5123076923076924,
+    "objective": 0.6927274466099305,
+    "iterations": 8,
+    "ridge": 0.01
+  },
+  "profiles": {
+    "default": {
+      "parameters": {
+        "timeperiod": 30
+      },
+      "selection_accuracy": 0.44907407407407407
+    },
+    "short": {
+      "parameters": {
+        "timeperiod": 24
+      },
+      "selection_accuracy": 0.4444444444444444
+    },
+    "long": {
+      "parameters": {
+        "timeperiod": 36
+      },
+      "selection_accuracy": 0.4351851851851852
+    }
+  },
+  "profile_failures": [],
+  "causality_checks": [
+    {
+      "profile": "default",
+      "check": "numeric_prefix",
+      "cut": 899,
+      "passed": true
+    },
+    {
+      "profile": "default",
+      "check": "numeric_prefix",
+      "cut": 1798,
+      "passed": true
+    },
+    {
+      "profile": "default",
+      "check": "numeric_future_mutation",
+      "cut": 1798,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_prefix",
+      "cut": 899,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_prefix",
+      "cut": 1798,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_future_mutation",
+      "cut": 1798,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_prefix",
+      "cut": 899,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_prefix",
+      "cut": 1798,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_future_mutation",
+      "cut": 1798,
+      "passed": true
+    }
+  ],
+  "periods": {
+    "validation": {
+      "direction": {
+        "forecasts": 216,
+        "accuracy": 0.4861111111111111,
+        "balanced_accuracy": 0.5,
+        "up_precision": 0.4861111111111111,
+        "up_recall": 1.0,
+        "mcc": null,
+        "brier": 0.25095421119721395,
+        "log_loss": 0.695057577230213,
+        "actual_up_rate": 0.4861111111111111,
+        "predicted_up_rate": 1.0,
+        "tp": 105,
+        "tn": 0,
+        "fp": 111,
+        "fn": 0,
+        "wilson_low": 0.42028466897921324,
+        "wilson_high": 0.5524229357092468,
+        "down_precision": null,
+        "down_recall": 0.0
+      }
+    },
+    "retrospective_test": {
+      "direction": {
+        "forecasts": 326,
+        "accuracy": 0.50920245398773,
+        "balanced_accuracy": 0.500170010200612,
+        "up_precision": 0.5308056872037915,
+        "up_recall": 0.6473988439306358,
+        "mcc": 0.0003551269199037609,
+        "brier": 0.2500565551769676,
+        "log_loss": 0.6932588217510729,
+        "actual_up_rate": 0.5306748466257669,
+        "predicted_up_rate": 0.647239263803681,
+        "tp": 112,
+        "tn": 54,
+        "fp": 99,
+        "fn": 61,
+        "wilson_low": 0.4551451156160762,
+        "wilson_high": 0.563045441815522,
+        "down_precision": 0.46956521739130436,
+        "down_recall": 0.35294117647058826
+      }
+    }
+  },
+  "sensitivity": [],
+  "walk_forward": [
+    {
+      "status": "INSUFFICIENT_FOLD_OR_FIT_FAILED",
+      "training_rows": 324,
+      "reason": "Fewer than 1000 valid training targets"
+    },
+    {
+      "status": "INSUFFICIENT_FOLD_OR_FIT_FAILED",
+      "training_rows": 649,
+      "reason": "Fewer than 1000 valid training targets"
+    },
+    {
+      "status": "INSUFFICIENT_FOLD_OR_FIT_FAILED",
+      "training_rows": 974,
+      "reason": "Fewer than 1000 valid training targets"
+    }
+  ],
+  "identity": "231641733c29b53b57fd13a70c85e16971358886a73ca00b1a55c6284a47413d",
+  "asset_id": "SUI",
+  "contract": "KXSUIPERP",
+  "minutes": 60,
+  "basis": "quotes",
+  "price_basis": "OBSERVED_BID_ASK_MIDPOINT_CLOSE_ONLY",
+  "historical_test_status": "RETROSPECTIVE_SHORT_HISTORY_HOLDOUT",
+  "fully_validated_financial_rank_eligible": false,
+  "finished_at": "2026-10-25T20:48:08.186349+00:00",
+  "signal_cache_sha256": "68e8c0e133fae3ea03f406e83de4f613fc045d86239269244164289999da5bb8"
+}

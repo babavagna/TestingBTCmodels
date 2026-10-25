@@ -1,0 +1,236 @@
+{
+  "candidate_id": "INDICATOR:MACD",
+  "name": "Moving Average Convergence/Divergence",
+  "family": "indicator + trained binary readout",
+  "status": "COMPLETED_PREDICTION_ONLY",
+  "source_url": "https://github.com/TA-Lib/ta-lib/blob/v0.6.4/src/ta_func/ta_MACD.c",
+  "license": "See pinned formula source and retained upstream license",
+  "executed": true,
+  "selected_profile": "default",
+  "parameters": {
+    "fastperiod": 12,
+    "slowperiod": 26,
+    "signalperiod": 9
+  },
+  "model": {
+    "mean": [
+      0.002266879115129744,
+      0.0022579305605926383,
+      8.948554537106382e-06,
+      3.435976613953844e-06,
+      1.2373961259341935e-06,
+      2.1985804880196626e-06,
+      0.0022634431385157904,
+      0.0022566931644667043,
+      6.749974049086725e-06,
+      0.002260678083825025,
+      0.0022562962149659397,
+      4.381868859085712e-06
+    ],
+    "scale": [
+      0.006479573022612246,
+      0.006124064737010328,
+      0.0018625962181325426,
+      0.0007209230551959559,
+      0.00046623271937083977,
+      0.0005166088816933913,
+      0.006481155614790877,
+      0.0061229927536106486,
+      0.001865202473486297,
+      0.006474709087788405,
+      0.006121987566742454,
+      0.0018654429273305363
+    ],
+    "keep": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "weights": [
+      0.045698503138993735,
+      -0.05660102084541574,
+      -0.0321371554067236,
+      -0.0912384691291358,
+      -0.02286000448892766,
+      -0.09502694417048016,
+      0.053859635987961084,
+      -0.05404439644142298,
+      -0.0249069949478701,
+      -0.10602859296805422,
+      0.09942877475167476,
+      0.013290259823261921,
+      0.3014884978981125
+    ],
+    "training_samples": 1310,
+    "training_up_rate": 0.5114503816793893,
+    "objective": 0.6883983265376639,
+    "iterations": 23,
+    "ridge": 0.01
+  },
+  "profiles": {
+    "default": {
+      "parameters": {
+        "fastperiod": 12,
+        "slowperiod": 26,
+        "signalperiod": 9
+      },
+      "selection_accuracy": 0.576036866359447
+    },
+    "short": {
+      "parameters": {
+        "fastperiod": 10,
+        "slowperiod": 21,
+        "signalperiod": 7
+      },
+      "selection_accuracy": 0.5576036866359447
+    },
+    "long": {
+      "parameters": {
+        "fastperiod": 14,
+        "slowperiod": 31,
+        "signalperiod": 11
+      },
+      "selection_accuracy": 0.5714285714285714
+    }
+  },
+  "profile_failures": [],
+  "causality_checks": [
+    {
+      "profile": "default",
+      "check": "numeric_prefix",
+      "cut": 904,
+      "passed": true
+    },
+    {
+      "profile": "default",
+      "check": "numeric_prefix",
+      "cut": 1809,
+      "passed": true
+    },
+    {
+      "profile": "default",
+      "check": "numeric_future_mutation",
+      "cut": 1809,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_prefix",
+      "cut": 904,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_prefix",
+      "cut": 1809,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_future_mutation",
+      "cut": 1809,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_prefix",
+      "cut": 904,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_prefix",
+      "cut": 1809,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_future_mutation",
+      "cut": 1809,
+      "passed": true
+    }
+  ],
+  "periods": {
+    "validation": {
+      "direction": {
+        "forecasts": 217,
+        "accuracy": 0.5023041474654378,
+        "balanced_accuracy": 0.5282112845138055,
+        "up_precision": 0.46987951807228917,
+        "up_recall": 0.7959183673469388,
+        "mcc": 0.06622168742343902,
+        "brier": 0.25344804395109166,
+        "log_loss": 0.7000853675422316,
+        "actual_up_rate": 0.45161290322580644,
+        "predicted_up_rate": 0.7649769585253456,
+        "tp": 78,
+        "tn": 31,
+        "fp": 88,
+        "fn": 20,
+        "wilson_low": 0.4363203753276731,
+        "wilson_high": 0.5682077599479226,
+        "down_precision": 0.6078431372549019,
+        "down_recall": 0.2605042016806723
+      }
+    },
+    "retrospective_test": {
+      "direction": {
+        "forecasts": 329,
+        "accuracy": 0.5106382978723404,
+        "balanced_accuracy": 0.5080686949441113,
+        "up_precision": 0.5268817204301075,
+        "up_recall": 0.5730994152046783,
+        "mcc": 0.016264300874646094,
+        "brier": 0.25080266144808055,
+        "log_loss": 0.6947697258951637,
+        "actual_up_rate": 0.5197568389057751,
+        "predicted_up_rate": 0.5653495440729484,
+        "tp": 98,
+        "tn": 70,
+        "fp": 88,
+        "fn": 73,
+        "wilson_low": 0.4568120654385216,
+        "wilson_high": 0.5642189684501112,
+        "down_precision": 0.48951048951048953,
+        "down_recall": 0.4430379746835443
+      }
+    }
+  },
+  "sensitivity": [],
+  "walk_forward": [
+    {
+      "status": "INSUFFICIENT_FOLD_OR_FIT_FAILED",
+      "training_rows": 326,
+      "reason": "Fewer than 1000 valid training targets"
+    },
+    {
+      "status": "INSUFFICIENT_FOLD_OR_FIT_FAILED",
+      "training_rows": 654,
+      "reason": "Fewer than 1000 valid training targets"
+    },
+    {
+      "status": "INSUFFICIENT_FOLD_OR_FIT_FAILED",
+      "training_rows": 981,
+      "reason": "Fewer than 1000 valid training targets"
+    }
+  ],
+  "identity": "d6ffb1f9b3bcf35b1ba508feac2fd78d03a03a4de2a21dc392dd814a3518a347",
+  "asset_id": "LINK",
+  "contract": "KXLINKPERP",
+  "minutes": 60,
+  "basis": "quotes",
+  "price_basis": "OBSERVED_BID_ASK_MIDPOINT_CLOSE_ONLY",
+  "historical_test_status": "RETROSPECTIVE_SHORT_HISTORY_HOLDOUT",
+  "fully_validated_financial_rank_eligible": false,
+  "finished_at": "2026-10-25T20:37:05.401431+00:00",
+  "signal_cache_sha256": "7ad709cdc3d01556589313ab8dfef1e9ef36f633a2618dff907b05e96cb74850"
+}

@@ -1,0 +1,196 @@
+{
+  "candidate_id": "INDICATOR:HMA",
+  "name": "Hull Moving Average",
+  "family": "indicator + trained binary readout",
+  "status": "COMPLETED_PREDICTION_ONLY",
+  "source_url": "https://github.com/babavagna/TestingBTCmodels/blob/main/indicator_lab/features.py",
+  "license": "See pinned formula source and retained upstream license",
+  "executed": true,
+  "selected_profile": "default",
+  "parameters": {
+    "timeperiod": 20
+  },
+  "model": {
+    "mean": [
+      -4.0688908450487796e-05,
+      5.19075533801348e-05,
+      -9.25964618306226e-05,
+      -8.23258548685133e-05
+    ],
+    "scale": [
+      0.006726702095797313,
+      0.005267988368711922,
+      0.006873602339091792,
+      0.006867833426357613
+    ],
+    "keep": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "weights": [
+      0.08513638406142546,
+      0.027458219436288053,
+      0.07963724253707456,
+      -0.01047519499080082,
+      -0.0681537234264023
+    ],
+    "training_samples": 1301,
+    "training_up_rate": 0.5211375864719446,
+    "objective": 0.6901549863382682,
+    "iterations": 10,
+    "ridge": 0.01
+  },
+  "profiles": {
+    "default": {
+      "parameters": {
+        "timeperiod": 20
+      },
+      "selection_accuracy": 0.5185185185185185
+    },
+    "short": {
+      "parameters": {
+        "timeperiod": 16
+      },
+      "selection_accuracy": 0.5138888888888888
+    },
+    "long": {
+      "parameters": {
+        "timeperiod": 24
+      },
+      "selection_accuracy": 0.49537037037037035
+    }
+  },
+  "profile_failures": [],
+  "causality_checks": [
+    {
+      "profile": "default",
+      "check": "numeric_prefix",
+      "cut": 900,
+      "passed": true
+    },
+    {
+      "profile": "default",
+      "check": "numeric_prefix",
+      "cut": 1800,
+      "passed": true
+    },
+    {
+      "profile": "default",
+      "check": "numeric_future_mutation",
+      "cut": 1800,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_prefix",
+      "cut": 900,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_prefix",
+      "cut": 1800,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_future_mutation",
+      "cut": 1800,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_prefix",
+      "cut": 900,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_prefix",
+      "cut": 1800,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_future_mutation",
+      "cut": 1800,
+      "passed": true
+    }
+  ],
+  "periods": {
+    "validation": {
+      "direction": {
+        "forecasts": 216,
+        "accuracy": 0.5,
+        "balanced_accuracy": 0.5165733964700818,
+        "up_precision": 0.4785276073619632,
+        "up_recall": 0.7722772277227723,
+        "mcc": 0.038434336259691,
+        "brier": 0.24936802653038279,
+        "log_loss": 0.6918854161955588,
+        "actual_up_rate": 0.4675925925925926,
+        "predicted_up_rate": 0.7546296296296297,
+        "tp": 78,
+        "tn": 30,
+        "fp": 85,
+        "fn": 23,
+        "wilson_low": 0.4339058081512389,
+        "wilson_high": 0.5660941918487611,
+        "down_precision": 0.5660377358490566,
+        "down_recall": 0.2608695652173913
+      }
+    },
+    "retrospective_test": {
+      "direction": {
+        "forecasts": 327,
+        "accuracy": 0.5290519877675841,
+        "balanced_accuracy": 0.5149310006786818,
+        "up_precision": 0.5555555555555556,
+        "up_recall": 0.6741573033707865,
+        "mcc": 0.03140752262229978,
+        "brier": 0.2529154251323145,
+        "log_loss": 0.6999194136785857,
+        "actual_up_rate": 0.5443425076452599,
+        "predicted_up_rate": 0.6605504587155964,
+        "tp": 120,
+        "tn": 53,
+        "fp": 96,
+        "fn": 58,
+        "wilson_low": 0.474927040032195,
+        "wilson_high": 0.5825022799439856,
+        "down_precision": 0.4774774774774775,
+        "down_recall": 0.35570469798657717
+      }
+    }
+  },
+  "sensitivity": [],
+  "walk_forward": [
+    {
+      "status": "INSUFFICIENT_FOLD_OR_FIT_FAILED",
+      "training_rows": 324,
+      "reason": "Fewer than 1000 valid training targets"
+    },
+    {
+      "status": "INSUFFICIENT_FOLD_OR_FIT_FAILED",
+      "training_rows": 649,
+      "reason": "Fewer than 1000 valid training targets"
+    },
+    {
+      "status": "INSUFFICIENT_FOLD_OR_FIT_FAILED",
+      "training_rows": 974,
+      "reason": "Fewer than 1000 valid training targets"
+    }
+  ],
+  "identity": "364454550a899fcfd78de2ff8c51dc1d7042527668f0a5336e9ed4a9805e31f3",
+  "asset_id": "LTC",
+  "contract": "KXLTCPERP",
+  "minutes": 60,
+  "basis": "quotes",
+  "price_basis": "OBSERVED_BID_ASK_MIDPOINT_CLOSE_ONLY",
+  "historical_test_status": "RETROSPECTIVE_SHORT_HISTORY_HOLDOUT",
+  "fully_validated_financial_rank_eligible": false,
+  "finished_at": "2026-10-25T20:38:18.046537+00:00",
+  "signal_cache_sha256": "dffc5fb50e9e1f18e0f331b2b7759bf3138d87dbe9c19e4714b87aeebf14bf8f"
+}

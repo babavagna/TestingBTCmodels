@@ -1,0 +1,240 @@
+{
+  "candidate_id": "INDICATOR:STOCHRSI",
+  "name": "Stochastic Relative Strength Index",
+  "family": "indicator + trained binary readout",
+  "status": "COMPLETED_PREDICTION_ONLY",
+  "source_url": "https://github.com/TA-Lib/ta-lib/blob/v0.6.4/src/ta_func/ta_STOCHRSI.c",
+  "license": "See pinned formula source and retained upstream license",
+  "executed": true,
+  "selected_profile": "short",
+  "parameters": {
+    "timeperiod": 11,
+    "fastk_period": 4,
+    "fastd_period": 2,
+    "fastd_matype": 0
+  },
+  "model": {
+    "mean": [
+      50.70567418877179,
+      50.56445393166445,
+      0.2824405142144884,
+      0.1876492527231202,
+      50.4232336745573,
+      50.37680467894135,
+      50.450666600795564,
+      50.516316868398185
+    ],
+    "scale": [
+      42.955685375865606,
+      35.577685087371,
+      48.18697065775181,
+      29.413774257758096,
+      42.98074588495965,
+      35.46171277839147,
+      42.9908313144294,
+      35.46155901060217
+    ],
+    "keep": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "weights": [
+      0.017453925505735438,
+      -0.05078657799327282,
+      -0.04244183937187323,
+      -0.027874334523519662,
+      -0.0399877382336899,
+      -0.01950623490924702,
+      -0.009412745862084104,
+      0.08505619138892921,
+      -0.12012752408191306
+    ],
+    "training_samples": 1384,
+    "training_up_rate": 0.5043352601156069,
+    "objective": 0.6900509239973118,
+    "iterations": 11,
+    "ridge": 0.01
+  },
+  "profiles": {
+    "default": {
+      "parameters": {
+        "timeperiod": 14,
+        "fastk_period": 5,
+        "fastd_period": 3,
+        "fastd_matype": 0
+      },
+      "selection_accuracy": 0.4978165938864629
+    },
+    "short": {
+      "parameters": {
+        "timeperiod": 11,
+        "fastk_period": 4,
+        "fastd_period": 2,
+        "fastd_matype": 0
+      },
+      "selection_accuracy": 0.5502183406113537
+    },
+    "long": {
+      "parameters": {
+        "timeperiod": 17,
+        "fastk_period": 6,
+        "fastd_period": 4,
+        "fastd_matype": 0
+      },
+      "selection_accuracy": 0.5065502183406113
+    }
+  },
+  "profile_failures": [],
+  "causality_checks": [
+    {
+      "profile": "default",
+      "check": "numeric_prefix",
+      "cut": 949,
+      "passed": true
+    },
+    {
+      "profile": "default",
+      "check": "numeric_prefix",
+      "cut": 1898,
+      "passed": true
+    },
+    {
+      "profile": "default",
+      "check": "numeric_future_mutation",
+      "cut": 1898,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_prefix",
+      "cut": 949,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_prefix",
+      "cut": 1898,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_future_mutation",
+      "cut": 1898,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_prefix",
+      "cut": 949,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_prefix",
+      "cut": 1898,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_future_mutation",
+      "cut": 1898,
+      "passed": true
+    }
+  ],
+  "periods": {
+    "validation": {
+      "direction": {
+        "forecasts": 230,
+        "accuracy": 0.5217391304347826,
+        "balanced_accuracy": 0.5217391304347826,
+        "up_precision": 0.52,
+        "up_recall": 0.5652173913043478,
+        "mcc": 0.04364357804719848,
+        "brier": 0.24935105109403624,
+        "log_loss": 0.6918531581966498,
+        "actual_up_rate": 0.5,
+        "predicted_up_rate": 0.5434782608695652,
+        "tp": 65,
+        "tn": 55,
+        "fp": 60,
+        "fn": 50,
+        "wilson_low": 0.45735647256549766,
+        "wilson_high": 0.5854075439199958,
+        "down_precision": 0.5238095238095238,
+        "down_recall": 0.4782608695652174
+      }
+    },
+    "retrospective_test": {
+      "direction": {
+        "forecasts": 349,
+        "accuracy": 0.5243553008595988,
+        "balanced_accuracy": 0.5240934174221521,
+        "up_precision": 0.5303867403314917,
+        "up_recall": 0.5423728813559322,
+        "mcc": 0.0482153505790287,
+        "brier": 0.2486157711033059,
+        "log_loss": 0.6903735688146867,
+        "actual_up_rate": 0.5071633237822349,
+        "predicted_up_rate": 0.5186246418338109,
+        "tp": 96,
+        "tn": 87,
+        "fp": 85,
+        "fn": 81,
+        "wilson_low": 0.47198049980663825,
+        "wilson_high": 0.5761997793952992,
+        "down_precision": 0.5178571428571429,
+        "down_recall": 0.5058139534883721
+      }
+    }
+  },
+  "sensitivity": [],
+  "walk_forward": [
+    {
+      "status": "INSUFFICIENT_FOLD_OR_FIT_FAILED",
+      "training_rows": 345,
+      "reason": "Fewer than 1000 valid training targets"
+    },
+    {
+      "status": "INSUFFICIENT_FOLD_OR_FIT_FAILED",
+      "training_rows": 691,
+      "reason": "Fewer than 1000 valid training targets"
+    },
+    {
+      "status": "COMPLETED",
+      "training_rows": 1037,
+      "evaluation_start": "2026-08-08T03:00:00+00:00",
+      "forecasts": 346,
+      "accuracy": 0.4884393063583815,
+      "balanced_accuracy": 0.49667338709677417,
+      "up_precision": 0.5333333333333333,
+      "up_recall": 0.3870967741935484,
+      "mcc": -0.006800496398151759,
+      "brier": 0.25081102324859644,
+      "log_loss": 0.6947792247231555,
+      "actual_up_rate": 0.5375722543352601,
+      "predicted_up_rate": 0.3901734104046243,
+      "tp": 72,
+      "tn": 97,
+      "fp": 63,
+      "fn": 114,
+      "wilson_low": 0.4361859935165965,
+      "wilson_high": 0.5409465052244966
+    }
+  ],
+  "identity": "32f2a288cb4acec4ac4fc31d618e382ad794984962e025af90d76662aec0f4bf",
+  "asset_id": "XRP",
+  "contract": "KXXRPPERP",
+  "minutes": 60,
+  "basis": "quotes",
+  "price_basis": "OBSERVED_BID_ASK_MIDPOINT_CLOSE_ONLY",
+  "historical_test_status": "RETROSPECTIVE_SHORT_HISTORY_HOLDOUT",
+  "fully_validated_financial_rank_eligible": false,
+  "finished_at": "2026-10-25T20:51:37.154994+00:00",
+  "signal_cache_sha256": "c15201c90d84f49e50073038e4fc045c5de956ce68869f2763cc8adfcc22d723"
+}

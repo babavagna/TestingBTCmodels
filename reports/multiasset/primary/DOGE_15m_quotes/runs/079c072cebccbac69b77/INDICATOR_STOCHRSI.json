@@ -1,0 +1,272 @@
+{
+  "candidate_id": "INDICATOR:STOCHRSI",
+  "name": "Stochastic Relative Strength Index",
+  "family": "indicator + trained binary readout",
+  "status": "COMPLETED_PREDICTION_ONLY",
+  "source_url": "https://github.com/TA-Lib/ta-lib/blob/v0.6.4/src/ta_func/ta_STOCHRSI.c",
+  "license": "See pinned formula source and retained upstream license",
+  "executed": true,
+  "selected_profile": "long",
+  "parameters": {
+    "timeperiod": 17,
+    "fastk_period": 6,
+    "fastd_period": 4,
+    "fastd_matype": 0
+  },
+  "model": {
+    "mean": [
+      50.617846279189294,
+      50.60225799622823,
+      0.1112328937145364,
+      -0.01345084941586388,
+      50.50661338547476,
+      50.61570884564413,
+      50.718004127818936,
+      50.675735039812544
+    ],
+    "scale": [
+      40.12900684017064,
+      30.21501448272772,
+      37.160100160641875,
+      14.179168403713113,
+      40.22625355872476,
+      30.209531208419303,
+      40.210958462460056,
+      30.259834151966885
+    ],
+    "keep": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "weights": [
+      0.00854394225998409,
+      -0.1050819032519411,
+      0.03133120410941741,
+      -0.05937035409914138,
+      0.07038689698138913,
+      -0.04998288261031291,
+      -0.0016999561970119893,
+      -0.07005564899294515,
+      0.011557574145382722
+    ],
+    "training_samples": 5172,
+    "training_up_rate": 0.5021268368136118,
+    "objective": 0.6908913892055084,
+    "iterations": 14,
+    "ridge": 0.01
+  },
+  "profiles": {
+    "default": {
+      "parameters": {
+        "timeperiod": 14,
+        "fastk_period": 5,
+        "fastd_period": 3,
+        "fastd_matype": 0
+      },
+      "selection_accuracy": 0.49534883720930234
+    },
+    "short": {
+      "parameters": {
+        "timeperiod": 11,
+        "fastk_period": 4,
+        "fastd_period": 2,
+        "fastd_matype": 0
+      },
+      "selection_accuracy": 0.5209302325581395
+    },
+    "long": {
+      "parameters": {
+        "timeperiod": 17,
+        "fastk_period": 6,
+        "fastd_period": 4,
+        "fastd_matype": 0
+      },
+      "selection_accuracy": 0.5348837209302325
+    }
+  },
+  "profile_failures": [],
+  "causality_checks": [
+    {
+      "profile": "default",
+      "check": "numeric_prefix",
+      "cut": 1024,
+      "passed": true
+    },
+    {
+      "profile": "default",
+      "check": "numeric_prefix",
+      "cut": 2048,
+      "passed": true
+    },
+    {
+      "profile": "default",
+      "check": "numeric_future_mutation",
+      "cut": 2048,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_prefix",
+      "cut": 1024,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_prefix",
+      "cut": 2048,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_future_mutation",
+      "cut": 2048,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_prefix",
+      "cut": 1024,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_prefix",
+      "cut": 2048,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_future_mutation",
+      "cut": 2048,
+      "passed": true
+    }
+  ],
+  "periods": {
+    "validation": {
+      "direction": {
+        "forecasts": 863,
+        "accuracy": 0.5052143684820394,
+        "balanced_accuracy": 0.5051487414187643,
+        "up_precision": 0.5114678899082569,
+        "up_recall": 0.5102974828375286,
+        "mcc": 0.010297206275502081,
+        "brier": 0.2506112563095311,
+        "log_loss": 0.6943762108992153,
+        "actual_up_rate": 0.5063731170336037,
+        "predicted_up_rate": 0.5052143684820394,
+        "tp": 223,
+        "tn": 213,
+        "fp": 213,
+        "fn": 214,
+        "wilson_low": 0.47190808597286293,
+        "wilson_high": 0.5384744354310443,
+        "down_precision": 0.49882903981264637,
+        "down_recall": 0.5
+      }
+    },
+    "retrospective_test": {
+      "direction": {
+        "forecasts": 1297,
+        "accuracy": 0.5397070161912105,
+        "balanced_accuracy": 0.5381244699806573,
+        "up_precision": 0.5565092989985694,
+        "up_recall": 0.5754437869822485,
+        "mcc": 0.07641238910914082,
+        "brier": 0.24919436848955479,
+        "log_loss": 0.6915392031366949,
+        "actual_up_rate": 0.5212027756360833,
+        "predicted_up_rate": 0.5389360061680802,
+        "tp": 389,
+        "tn": 311,
+        "fp": 310,
+        "fn": 287,
+        "wilson_low": 0.5125043010093122,
+        "wilson_high": 0.5666752172183565,
+        "down_precision": 0.520066889632107,
+        "down_recall": 0.500805152979066
+      }
+    }
+  },
+  "sensitivity": [],
+  "walk_forward": [
+    {
+      "status": "COMPLETED",
+      "training_rows": 1292,
+      "evaluation_start": "2026-06-30T05:15:00+00:00",
+      "forecasts": 1293,
+      "accuracy": 0.5112142304717711,
+      "balanced_accuracy": 0.5116102404593851,
+      "up_precision": 0.5163043478260869,
+      "up_recall": 0.43846153846153846,
+      "mcc": 0.023472250537577653,
+      "brier": 0.2506727589280875,
+      "log_loss": 0.6945114872718576,
+      "actual_up_rate": 0.502706883217324,
+      "predicted_up_rate": 0.42691415313225056,
+      "tp": 285,
+      "tn": 376,
+      "fp": 267,
+      "fn": 365,
+      "wilson_low": 0.4839749480444668,
+      "wilson_high": 0.5383870760894406
+    },
+    {
+      "status": "COMPLETED",
+      "training_rows": 2585,
+      "evaluation_start": "2026-07-15T08:45:00+00:00",
+      "forecasts": 1293,
+      "accuracy": 0.5491105955143079,
+      "balanced_accuracy": 0.5492025476365934,
+      "up_precision": 0.5535714285714286,
+      "up_recall": 0.5254237288135594,
+      "mcc": 0.09851405093889898,
+      "brier": 0.2479093520139215,
+      "log_loss": 0.6889613225722797,
+      "actual_up_rate": 0.5019334880123744,
+      "predicted_up_rate": 0.47641144624903325,
+      "tp": 341,
+      "tn": 369,
+      "fp": 275,
+      "fn": 308,
+      "wilson_low": 0.521883426934554,
+      "wilson_high": 0.5760468166863508
+    },
+    {
+      "status": "COMPLETED",
+      "training_rows": 3878,
+      "evaluation_start": "2026-07-31T04:15:00+00:00",
+      "forecasts": 1293,
+      "accuracy": 0.51430781129157,
+      "balanced_accuracy": 0.5145160132126957,
+      "up_precision": 0.5252365930599369,
+      "up_recall": 0.5045454545454545,
+      "mcc": 0.0290311230821762,
+      "brier": 0.2496258073926114,
+      "log_loss": 0.6923995999974399,
+      "actual_up_rate": 0.5104408352668214,
+      "predicted_up_rate": 0.4903325599381284,
+      "tp": 333,
+      "tn": 332,
+      "fp": 301,
+      "fn": 327,
+      "wilson_low": 0.4870636510099394,
+      "wilson_high": 0.5414672073678045
+    }
+  ],
+  "identity": "079c072cebccbac69b779f895d537d9cc29eced57d06c5da0082dc01599628e0",
+  "asset_id": "DOGE",
+  "contract": "KXDOGEPERP",
+  "minutes": 15,
+  "basis": "quotes",
+  "price_basis": "OBSERVED_BID_ASK_MIDPOINT_CLOSE_ONLY",
+  "historical_test_status": "RETROSPECTIVE_SHORT_HISTORY_HOLDOUT",
+  "fully_validated_financial_rank_eligible": false,
+  "finished_at": "2026-10-25T20:21:04.567125+00:00",
+  "signal_cache_sha256": "56a872529db7032734a46e269bba9a5c6919bfbac737fd6b807395a90f0d6cc1"
+}

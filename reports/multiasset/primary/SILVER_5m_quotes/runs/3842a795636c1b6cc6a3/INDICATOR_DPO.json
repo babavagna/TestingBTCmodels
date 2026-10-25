@@ -1,0 +1,228 @@
+{
+  "candidate_id": "INDICATOR:DPO",
+  "name": "Detrended Price Oscillator (causal)",
+  "family": "indicator + trained binary readout",
+  "status": "COMPLETED_PREDICTION_ONLY",
+  "source_url": "https://github.com/babavagna/TestingBTCmodels/blob/main/indicator_lab/features.py",
+  "license": "See pinned formula source and retained upstream license",
+  "executed": true,
+  "selected_profile": "default",
+  "parameters": {
+    "timeperiod": 20
+  },
+  "model": {
+    "mean": [
+      -6.764875448441612e-07,
+      -2.396269560589222e-06,
+      1.7197820157450442e-06,
+      9.20174463303141e-08
+    ],
+    "scale": [
+      0.0016170660139217363,
+      0.0012336378446690327,
+      0.0016168555791110954,
+      0.0016117175719635038
+    ],
+    "keep": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "weights": [
+      1.0773545222626643e-05,
+      0.03253815958694634,
+      -0.035849257661548714,
+      0.05989486892294443,
+      -0.09424602044080581
+    ],
+    "training_samples": 2564,
+    "training_up_rate": 0.5,
+    "objective": 0.6918761548138306,
+    "iterations": 5,
+    "ridge": 0.01
+  },
+  "profiles": {
+    "default": {
+      "parameters": {
+        "timeperiod": 20
+      },
+      "selection_accuracy": 0.503448275862069
+    },
+    "short": {
+      "parameters": {
+        "timeperiod": 16
+      },
+      "selection_accuracy": 0.4735632183908046
+    },
+    "long": {
+      "parameters": {
+        "timeperiod": 24
+      },
+      "selection_accuracy": 0.47586206896551725
+    }
+  },
+  "profile_failures": [],
+  "causality_checks": [
+    {
+      "profile": "default",
+      "check": "numeric_prefix",
+      "cut": 1024,
+      "passed": true
+    },
+    {
+      "profile": "default",
+      "check": "numeric_prefix",
+      "cut": 2048,
+      "passed": true
+    },
+    {
+      "profile": "default",
+      "check": "numeric_future_mutation",
+      "cut": 2048,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_prefix",
+      "cut": 1024,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_prefix",
+      "cut": 2048,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_future_mutation",
+      "cut": 2048,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_prefix",
+      "cut": 1024,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_prefix",
+      "cut": 2048,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_future_mutation",
+      "cut": 2048,
+      "passed": true
+    }
+  ],
+  "periods": {
+    "validation": {
+      "direction": {
+        "forecasts": 404,
+        "accuracy": 0.452970297029703,
+        "balanced_accuracy": 0.45595238095238094,
+        "up_precision": 0.4046511627906977,
+        "up_recall": 0.48333333333333334,
+        "mcc": -0.08775311937330874,
+        "brier": 0.2506236931468487,
+        "log_loss": 0.6943908724567074,
+        "actual_up_rate": 0.44554455445544555,
+        "predicted_up_rate": 0.5321782178217822,
+        "tp": 87,
+        "tn": 96,
+        "fp": 128,
+        "fn": 93,
+        "wilson_low": 0.4051006066732297,
+        "wilson_high": 0.5017259329584202,
+        "down_precision": 0.5079365079365079,
+        "down_recall": 0.42857142857142855
+      }
+    },
+    "retrospective_test": {
+      "direction": {
+        "forecasts": 649,
+        "accuracy": 0.5053929121725732,
+        "balanced_accuracy": 0.5040650019062143,
+        "up_precision": 0.47419354838709676,
+        "up_recall": 0.4819672131147541,
+        "mcc": 0.008123425355661662,
+        "brier": 0.25148345577088277,
+        "log_loss": 0.6961417475272774,
+        "actual_up_rate": 0.4699537750385208,
+        "predicted_up_rate": 0.4776579352850539,
+        "tp": 147,
+        "tn": 181,
+        "fp": 163,
+        "fn": 158,
+        "wilson_low": 0.46700908189875107,
+        "wilson_high": 0.5437132763482956,
+        "down_precision": 0.5339233038348082,
+        "down_recall": 0.5261627906976745
+      }
+    }
+  },
+  "sensitivity": [],
+  "walk_forward": [
+    {
+      "status": "INSUFFICIENT_FOLD_OR_FIT_FAILED",
+      "training_rows": 640,
+      "reason": "Fewer than 1000 valid training targets"
+    },
+    {
+      "status": "COMPLETED",
+      "training_rows": 1281,
+      "evaluation_start": "2026-09-17T15:45:00+00:00",
+      "forecasts": 641,
+      "accuracy": 0.5054602184087363,
+      "balanced_accuracy": 0.5112271362271362,
+      "up_precision": 0.5353982300884956,
+      "up_recall": 0.3633633633633634,
+      "mcc": 0.023481086858340553,
+      "brier": 0.2503069500296817,
+      "log_loss": 0.6937747951445481,
+      "actual_up_rate": 0.5195007800312013,
+      "predicted_up_rate": 0.35257410296411856,
+      "tp": 121,
+      "tn": 203,
+      "fp": 105,
+      "fn": 212,
+      "wilson_low": 0.4668384817540483,
+      "wilson_high": 0.5440168996800205
+    },
+    {
+      "status": "COMPLETED",
+      "training_rows": 1922,
+      "evaluation_start": "2026-09-21T06:50:00+00:00",
+      "forecasts": 641,
+      "accuracy": 0.5117004680187207,
+      "balanced_accuracy": 0.5124403544648943,
+      "up_precision": 0.5028735632183908,
+      "up_recall": 0.5555555555555556,
+      "mcc": 0.024969129132409663,
+      "brier": 0.24963487127874306,
+      "log_loss": 0.6924177829195705,
+      "actual_up_rate": 0.4914196567862715,
+      "predicted_up_rate": 0.5429017160686428,
+      "tp": 175,
+      "tn": 153,
+      "fp": 173,
+      "fn": 140,
+      "wilson_low": 0.47304977427567296,
+      "wilson_high": 0.5502117573687602
+    }
+  ],
+  "identity": "3842a795636c1b6cc6a3fadf013a7058354856782bf6878653fb612521f25191",
+  "asset_id": "SILVER",
+  "contract": "KXSILVERPERP",
+  "minutes": 5,
+  "basis": "quotes",
+  "price_basis": "OBSERVED_BID_ASK_MIDPOINT_CLOSE_ONLY",
+  "historical_test_status": "RETROSPECTIVE_SHORT_HISTORY_HOLDOUT",
+  "fully_validated_financial_rank_eligible": false,
+  "finished_at": "2026-10-25T20:42:51.554018+00:00",
+  "signal_cache_sha256": "5e862e24afe09bfdff5c265d2df1761cb96df7da1a4f0221cacab88e86f5e0f1"
+}

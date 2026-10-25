@@ -1,0 +1,196 @@
+{
+  "candidate_id": "INDICATOR:TRIX",
+  "name": "1-day Rate-Of-Change (ROC) of a Triple Smooth EMA",
+  "family": "indicator + trained binary readout",
+  "status": "COMPLETED_PREDICTION_ONLY",
+  "source_url": "https://github.com/TA-Lib/ta-lib/blob/v0.6.4/src/ta_func/ta_TRIX.c",
+  "license": "See pinned formula source and retained upstream license",
+  "executed": true,
+  "selected_profile": "short",
+  "parameters": {
+    "timeperiod": 24
+  },
+  "model": {
+    "mean": [
+      0.017237843357195717,
+      -6.309615729000062e-05,
+      0.01730093951448571,
+      0.017380184556427015
+    ],
+    "scale": [
+      0.11020302037602589,
+      0.005043854796076831,
+      0.11025988120555745,
+      0.11036637248759718
+    ],
+    "keep": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "weights": [
+      0.0349370062905213,
+      -0.008087430699792546,
+      -0.04506333051877383,
+      -0.006021831215261112,
+      -0.03722473607813406
+    ],
+    "training_samples": 1317,
+    "training_up_rate": 0.5087319665907365,
+    "objective": 0.6924497712484796,
+    "iterations": 8,
+    "ridge": 0.01
+  },
+  "profiles": {
+    "default": {
+      "parameters": {
+        "timeperiod": 30
+      },
+      "selection_accuracy": 0.4724770642201835
+    },
+    "short": {
+      "parameters": {
+        "timeperiod": 24
+      },
+      "selection_accuracy": 0.5
+    },
+    "long": {
+      "parameters": {
+        "timeperiod": 36
+      },
+      "selection_accuracy": 0.47706422018348627
+    }
+  },
+  "profile_failures": [],
+  "causality_checks": [
+    {
+      "profile": "default",
+      "check": "numeric_prefix",
+      "cut": 908,
+      "passed": true
+    },
+    {
+      "profile": "default",
+      "check": "numeric_prefix",
+      "cut": 1817,
+      "passed": true
+    },
+    {
+      "profile": "default",
+      "check": "numeric_future_mutation",
+      "cut": 1817,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_prefix",
+      "cut": 908,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_prefix",
+      "cut": 1817,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_future_mutation",
+      "cut": 1817,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_prefix",
+      "cut": 908,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_prefix",
+      "cut": 1817,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_future_mutation",
+      "cut": 1817,
+      "passed": true
+    }
+  ],
+  "periods": {
+    "validation": {
+      "direction": {
+        "forecasts": 219,
+        "accuracy": 0.5388127853881278,
+        "balanced_accuracy": 0.5061588738059326,
+        "up_precision": 0.5373831775700935,
+        "up_recall": 0.9829059829059829,
+        "mcc": 0.04113698223526465,
+        "brier": 0.24820379300995413,
+        "log_loss": 0.6895519009710697,
+        "actual_up_rate": 0.5342465753424658,
+        "predicted_up_rate": 0.9771689497716894,
+        "tp": 115,
+        "tn": 3,
+        "fp": 99,
+        "fn": 2,
+        "wilson_low": 0.47269058876673575,
+        "wilson_high": 0.6035968314016934,
+        "down_precision": 0.6,
+        "down_recall": 0.029411764705882353
+      }
+    },
+    "retrospective_test": {
+      "direction": {
+        "forecasts": 330,
+        "accuracy": 0.5242424242424243,
+        "balanced_accuracy": 0.49736412236412236,
+        "up_precision": 0.549800796812749,
+        "up_recall": 0.7582417582417582,
+        "mcc": -0.006144285484632031,
+        "brier": 0.2495535658364723,
+        "log_loss": 0.6922535259657507,
+        "actual_up_rate": 0.5515151515151515,
+        "predicted_up_rate": 0.7606060606060606,
+        "tp": 138,
+        "tn": 35,
+        "fp": 113,
+        "fn": 44,
+        "wilson_low": 0.47039086354554727,
+        "wilson_high": 0.5775360777532373,
+        "down_precision": 0.4430379746835443,
+        "down_recall": 0.23648648648648649
+      }
+    }
+  },
+  "sensitivity": [],
+  "walk_forward": [
+    {
+      "status": "INSUFFICIENT_FOLD_OR_FIT_FAILED",
+      "training_rows": 328,
+      "reason": "Fewer than 1000 valid training targets"
+    },
+    {
+      "status": "INSUFFICIENT_FOLD_OR_FIT_FAILED",
+      "training_rows": 657,
+      "reason": "Fewer than 1000 valid training targets"
+    },
+    {
+      "status": "INSUFFICIENT_FOLD_OR_FIT_FAILED",
+      "training_rows": 986,
+      "reason": "Fewer than 1000 valid training targets"
+    }
+  ],
+  "identity": "dcf8a968fe3a4d6920d65de040e3ab3ac4185fdf26b6649e0e526a8a1ae593a6",
+  "asset_id": "HYPE",
+  "contract": "KXHYPEPERP",
+  "minutes": 60,
+  "basis": "quotes",
+  "price_basis": "OBSERVED_BID_ASK_MIDPOINT_CLOSE_ONLY",
+  "historical_test_status": "RETROSPECTIVE_SHORT_HISTORY_HOLDOUT",
+  "fully_validated_financial_rank_eligible": false,
+  "finished_at": "2026-10-25T20:33:42.701977+00:00",
+  "signal_cache_sha256": "ec1baff81a342b9038374310f78b5ef1369002fff9b567afa21d9e276f3f4fb6"
+}

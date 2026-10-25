@@ -1,0 +1,232 @@
+{
+  "candidate_id": "INDICATOR:T3",
+  "name": "Triple Exponential Moving Average (T3)",
+  "family": "indicator + trained binary readout",
+  "status": "COMPLETED_PREDICTION_ONLY",
+  "source_url": "https://github.com/TA-Lib/ta-lib/blob/v0.6.4/src/ta_func/ta_T3.c",
+  "license": "See pinned formula source and retained upstream license",
+  "executed": true,
+  "selected_profile": "short",
+  "parameters": {
+    "timeperiod": 4,
+    "vfactor": 0.7
+  },
+  "model": {
+    "mean": [
+      -3.613142403701038e-05,
+      1.0677664295409897e-05,
+      -4.6809088332420275e-05,
+      -4.0078076907451136e-05
+    ],
+    "scale": [
+      0.0030970146847178553,
+      0.0028055893059537765,
+      0.0030786280495286194,
+      0.0030821906480871515
+    ],
+    "keep": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "weights": [
+      0.06435950131428267,
+      0.06043532136214465,
+      0.03819396534372381,
+      0.08299667485700318,
+      0.11072624520326847
+    ],
+    "training_samples": 3695,
+    "training_up_rate": 0.5158322056833559,
+    "objective": 0.6888222596993789,
+    "iterations": 12,
+    "ridge": 0.01
+  },
+  "profiles": {
+    "default": {
+      "parameters": {
+        "timeperiod": 5,
+        "vfactor": 0.7
+      },
+      "selection_accuracy": 0.5227272727272727
+    },
+    "short": {
+      "parameters": {
+        "timeperiod": 4,
+        "vfactor": 0.7
+      },
+      "selection_accuracy": 0.5357142857142857
+    },
+    "long": {
+      "parameters": {
+        "timeperiod": 6,
+        "vfactor": 0.7
+      },
+      "selection_accuracy": 0.5292207792207793
+    }
+  },
+  "profile_failures": [],
+  "causality_checks": [
+    {
+      "profile": "default",
+      "check": "numeric_prefix",
+      "cut": 1024,
+      "passed": true
+    },
+    {
+      "profile": "default",
+      "check": "numeric_prefix",
+      "cut": 2048,
+      "passed": true
+    },
+    {
+      "profile": "default",
+      "check": "numeric_future_mutation",
+      "cut": 2048,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_prefix",
+      "cut": 1024,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_prefix",
+      "cut": 2048,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_future_mutation",
+      "cut": 2048,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_prefix",
+      "cut": 1024,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_prefix",
+      "cut": 2048,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_future_mutation",
+      "cut": 2048,
+      "passed": true
+    }
+  ],
+  "periods": {
+    "validation": {
+      "direction": {
+        "forecasts": 615,
+        "accuracy": 0.5349593495934959,
+        "balanced_accuracy": 0.5320634920634921,
+        "up_precision": 0.5380577427821522,
+        "up_recall": 0.6507936507936508,
+        "mcc": 0.06602163927300786,
+        "brier": 0.24858574739272127,
+        "log_loss": 0.6903671345395381,
+        "actual_up_rate": 0.5121951219512195,
+        "predicted_up_rate": 0.6195121951219512,
+        "tp": 205,
+        "tn": 124,
+        "fp": 176,
+        "fn": 110,
+        "wilson_low": 0.4954443019696439,
+        "wilson_high": 0.5740403768396002,
+        "down_precision": 0.5299145299145299,
+        "down_recall": 0.41333333333333333
+      }
+    },
+    "retrospective_test": {
+      "direction": {
+        "forecasts": 926,
+        "accuracy": 0.5140388768898488,
+        "balanced_accuracy": 0.5097215021974378,
+        "up_precision": 0.5250431778929189,
+        "up_recall": 0.6346555323590815,
+        "mcc": 0.02007154823134913,
+        "brier": 0.2544796811032137,
+        "log_loss": 0.703930293932419,
+        "actual_up_rate": 0.5172786177105831,
+        "predicted_up_rate": 0.6252699784017278,
+        "tp": 304,
+        "tn": 172,
+        "fp": 275,
+        "fn": 175,
+        "wilson_low": 0.4818558812626109,
+        "wilson_high": 0.5461058747478981,
+        "down_precision": 0.4956772334293948,
+        "down_recall": 0.38478747203579416
+      }
+    }
+  },
+  "sensitivity": [],
+  "walk_forward": [
+    {
+      "status": "INSUFFICIENT_FOLD_OR_FIT_FAILED",
+      "training_rows": 922,
+      "reason": "Fewer than 1000 valid training targets"
+    },
+    {
+      "status": "COMPLETED",
+      "training_rows": 1846,
+      "evaluation_start": "2026-08-01T21:00:00+00:00",
+      "forecasts": 923,
+      "accuracy": 0.49295774647887325,
+      "balanced_accuracy": 0.49043062200956933,
+      "up_precision": 0.5263157894736842,
+      "up_recall": 0.5263157894736842,
+      "mcc": -0.019138755980861243,
+      "brier": 0.2535252391072031,
+      "log_loss": 0.7005439987721974,
+      "actual_up_rate": 0.5352112676056338,
+      "predicted_up_rate": 0.5352112676056338,
+      "tp": 260,
+      "tn": 195,
+      "fp": 234,
+      "fn": 234,
+      "wilson_low": 0.46080052966713475,
+      "wilson_high": 0.5251733390282287
+    },
+    {
+      "status": "COMPLETED",
+      "training_rows": 2770,
+      "evaluation_start": "2026-08-23T16:45:00+00:00",
+      "forecasts": 923,
+      "accuracy": 0.5341278439869989,
+      "balanced_accuracy": 0.5308302808302808,
+      "up_precision": 0.528023598820059,
+      "up_recall": 0.7649572649572649,
+      "mcc": 0.069813307230736,
+      "brier": 0.2468286305615048,
+      "log_loss": 0.6867450632187195,
+      "actual_up_rate": 0.5070422535211268,
+      "predicted_up_rate": 0.7345612134344529,
+      "tp": 358,
+      "tn": 135,
+      "fp": 320,
+      "fn": 110,
+      "wilson_low": 0.5018715697787123,
+      "wilson_high": 0.5661012203899113
+    }
+  ],
+  "identity": "e913894da794b0041fcb72ee382fdb8a8010fbba65ab5c5c26a5a2cbc7f49b0a",
+  "asset_id": "LTC",
+  "contract": "KXLTCPERP",
+  "minutes": 15,
+  "basis": "quotes",
+  "price_basis": "OBSERVED_BID_ASK_MIDPOINT_CLOSE_ONLY",
+  "historical_test_status": "RETROSPECTIVE_SHORT_HISTORY_HOLDOUT",
+  "fully_validated_financial_rank_eligible": false,
+  "finished_at": "2026-10-25T20:38:05.371424+00:00",
+  "signal_cache_sha256": "4ecc61533a007e0dfff30de6eb6a87349120737b7c8b9dff3c469d2be0c5064b"
+}

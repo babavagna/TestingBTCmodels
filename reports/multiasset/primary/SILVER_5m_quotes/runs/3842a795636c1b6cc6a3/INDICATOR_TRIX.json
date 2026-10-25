@@ -1,0 +1,228 @@
+{
+  "candidate_id": "INDICATOR:TRIX",
+  "name": "1-day Rate-Of-Change (ROC) of a Triple Smooth EMA",
+  "family": "indicator + trained binary readout",
+  "status": "COMPLETED_PREDICTION_ONLY",
+  "source_url": "https://github.com/TA-Lib/ta-lib/blob/v0.6.4/src/ta_func/ta_TRIX.c",
+  "license": "See pinned formula source and retained upstream license",
+  "executed": true,
+  "selected_profile": "long",
+  "parameters": {
+    "timeperiod": 36
+  },
+  "model": {
+    "mean": [
+      0.0006835436812201047,
+      -6.464532250378987e-06,
+      0.000690008213470484,
+      0.0007030746042032578
+    ],
+    "scale": [
+      0.012607985734871282,
+      0.0004043346823309823,
+      0.012601695254672743,
+      0.012588594093903883
+    ],
+    "keep": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "weights": [
+      -6.70078641470663e-08,
+      -0.000872654496376553,
+      -0.011176665465349908,
+      -0.0005144785546960063,
+      -0.015082445973251642
+    ],
+    "training_samples": 2564,
+    "training_up_rate": 0.5,
+    "objective": 0.6930985453352906,
+    "iterations": 7,
+    "ridge": 0.01
+  },
+  "profiles": {
+    "default": {
+      "parameters": {
+        "timeperiod": 30
+      },
+      "selection_accuracy": 0.4781609195402299
+    },
+    "short": {
+      "parameters": {
+        "timeperiod": 24
+      },
+      "selection_accuracy": 0.4827586206896552
+    },
+    "long": {
+      "parameters": {
+        "timeperiod": 36
+      },
+      "selection_accuracy": 0.4850574712643678
+    }
+  },
+  "profile_failures": [],
+  "causality_checks": [
+    {
+      "profile": "default",
+      "check": "numeric_prefix",
+      "cut": 1024,
+      "passed": true
+    },
+    {
+      "profile": "default",
+      "check": "numeric_prefix",
+      "cut": 2048,
+      "passed": true
+    },
+    {
+      "profile": "default",
+      "check": "numeric_future_mutation",
+      "cut": 2048,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_prefix",
+      "cut": 1024,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_prefix",
+      "cut": 2048,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_future_mutation",
+      "cut": 2048,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_prefix",
+      "cut": 1024,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_prefix",
+      "cut": 2048,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_future_mutation",
+      "cut": 2048,
+      "passed": true
+    }
+  ],
+  "periods": {
+    "validation": {
+      "direction": {
+        "forecasts": 404,
+        "accuracy": 0.4801980198019802,
+        "balanced_accuracy": 0.517063492063492,
+        "up_precision": 0.4556213017751479,
+        "up_recall": 0.8555555555555555,
+        "mcc": 0.04588046958819051,
+        "brier": 0.2509246515782489,
+        "log_loss": 0.6949969499935895,
+        "actual_up_rate": 0.44554455445544555,
+        "predicted_up_rate": 0.8366336633663366,
+        "tp": 154,
+        "tn": 40,
+        "fp": 184,
+        "fn": 26,
+        "wilson_low": 0.43189647945106124,
+        "wilson_high": 0.5288725898675282,
+        "down_precision": 0.6060606060606061,
+        "down_recall": 0.17857142857142858
+      }
+    },
+    "retrospective_test": {
+      "direction": {
+        "forecasts": 649,
+        "accuracy": 0.5238828967642527,
+        "balanced_accuracy": 0.5315430804422417,
+        "up_precision": 0.49507389162561577,
+        "up_recall": 0.659016393442623,
+        "mcc": 0.06505745747848744,
+        "brier": 0.2499476383579622,
+        "log_loss": 0.6930424583622542,
+        "actual_up_rate": 0.4699537750385208,
+        "predicted_up_rate": 0.6255778120184899,
+        "tp": 201,
+        "tn": 139,
+        "fp": 205,
+        "fn": 104,
+        "wilson_low": 0.4854315708539697,
+        "wilson_high": 0.5620531585258081,
+        "down_precision": 0.5720164609053497,
+        "down_recall": 0.40406976744186046
+      }
+    }
+  },
+  "sensitivity": [],
+  "walk_forward": [
+    {
+      "status": "INSUFFICIENT_FOLD_OR_FIT_FAILED",
+      "training_rows": 640,
+      "reason": "Fewer than 1000 valid training targets"
+    },
+    {
+      "status": "COMPLETED",
+      "training_rows": 1281,
+      "evaluation_start": "2026-09-17T15:45:00+00:00",
+      "forecasts": 641,
+      "accuracy": 0.5132605304212169,
+      "balanced_accuracy": 0.5206846456846457,
+      "up_precision": 0.5527638190954773,
+      "up_recall": 0.3303303303303303,
+      "mcc": 0.0446722558447123,
+      "brier": 0.2506946606752814,
+      "log_loss": 0.6945388053615551,
+      "actual_up_rate": 0.5195007800312013,
+      "predicted_up_rate": 0.31045241809672386,
+      "tp": 110,
+      "tn": 219,
+      "fp": 89,
+      "fn": 223,
+      "wilson_low": 0.4746035316373792,
+      "wilson_high": 0.5517595375596451
+    },
+    {
+      "status": "COMPLETED",
+      "training_rows": 1922,
+      "evaluation_start": "2026-09-21T06:50:00+00:00",
+      "forecasts": 641,
+      "accuracy": 0.49921996879875197,
+      "balanced_accuracy": 0.5024199045671438,
+      "up_precision": 0.49318181818181817,
+      "up_recall": 0.6888888888888889,
+      "mcc": 0.005215163696434462,
+      "brier": 0.2505573177010097,
+      "log_loss": 0.694262740796992,
+      "actual_up_rate": 0.4914196567862715,
+      "predicted_up_rate": 0.6864274570982839,
+      "tp": 217,
+      "tn": 103,
+      "fp": 223,
+      "fn": 98,
+      "wilson_low": 0.46063316583896896,
+      "wilson_high": 0.5378160653847355
+    }
+  ],
+  "identity": "3842a795636c1b6cc6a3fadf013a7058354856782bf6878653fb612521f25191",
+  "asset_id": "SILVER",
+  "contract": "KXSILVERPERP",
+  "minutes": 5,
+  "basis": "quotes",
+  "price_basis": "OBSERVED_BID_ASK_MIDPOINT_CLOSE_ONLY",
+  "historical_test_status": "RETROSPECTIVE_SHORT_HISTORY_HOLDOUT",
+  "fully_validated_financial_rank_eligible": false,
+  "finished_at": "2026-10-25T20:42:49.305055+00:00",
+  "signal_cache_sha256": "0c72c57104332769da8621aeb9c0bbb60d2812087fdbf815cb8c6accce8264a9"
+}

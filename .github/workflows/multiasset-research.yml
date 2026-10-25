@@ -13,7 +13,7 @@ jobs:
   research:
     if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
-    timeout-minutes: 95
+    timeout-minutes: 120
     steps:
       - uses: actions/checkout@v4
         with:
@@ -42,10 +42,17 @@ jobs:
       - name: Refresh the separate current prediction buffers
         if: always()
         run: timeout 6m python -m scripts.refresh_kalshi_current
+      - name: Replay fixed indicator parameter neighbors
+        if: always()
+        run: timeout 15m python -m scripts.sensitivity_multiasset_indicators --workers 2
+        env:
+          OPENBLAS_NUM_THREADS: '1'
+          OMP_NUM_THREADS: '1'
       - name: Audit and export only completed evidence
         if: always()
         run: |
           python -m scripts.audit_multiasset_results
+          python -m scripts.joint_multiasset
           python -m scripts.export_multiasset
       - name: Preserve checkpoints and versioned inputs in the repository
         if: always()

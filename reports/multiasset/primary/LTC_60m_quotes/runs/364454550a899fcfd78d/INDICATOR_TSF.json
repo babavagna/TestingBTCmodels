@@ -1,0 +1,196 @@
+{
+  "candidate_id": "INDICATOR:TSF",
+  "name": "Time Series Forecast",
+  "family": "indicator + trained binary readout",
+  "status": "COMPLETED_PREDICTION_ONLY",
+  "source_url": "https://github.com/TA-Lib/ta-lib/blob/v0.6.4/src/ta_func/ta_TSF.c",
+  "license": "See pinned formula source and retained upstream license",
+  "executed": true,
+  "selected_profile": "short",
+  "parameters": {
+    "timeperiod": 11
+  },
+  "model": {
+    "mean": [
+      0.00019447347191911172,
+      4.1256951952964806e-05,
+      0.00015321651996614693,
+      0.000161718199556869
+    ],
+    "scale": [
+      0.005055508673549278,
+      0.004434081269780607,
+      0.005170452446179474,
+      0.005155114366846668
+    ],
+    "keep": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "weights": [
+      0.08533654749934834,
+      0.05606730822595674,
+      0.05849104101097926,
+      0.004660082244821111,
+      -0.13915276040391109
+    ],
+    "training_samples": 1301,
+    "training_up_rate": 0.5211375864719446,
+    "objective": 0.6882970233252167,
+    "iterations": 6,
+    "ridge": 0.01
+  },
+  "profiles": {
+    "default": {
+      "parameters": {
+        "timeperiod": 14
+      },
+      "selection_accuracy": 0.5324074074074074
+    },
+    "short": {
+      "parameters": {
+        "timeperiod": 11
+      },
+      "selection_accuracy": 0.5601851851851852
+    },
+    "long": {
+      "parameters": {
+        "timeperiod": 17
+      },
+      "selection_accuracy": 0.5277777777777778
+    }
+  },
+  "profile_failures": [],
+  "causality_checks": [
+    {
+      "profile": "default",
+      "check": "numeric_prefix",
+      "cut": 900,
+      "passed": true
+    },
+    {
+      "profile": "default",
+      "check": "numeric_prefix",
+      "cut": 1800,
+      "passed": true
+    },
+    {
+      "profile": "default",
+      "check": "numeric_future_mutation",
+      "cut": 1800,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_prefix",
+      "cut": 900,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_prefix",
+      "cut": 1800,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_future_mutation",
+      "cut": 1800,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_prefix",
+      "cut": 900,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_prefix",
+      "cut": 1800,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_future_mutation",
+      "cut": 1800,
+      "passed": true
+    }
+  ],
+  "periods": {
+    "validation": {
+      "direction": {
+        "forecasts": 216,
+        "accuracy": 0.49074074074074076,
+        "balanced_accuracy": 0.5060697374085235,
+        "up_precision": 0.4716981132075472,
+        "up_recall": 0.7425742574257426,
+        "mcc": 0.01374274586896432,
+        "brier": 0.25335493132110215,
+        "log_loss": 0.7000423489018436,
+        "actual_up_rate": 0.4675925925925926,
+        "predicted_up_rate": 0.7361111111111112,
+        "tp": 75,
+        "tn": 31,
+        "fp": 84,
+        "fn": 26,
+        "wilson_low": 0.4248194789781802,
+        "wilson_high": 0.5569855908141266,
+        "down_precision": 0.543859649122807,
+        "down_recall": 0.26956521739130435
+      }
+    },
+    "retrospective_test": {
+      "direction": {
+        "forecasts": 327,
+        "accuracy": 0.5015290519877675,
+        "balanced_accuracy": 0.49074353367016066,
+        "up_precision": 0.5369458128078818,
+        "up_recall": 0.6123595505617978,
+        "mcc": -0.019002883034904456,
+        "brier": 0.2596433985575584,
+        "log_loss": 0.7159561740571864,
+        "actual_up_rate": 0.5443425076452599,
+        "predicted_up_rate": 0.6207951070336392,
+        "tp": 109,
+        "tn": 55,
+        "fp": 94,
+        "fn": 69,
+        "wilson_low": 0.4476339605314658,
+        "wilson_high": 0.5553886352567541,
+        "down_precision": 0.4435483870967742,
+        "down_recall": 0.3691275167785235
+      }
+    }
+  },
+  "sensitivity": [],
+  "walk_forward": [
+    {
+      "status": "INSUFFICIENT_FOLD_OR_FIT_FAILED",
+      "training_rows": 324,
+      "reason": "Fewer than 1000 valid training targets"
+    },
+    {
+      "status": "INSUFFICIENT_FOLD_OR_FIT_FAILED",
+      "training_rows": 649,
+      "reason": "Fewer than 1000 valid training targets"
+    },
+    {
+      "status": "INSUFFICIENT_FOLD_OR_FIT_FAILED",
+      "training_rows": 974,
+      "reason": "Fewer than 1000 valid training targets"
+    }
+  ],
+  "identity": "364454550a899fcfd78de2ff8c51dc1d7042527668f0a5336e9ed4a9805e31f3",
+  "asset_id": "LTC",
+  "contract": "KXLTCPERP",
+  "minutes": 60,
+  "basis": "quotes",
+  "price_basis": "OBSERVED_BID_ASK_MIDPOINT_CLOSE_ONLY",
+  "historical_test_status": "RETROSPECTIVE_SHORT_HISTORY_HOLDOUT",
+  "fully_validated_financial_rank_eligible": false,
+  "finished_at": "2026-10-25T20:38:17.806845+00:00",
+  "signal_cache_sha256": "bdf313525684b3bf847e88cce6aa2a3ab0479ccf6a1aecfb974c5188de5c6bae"
+}

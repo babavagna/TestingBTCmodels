@@ -1,0 +1,200 @@
+{
+  "candidate_id": "INDICATOR:T3",
+  "name": "Triple Exponential Moving Average (T3)",
+  "family": "indicator + trained binary readout",
+  "status": "COMPLETED_PREDICTION_ONLY",
+  "source_url": "https://github.com/TA-Lib/ta-lib/blob/v0.6.4/src/ta_func/ta_T3.c",
+  "license": "See pinned formula source and retained upstream license",
+  "executed": true,
+  "selected_profile": "long",
+  "parameters": {
+    "timeperiod": 6,
+    "vfactor": 0.7
+  },
+  "model": {
+    "mean": [
+      -0.0003254222528418928,
+      9.621919869507687e-05,
+      -0.00042164145153696965,
+      -0.0004056369703054982
+    ],
+    "scale": [
+      0.012683537900245716,
+      0.00858531485562636,
+      0.012834254659430057,
+      0.012807733103307954
+    ],
+    "keep": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "weights": [
+      0.040175482834295013,
+      0.00068563714324729,
+      0.05138783512849296,
+      -0.03369766699441045,
+      0.1320919046834097
+    ],
+    "training_samples": 1296,
+    "training_up_rate": 0.5100308641975309,
+    "objective": 0.6912481214678152,
+    "iterations": 6,
+    "ridge": 0.01
+  },
+  "profiles": {
+    "default": {
+      "parameters": {
+        "timeperiod": 5,
+        "vfactor": 0.7
+      },
+      "selection_accuracy": 0.49537037037037035
+    },
+    "short": {
+      "parameters": {
+        "timeperiod": 4,
+        "vfactor": 0.7
+      },
+      "selection_accuracy": 0.49537037037037035
+    },
+    "long": {
+      "parameters": {
+        "timeperiod": 6,
+        "vfactor": 0.7
+      },
+      "selection_accuracy": 0.5138888888888888
+    }
+  },
+  "profile_failures": [],
+  "causality_checks": [
+    {
+      "profile": "default",
+      "check": "numeric_prefix",
+      "cut": 898,
+      "passed": true
+    },
+    {
+      "profile": "default",
+      "check": "numeric_prefix",
+      "cut": 1797,
+      "passed": true
+    },
+    {
+      "profile": "default",
+      "check": "numeric_future_mutation",
+      "cut": 1797,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_prefix",
+      "cut": 898,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_prefix",
+      "cut": 1797,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_future_mutation",
+      "cut": 1797,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_prefix",
+      "cut": 898,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_prefix",
+      "cut": 1797,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_future_mutation",
+      "cut": 1797,
+      "passed": true
+    }
+  ],
+  "periods": {
+    "validation": {
+      "direction": {
+        "forecasts": 215,
+        "accuracy": 0.5023255813953489,
+        "balanced_accuracy": 0.5035479404638283,
+        "up_precision": 0.5,
+        "up_recall": 0.7663551401869159,
+        "mcc": 0.008340711005367887,
+        "brier": 0.24959526845699007,
+        "log_loss": 0.6923422443033111,
+        "actual_up_rate": 0.49767441860465117,
+        "predicted_up_rate": 0.7627906976744186,
+        "tp": 82,
+        "tn": 26,
+        "fp": 82,
+        "fn": 25,
+        "wilson_low": 0.43604043397549863,
+        "wilson_high": 0.568529084092005,
+        "down_precision": 0.5098039215686274,
+        "down_recall": 0.24074074074074073
+      }
+    },
+    "retrospective_test": {
+      "direction": {
+        "forecasts": 326,
+        "accuracy": 0.549079754601227,
+        "balanced_accuracy": 0.5407646681023084,
+        "up_precision": 0.5625,
+        "up_recall": 0.6763005780346821,
+        "mcc": 0.08466618715168543,
+        "brier": 0.24938636704641037,
+        "log_loss": 0.6919451137587105,
+        "actual_up_rate": 0.5306748466257669,
+        "predicted_up_rate": 0.6380368098159509,
+        "tp": 117,
+        "tn": 62,
+        "fp": 91,
+        "fn": 56,
+        "wilson_low": 0.49480649994766146,
+        "wilson_high": 0.6022098063541962,
+        "down_precision": 0.5254237288135594,
+        "down_recall": 0.40522875816993464
+      }
+    }
+  },
+  "sensitivity": [],
+  "walk_forward": [
+    {
+      "status": "INSUFFICIENT_FOLD_OR_FIT_FAILED",
+      "training_rows": 323,
+      "reason": "Fewer than 1000 valid training targets"
+    },
+    {
+      "status": "INSUFFICIENT_FOLD_OR_FIT_FAILED",
+      "training_rows": 647,
+      "reason": "Fewer than 1000 valid training targets"
+    },
+    {
+      "status": "INSUFFICIENT_FOLD_OR_FIT_FAILED",
+      "training_rows": 971,
+      "reason": "Fewer than 1000 valid training targets"
+    }
+  ],
+  "identity": "a92da0e6e6ecf8a1a64ce31b90d1c802563c912ac8ac6634d5ad0a54b2684ea2",
+  "asset_id": "KSHIB",
+  "contract": "KXKSHIBPERP",
+  "minutes": 60,
+  "basis": "quotes",
+  "price_basis": "OBSERVED_BID_ASK_MIDPOINT_CLOSE_ONLY",
+  "historical_test_status": "RETROSPECTIVE_SHORT_HISTORY_HOLDOUT",
+  "fully_validated_financial_rank_eligible": false,
+  "finished_at": "2026-10-25T20:35:11.367119+00:00",
+  "signal_cache_sha256": "cf84f89ffb3d8d5850d724d1df427635714b29bd44ede75c29afa717ac34fad0"
+}

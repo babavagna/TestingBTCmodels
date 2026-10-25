@@ -1,0 +1,196 @@
+{
+  "candidate_id": "INDICATOR:ROC",
+  "name": "Rate of change : ((price/prevPrice)-1)*100",
+  "family": "indicator + trained binary readout",
+  "status": "COMPLETED_PREDICTION_ONLY",
+  "source_url": "https://github.com/TA-Lib/ta-lib/blob/v0.6.4/src/ta_func/ta_ROC.c",
+  "license": "See pinned formula source and retained upstream license",
+  "executed": true,
+  "selected_profile": "short",
+  "parameters": {
+    "timeperiod": 8
+  },
+  "model": {
+    "mean": [
+      0.2944106256581516,
+      -0.0020153651964846335,
+      0.2964259908546363,
+      0.2928627380619263
+    ],
+    "scale": [
+      1.6318407396095134,
+      0.9048222980754052,
+      1.6362865737443637,
+      1.6371310793144984
+    ],
+    "keep": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "weights": [
+      0.04584024476290319,
+      -0.08441303674098452,
+      -0.016878198359521968,
+      -0.0748504962677719,
+      0.07444179955930903
+    ],
+    "training_samples": 1310,
+    "training_up_rate": 0.5114503816793893,
+    "objective": 0.6909455538186873,
+    "iterations": 7,
+    "ridge": 0.01
+  },
+  "profiles": {
+    "default": {
+      "parameters": {
+        "timeperiod": 10
+      },
+      "selection_accuracy": 0.45161290322580644
+    },
+    "short": {
+      "parameters": {
+        "timeperiod": 8
+      },
+      "selection_accuracy": 0.511520737327189
+    },
+    "long": {
+      "parameters": {
+        "timeperiod": 12
+      },
+      "selection_accuracy": 0.4930875576036866
+    }
+  },
+  "profile_failures": [],
+  "causality_checks": [
+    {
+      "profile": "default",
+      "check": "numeric_prefix",
+      "cut": 904,
+      "passed": true
+    },
+    {
+      "profile": "default",
+      "check": "numeric_prefix",
+      "cut": 1809,
+      "passed": true
+    },
+    {
+      "profile": "default",
+      "check": "numeric_future_mutation",
+      "cut": 1809,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_prefix",
+      "cut": 904,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_prefix",
+      "cut": 1809,
+      "passed": true
+    },
+    {
+      "profile": "short",
+      "check": "numeric_future_mutation",
+      "cut": 1809,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_prefix",
+      "cut": 904,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_prefix",
+      "cut": 1809,
+      "passed": true
+    },
+    {
+      "profile": "long",
+      "check": "numeric_future_mutation",
+      "cut": 1809,
+      "passed": true
+    }
+  ],
+  "periods": {
+    "validation": {
+      "direction": {
+        "forecasts": 217,
+        "accuracy": 0.4608294930875576,
+        "balanced_accuracy": 0.49309723889555823,
+        "up_precision": 0.44751381215469616,
+        "up_recall": 0.826530612244898,
+        "mcc": -0.018469231276191045,
+        "brier": 0.2516111743189919,
+        "log_loss": 0.6963737256538672,
+        "actual_up_rate": 0.45161290322580644,
+        "predicted_up_rate": 0.8341013824884793,
+        "tp": 81,
+        "tn": 19,
+        "fp": 100,
+        "fn": 17,
+        "wilson_low": 0.3957656112075762,
+        "wilson_high": 0.5272560891072968,
+        "down_precision": 0.5277777777777778,
+        "down_recall": 0.15966386554621848
+      }
+    },
+    "retrospective_test": {
+      "direction": {
+        "forecasts": 329,
+        "accuracy": 0.5319148936170213,
+        "balanced_accuracy": 0.5290176919090976,
+        "up_precision": 0.544973544973545,
+        "up_recall": 0.6023391812865497,
+        "mcc": 0.05864412891239031,
+        "brier": 0.24732342166219598,
+        "log_loss": 0.6877539530728644,
+        "actual_up_rate": 0.5197568389057751,
+        "predicted_up_rate": 0.574468085106383,
+        "tp": 103,
+        "tn": 72,
+        "fp": 86,
+        "fn": 68,
+        "wilson_low": 0.4779393510907257,
+        "wilson_high": 0.5851537505751727,
+        "down_precision": 0.5142857142857142,
+        "down_recall": 0.45569620253164556
+      }
+    }
+  },
+  "sensitivity": [],
+  "walk_forward": [
+    {
+      "status": "INSUFFICIENT_FOLD_OR_FIT_FAILED",
+      "training_rows": 326,
+      "reason": "Fewer than 1000 valid training targets"
+    },
+    {
+      "status": "INSUFFICIENT_FOLD_OR_FIT_FAILED",
+      "training_rows": 654,
+      "reason": "Fewer than 1000 valid training targets"
+    },
+    {
+      "status": "INSUFFICIENT_FOLD_OR_FIT_FAILED",
+      "training_rows": 981,
+      "reason": "Fewer than 1000 valid training targets"
+    }
+  ],
+  "identity": "d6ffb1f9b3bcf35b1ba508feac2fd78d03a03a4de2a21dc392dd814a3518a347",
+  "asset_id": "LINK",
+  "contract": "KXLINKPERP",
+  "minutes": 60,
+  "basis": "quotes",
+  "price_basis": "OBSERVED_BID_ASK_MIDPOINT_CLOSE_ONLY",
+  "historical_test_status": "RETROSPECTIVE_SHORT_HISTORY_HOLDOUT",
+  "fully_validated_financial_rank_eligible": false,
+  "finished_at": "2026-10-25T20:37:05.681600+00:00",
+  "signal_cache_sha256": "77811658760344a8ce771ed06a3cb7e475b776311345d87931cb73c30b3e6e08"
+}
