@@ -1,5 +1,9 @@
 # Bitcoin strategy and indicator prediction lab
 
+**For a TradingView/dashboard builder:** [exact signal source and UP/DOWN rules](SIGNAL_SOURCE_HANDOFF.md).
+The accuracy table was produced by Python formulas plus frozen trained models;
+there is no matching native Pine Script or installed alert connection yet.
+
 **Sortable version of your 52-row table:** [Excel .xls](BTC_DIRECTIONAL_SORTABLE.xls)
 or [Excel .xlsx with sort/filter arrows](BTC_DIRECTIONAL_SORTABLE.xlsx). One row
 per indicator, with six separate numeric columns: **5m UP, 5m DOWN, 15m UP,
