@@ -1,5 +1,12 @@
 # Bitcoin strategy and indicator prediction lab
 
+**Sortable version of your 52-row table:** [Excel .xls](BTC_DIRECTIONAL_SORTABLE.xls)
+or [Excel .xlsx with sort/filter arrows](BTC_DIRECTIONAL_SORTABLE.xlsx). One row
+per indicator, with six separate numeric columns: **5m UP, 5m DOWN, 15m UP,
+15m DOWN, 1h UP, 1h DOWN**. N/A stays N/A; small-sample warnings and guess counts
+are on a separate sheet. In .xlsx, use a column's dropdown to sort Largest to
+Smallest. In .xls, select the full table and use Data → Sort, keeping rows together.
+
 **Your selected UP/DOWN list:** [open BTC_UP_DOWN_ACCURACY.xlsx](BTC_UP_DOWN_ACCURACY.xlsx)
 or [read every requested indicator's directional results](reports/selected_directional/REPORT.md).
 The 90 supplied entries contain 52 distinct indicators. All 156 indicator/timeframe

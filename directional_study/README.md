@@ -1,5 +1,11 @@
 # Your selected indicators: directional UP and DOWN accuracy
 
+For the simple 52-row comparison with six separate sortable percentage columns,
+open [BTC_DIRECTIONAL_SORTABLE.xls](../BTC_DIRECTIONAL_SORTABLE.xls) or
+[BTC_DIRECTIONAL_SORTABLE.xlsx](../BTC_DIRECTIONAL_SORTABLE.xlsx). The .xlsx version
+has header sort/filter arrows. Warnings and counts are separate from numeric
+accuracy cells, and N/A values are preserved.
+
 Open `BTC_UP_DOWN_ACCURACY.xlsx` in the repository's top folder, or read
 [every measured result online](../reports/selected_directional/REPORT.md).
 While signed in to GitHub, click the workbook then **Download raw file**. If
@@ -47,6 +53,13 @@ OPENBLAS_NUM_THREADS=1 .venv/bin/python -m directional_study.run score --minutes
 .venv/bin/python scripts/write_requested_direction_report.py
 .venv/bin/python scripts/export_requested_directions.py
 .venv/bin/python -m pytest -q
+```
+
+To regenerate only the sortable table without re-running models:
+
+```bash
+.venv/bin/python -m pip install -r requirements-excel-export.txt
+.venv/bin/python scripts/export_sortable_direction_table.py
 ```
 
 Keep the original frozen models/price manifests and the run's source code intact.
