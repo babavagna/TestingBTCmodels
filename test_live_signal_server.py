@@ -4,7 +4,7 @@ import numpy as np
 from scipy.special import expit
 from indicator_lab.data import load
 from indicator_lab.features import catalog, features
-from live_signal_server import closed_rows, direction, infer, IDS_15
+from live_signal_server import closed_rows, direction, infer, IDS_15, IDS_60
 
 class LiveTests(unittest.TestCase):
     def test_closed_only(self):
@@ -16,12 +16,15 @@ class LiveTests(unittest.TestCase):
     def test_15m_closed_only(self):
         rows=[[0,1,1,1,1,1,899999],[900000,1,1,1,1,1,1799999]]
         self.assertEqual(closed_rows(rows,900000,900000),rows[:1])
+    def test_hourly_closed_only(self):
+        rows=[[0,1,1,1,1,1,3599999],[3600000,1,1,1,1,1,7199999]]
+        self.assertEqual(closed_rows(rows,3600000,3600000),rows[:1])
     def test_original_model_parity_full_history(self):
         from pathlib import Path
-        for tf, ids in [(5, None),(15, IDS_15)]:
+        for tf, ids in [(5, None),(15, IDS_15),(60, IDS_60)]:
             d,_=load(tf); frozen=json.loads(Path(f'reports/predictions/frozen_{tf}m.json').read_text())
             result=infer(d,frozen,ids) if ids else infer(d,frozen)
-            self.assertEqual(len(result),26 if tf==15 else 35)
+            self.assertEqual(len(result),{5:35,15:26,60:25}[tf])
             lookup={r['id']:r for r in catalog()}
             for r in result:
                 e=frozen['models'][r['id']]; m=e['profiles'][e['selected_profile']]['model']
