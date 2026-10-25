@@ -161,7 +161,11 @@ def export():
             if frame[c].map(lambda v:isinstance(v,(dict,list))).any():frame[c]=frame[c].map(lambda v:json.dumps(v,sort_keys=True) if isinstance(v,(dict,list)) else v)
         temp=OUT/(file+'.tmp.csv');frame.to_csv(temp,index=False);temp.replace(OUT/(file+'.csv'))
     pd.DataFrame(probabilities).to_csv(OUT/'probability_models.csv',index=False)
-    write_json(OUT/'summary.json',report)
+    # Detailed rows already live in CSV and immutable per-case JSON. Keep the
+    # dashboard summary small enough for GitHub as the universe expands.
+    compact={key:report[key] for key in ['updated_at','primary_venue','named_assets','discovered_contracts','summary','counts','limitations','fully_validated_financial_ranking']}
+    compact['detailed_files']={'results':'primary_results.csv','probabilities':'probability_models.csv','failures':'failed_tests.csv','audit':'audit.json','cases':'primary/'}
+    write_json(OUT/'summary.json',compact)
     path=ROOT/'KALSHI_MULTI_ASSET_RESEARCH.xlsx';write_workbook(path,tables,report)
     manifest=dict(created_at=report['updated_at'],workbook=str(path.relative_to(ROOT)),workbook_sha256=sha256(path.read_bytes()),report_sha256=sha256((OUT/'summary.json').read_bytes()),sheet_rows={k:len(v) for k,v in tables.items()},counts=report['counts'],charts='Alphabetical strategy comparisons from actual saved account curves',fully_validated_ranks=0)
     write_json(OUT/'workbook_manifest.json',manifest)
@@ -173,7 +177,7 @@ def export():
         if p['period']=='retrospective_test' and p['status']=='FITTED_AND_CALIBRATED':lines.append(f"| {p['asset']} | {p['minutes']}m | {p['price_basis']} | {p['observations']} | {show(p['accuracy'])} | {show(p['baseline_accuracy'])} | {show(p['balanced_accuracy'])} | {show(p['historical_down'])} / {show(p['historical_stay'])} / {show(p['historical_up'])} |")
     lines+=['', 'These are model/asset/timeframe tests, not a claim of thousands of independent strategies. Trying many methods can find lucky percentages. The paired-evidence sheets include day-block uncertainty and a global Holm multiple-comparison adjustment. Short validation periods do not support a validated prediction winner.','', 'Order-book depth, partial fills and execution price rounding to the tick are not reproduced. Available whole-contract sizes are respected. Funding, financing, liquidation and historical contract changes remain missing; reported returns are explicitly limited to fees/slippage.','', '## Access and reproduce','', '- Open the repository dashboard with `bash run_dashboard.sh`; choose the Multi-asset timeframe and the contract tab. Existing BTC studies remain available below.','- Download `KALSHI_MULTI_ASSET_RESEARCH.xlsx` with GitHub’s **Download raw file** button; GitHub itself does not preview workbooks.','- Resume collection: `.venv/bin/python -m multiasset.kalshi --workers 3 --max-windows 240`.','- Resume research: `OPENBLAS_NUM_THREADS=1 .venv/bin/python -m multiasset.pipeline --workers 4`.','- Refresh separate current buffers: `.venv/bin/python -m scripts.refresh_kalshi_current`.','- Audit executed results: `.venv/bin/python -m scripts.audit_multiasset_results`.','- Export actual checkpoints: `.venv/bin/python -m scripts.export_multiasset`.','- Software tests: `.venv/bin/python -m pytest -q tests test_live_signal_server.py`.','', 'The existing separate Perpetual Edge public Site was inspected read-only. New tabs belong to this repository’s Streamlit dashboard; no external Site deployment is claimed.','', '## Metrics in plain language','']
     for term,explanation in DEFINITIONS[6:]:lines.append(f'**{term}:** {explanation}\n')
-    (OUT/'REPORT.md').write_text('\n'.join(lines)+'\n')
+    (OUT/'REPORT.md').write_text('\n'.join(lines).rstrip()+'\n')
     print(json.dumps(manifest,indent=2))
     return manifest
 
